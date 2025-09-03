@@ -1,11 +1,11 @@
+import Hero from "@/components/sections/Hero";
 
 const HomePage: React.FC = () => {
   return (
     <>
-     <div>Welcome to the Home Page</div>
-
+      <Hero />
     </>
   );
-}
+};
 
 export default HomePage;
