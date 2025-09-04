@@ -1,3 +1,19 @@
+
+export const HEADER_LINKS = [
+    {
+        link: "Home",
+        href: "/",
+    },
+    {
+        link: "About-us",
+        href: "/about-us",
+    },
+    {
+        link: "Contact",
+        href: "/contact",
+    }
+];
+
 export const HERO_STATS = [
   {
     id: 1,
@@ -18,3 +34,4 @@ export const HERO_STATS = [
     variant: "tertiary",
   },
 ];
+
