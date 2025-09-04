@@ -5,14 +5,39 @@ export const HEADER_LINKS = [
         href: "/",
     },
     {
-        link: "About-us",
-        href: "/about-us",
+        link: "About",
+        href: "/about",
     },
     {
         link: "Contact",
         href: "/contact",
+    },
+    
+];
+
+export const MOBILE_LINKS = [
+    {
+        link: "Home",
+        href: "/",
+    },
+    {
+        link: "About",
+        href: "/about",
+    },
+    {
+        link: "Contact",
+        href: "/contact",
+    },
+    {
+      link: "Login",
+      href: "/login",
+    }, 
+    {
+      link: "Sign up",
+      href: "/signup",
     }
 ];
+
 
 export const HERO_STATS = [
   {
