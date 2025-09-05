@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
           : variant === "login"
           ? "bg-gradient-to-r from-blue-800 to-blue-500 text-white text-lg"
           : variant === "signup"
-          ? "bg-white text-lg text-black hover:focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
+          ? "bg-white text-lg text-black hover:border-2 border-blue-600"
           : variant === "subscribe"
           ? "bg-blue-700 text-white"
           : "bg-green-500 text-white"

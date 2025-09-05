@@ -4,19 +4,6 @@ export const HEADER_LINKS = [
     href: "/",
   },
   {
-    link: "About-us",
-    href: "/about-us",
-  },
-  {
-    link: "Contact",
-    href: "/contact",
-  },
-
-  {
-    link: "Home",
-    href: "/",
-  },
-  {
     link: "About",
     href: "/about",
   },
