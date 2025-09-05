@@ -13,7 +13,7 @@ const Hero = () => {
     >
       <section className="relative bg-[url('/assets/hero/heroImage.jpg')] bg-cover bg-no-repeat bg-center">
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
-        <div className="relative container z-10 text-center flex flex-col gap-2 xl:w-1/3">
+        <div className="relative container z-10 text-center flex flex-col items-center gap-2 xl:w-1/3">
           <div
             className="bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold rounded-full"
             style={{ padding: "12px" }}

@@ -14,3 +14,17 @@ export interface HeroStatsCardProps {
   statDescription: string;
   variant: string;
 }
+
+export interface WhyChooseUsStatsCardProps {
+  id: number;
+  statDetails: string;
+  statDescription: string;
+  variant: string;
+}
+
+export interface ServicesCardProps {
+  id: number;
+  serviceTitle: string;
+  serviceDescription: string;
+  variant: string;
+}
