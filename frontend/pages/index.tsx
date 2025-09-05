@@ -1,3 +1,4 @@
+import GetPaidInstantly from "@/components/sections/GetPaidInstantly";
 import Hero from "@/components/sections/Hero";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
@@ -6,6 +7,7 @@ const HomePage: React.FC = () => {
     <>
       <Hero />
       <WhyChooseUs />
+      <GetPaidInstantly />
     </>
   );
 };

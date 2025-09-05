@@ -1,44 +1,40 @@
 export const HEADER_LINKS = [
-
-    {
-        link: "Home",
-        href: "/",
-    },
-    {
-        link: "About",
-        href: "/about",
-    },
-    {
-        link: "Contact",
-        href: "/contact",
-    },
-    
+  {
+    link: "Home",
+    href: "/",
+  },
+  {
+    link: "About",
+    href: "/about",
+  },
+  {
+    link: "Contact",
+    href: "/contact",
+  },
 ];
 
 export const MOBILE_LINKS = [
-    {
-        link: "Home",
-        href: "/",
-    },
-    {
-        link: "About",
-        href: "/about",
-    },
-    {
-        link: "Contact",
-        href: "/contact",
-    },
-    {
-      link: "Login",
-      href: "/login",
-    }, 
-    {
-      link: "Sign up",
-      href: "/signup",
-    }
-
+  {
+    link: "Home",
+    href: "/",
+  },
+  {
+    link: "About",
+    href: "/about",
+  },
+  {
+    link: "Contact",
+    href: "/contact",
+  },
+  {
+    link: "Login",
+    href: "/login",
+  },
+  {
+    link: "Sign up",
+    href: "/signup",
+  },
 ];
-
 
 export const HERO_STATS = [
   {
@@ -118,5 +114,20 @@ export const SERVICES_STATS = [
     serviceDescription:
       "Safe payments and verified job posters for your protection.",
     variant: "Secure Platform",
+  },
+];
+
+export const GET_PAID_INSTANTLY_DATA = [
+  {
+    id: 1,
+    description: "FNB eWallet integration",
+  },
+  {
+    id: 2,
+    description: "PayMe & PayShap supported",
+  },
+  {
+    id: 3,
+    description: "SmartSave automatic savings",
   },
 ];
