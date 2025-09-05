@@ -32,7 +32,7 @@ const WhyChooseUs = () => {
               Succeed
             </span>
           </h1>
-          <p className="text-slate-500 font-semibold lg:text-lg ">
+          <p className="text-slate-500 font-semibold lg:text-lg">
             Our platform is designed specifically for South African job seekers
             who want flexibility, reliability, and instant earnings
           </p>
@@ -79,15 +79,15 @@ const WhyChooseUs = () => {
             alt="Phone"
             width={500}
             height={500}
-            className="w-full rounded-xl lg:w-1/3"
+            className="w-full rounded-xl lg:w-[700px]"
           />
         </div>
 
         <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      transition={{ duration: 0.8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+          initial={{ opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
           <div
             className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
