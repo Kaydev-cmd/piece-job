@@ -131,3 +131,34 @@ export const GET_PAID_INSTANTLY_DATA = [
     description: "SmartSave automatic savings",
   },
 ];
+
+export const HOW_IT_WORKS_STEPS = [
+     {
+       variant: "UserPlus",
+      title: "Create Your Profile",
+      description: "Sign up in minutes and showcase your skills, experience, and availability",
+      color: "bg-[linear-gradient(135deg,#1D4ED8,#10B981)]",
+      textColor: "bg-[#F8FAFC] text-white"
+    },
+    {
+       variant: "Search",
+      title: "Find Perfect Jobs", 
+      description: "Browse local opportunities that match your skills and schedule",
+      color: "bg-orange-500",
+      textColor: "text-white"
+    },
+    {
+       variant: "CheckCircle",
+      title: "Complete & Get Rated",
+      description: "Do great work, build your reputation, and unlock better opportunities",
+      color: "bg-[linear-gradient(135deg,#10B981,#10B981)]",
+      textColor: "text-white"
+    },
+    {
+       variant: "Banknote",
+      title: "Get Paid Instantly",
+      description: "Receive payment immediately via FNB eWallet as soon as job is done",
+      color: "bg-[linear-gradient(135deg,#1D4ED8,#10B981)]",
+      textColor: "bg-[#F8FAFC] text-white"
+    }
+]

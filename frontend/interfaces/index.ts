@@ -28,3 +28,11 @@ export interface ServicesCardProps {
   serviceDescription: string;
   variant: string;
 }
+
+export interface HowItWorksCardProps {
+  variant: string;
+  title: string;
+  description: string;
+  color: string;
+  textColor: string;
+}

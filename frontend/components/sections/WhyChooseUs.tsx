@@ -47,7 +47,7 @@ const WhyChooseUs = () => {
               Your Skills, Your Schedule, Your Success
             </h1>
             <p className="text-slate-500 font-semibold lg:text-lg">
-              Whether you're great at tutoring, gardening, delivery or any other
+              Whether you&#39;re great at tutoring, gardening, delivery or any other
               skill, PieceJob connects you with people who need exactly what you
               offer.
             </p>
