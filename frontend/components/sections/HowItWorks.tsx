@@ -29,7 +29,7 @@ const HowItWorks: React.FC = () => {
                 transition={{ duration: 0.8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center flex-wrap"
+                className="flex items-center justify-center flex-wrap"
             >
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4" style={{ marginTop: '40px' }}>
                     {HOW_IT_WORKS_STEPS.map((step, index) => (
@@ -39,7 +39,7 @@ const HowItWorks: React.FC = () => {
 
                             {/* card content */}
                                 
-                                    <div className="absolute text-center -top-3 left-1/2 transform -translate-x-1/2" style={{marginTop: "20px"}}>
+                                    <div className="absolute text-center -top-3 left-1/2 transform -translate-x-1/2 md:mt-20" style={{marginTop: "20px"}}>
                                         <div className="w-6 h-6 bg-black text-white text-sm font-bold rounded-full flex items-center justify-center">
                                             {index + 1}
                                         </div>
