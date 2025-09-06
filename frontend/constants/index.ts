@@ -57,6 +57,30 @@ export const HERO_STATS = [
   },
 ];
 
+export const BANNER_STATS = [
+  {
+    id: 1,
+    statNumber: "1000+",
+    statTitle: "Active Jobs",
+    statDescription: "Posted this month",
+    variant: "primary",
+  },
+  {
+    id: 2,
+    statNumber: "R175",
+    statTitle: "Average Hourly Rate",
+    statDescription: "Across all categories",
+    variant: "secondary",
+  },
+  {
+    id: 3,
+    statNumber: "4.8",
+    statTitle: "Average Rating",
+    statDescription: "Worker satisfaction",
+    variant: "tertiary",
+  },
+];
+
 export const WHY_CHOOSE_US_STATS = [
   {
     id: 1,

@@ -28,3 +28,11 @@ export interface ServicesCardProps {
   serviceDescription: string;
   variant: string;
 }
+
+export interface BannerStatsProps {
+  id: number;
+  statNumber: string;
+  statTitle: string;
+  statDescription: string;
+  variant: string;
+}
