@@ -35,4 +35,11 @@ export interface HowItWorksCardProps {
   description: string;
   color: string;
   textColor: string;
+
+export interface BannerStatsProps {
+  id: number;
+  statNumber: string;
+  statTitle: string;
+  statDescription: string;
+  variant: string;
 }
