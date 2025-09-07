@@ -29,6 +29,13 @@ export interface ServicesCardProps {
   variant: string;
 }
 
+export interface HowItWorksCardProps {
+  variant: string;
+  title: string;
+  description: string;
+  color: string;
+  textColor: string;
+
 export interface BannerStatsProps {
   id: number;
   statNumber: string;
