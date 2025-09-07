@@ -57,6 +57,30 @@ export const HERO_STATS = [
   },
 ];
 
+export const BANNER_STATS = [
+  {
+    id: 1,
+    statNumber: "1000+",
+    statTitle: "Active Jobs",
+    statDescription: "Posted this month",
+    variant: "primary",
+  },
+  {
+    id: 2,
+    statNumber: "R175",
+    statTitle: "Average Hourly Rate",
+    statDescription: "Across all categories",
+    variant: "secondary",
+  },
+  {
+    id: 3,
+    statNumber: "4.8",
+    statTitle: "Average Rating",
+    statDescription: "Worker satisfaction",
+    variant: "tertiary",
+  },
+];
+
 export const WHY_CHOOSE_US_STATS = [
   {
     id: 1,
@@ -132,8 +156,6 @@ export const GET_PAID_INSTANTLY_DATA = [
   },
 ];
 
-
-
 export  const JOB_CATEGORIES = [
     {
        variant: "GraduationCap",
@@ -192,3 +214,34 @@ export  const JOB_CATEGORIES = [
       
     }
   ];
+
+export const HOW_IT_WORKS_STEPS = [
+     {
+       variant: "UserPlus",
+      title: "Create Your Profile",
+      description: "Sign up in minutes and showcase your skills, experience, and availability",
+      color: "bg-[linear-gradient(135deg,#1D4ED8,#10B981)]",
+      textColor: "bg-[#F8FAFC] text-white"
+    },
+    {
+       variant: "Search",
+      title: "Find Perfect Jobs", 
+      description: "Browse local opportunities that match your skills and schedule",
+      color: "bg-orange-500",
+      textColor: "text-white"
+    },
+    {
+       variant: "CheckCircle",
+      title: "Complete & Get Rated",
+      description: "Do great work, build your reputation, and unlock better opportunities",
+      color: "bg-[linear-gradient(135deg,#10B981,#10B981)]",
+      textColor: "text-white"
+    },
+    {
+       variant: "Banknote",
+      title: "Get Paid Instantly",
+      description: "Receive payment immediately via FNB eWallet as soon as job is done",
+      color: "bg-[linear-gradient(135deg,#1D4ED8,#10B981)]",
+      textColor: "bg-[#F8FAFC] text-white"
+    }
+]

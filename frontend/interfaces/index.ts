@@ -29,11 +29,25 @@ export interface ServicesCardProps {
   variant: string;
 }
 
-
 export interface JobExpertiseCardProps {
   variant: string;
   title: string;
   count: string;
   rate: string;
 
+}
+
+export interface HowItWorksCardProps {
+  variant: string;
+  title: string;
+  description: string;
+  color: string;
+  textColor: string;
+
+export interface BannerStatsProps {
+  id: number;
+  statNumber: string;
+  statTitle: string;
+  statDescription: string;
+  variant: string;
 }
