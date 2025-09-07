@@ -29,6 +29,14 @@ export interface ServicesCardProps {
   variant: string;
 }
 
+export interface JobExpertiseCardProps {
+  variant: string;
+  title: string;
+  count: string;
+  rate: string;
+
+}
+
 export interface HowItWorksCardProps {
   variant: string;
   title: string;

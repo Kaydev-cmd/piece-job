@@ -156,6 +156,65 @@ export const GET_PAID_INSTANTLY_DATA = [
   },
 ];
 
+export  const JOB_CATEGORIES = [
+    {
+       variant: "GraduationCap",
+      title: "Tutoring & Teaching",
+      count: "150+ jobs",
+      rate: "R120-200/hr",
+     
+    },
+    {
+       variant: "Home",
+      title: "Home Services", 
+      count: "200+ jobs",
+      rate: "R100-180/hr",
+      
+    },
+    {
+      variant: "Truck",
+      title: "Delivery & Transport",
+      count: "300+ jobs", 
+      rate: "R80-150/hr",
+     
+    },
+    {
+       variant: "Wrench",
+      title: "Handyman & Repairs",
+      count: "120+ jobs",
+      rate: "R150-250/hr", 
+      
+    },
+    {
+       variant: "Scissors",
+      title: "Beauty & Wellness",
+      count: "80+ jobs",
+      rate: "R100-300/hr",
+      
+    },
+    {
+      variant: "Camera",
+      title: "Creative & Media",
+      count: "90+ jobs", 
+      rate: "R200-400/hr",
+      
+    },
+    {
+       variant: "Users",
+      title: "Events & Hospitality",
+      count: "110+ jobs",
+      rate: "R120-220/hr",
+     
+    },
+    {
+      variant: "Laptop" ,
+      title: "Tech & Digital",
+      count: "70+ jobs",
+      rate: "R250-500/hr",
+      
+    }
+  ];
+
 export const HOW_IT_WORKS_STEPS = [
      {
        variant: "UserPlus",
