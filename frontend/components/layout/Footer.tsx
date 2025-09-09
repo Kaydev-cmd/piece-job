@@ -23,78 +23,78 @@ const Footer: React.FC = () => {
         
         >
 
-            <footer  className="bg-gradient-to-b from-[#F1F5F94D]/30 to-[#1118270D]/5 ">
+            <footer  className="bg-gradient-to-b from-[#F1F5F94D]/30 to-[#1118270D]/5  ">
 
                 <div className='container mx-auto px-4 py-16' style={{paddingTop: "16px", paddingBottom: "16px", paddingLeft: "4px", paddingRight: "4px"}}>
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12' style={{marginBottom: "12px"}}>
-                        <div>
+                    <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12' style={{marginBottom: "12px"}}>
+                        <div className='flex flex-col gap-4'>
                             <div className="flex items-center gap-2 mb-6" style={{marginBottom: "6px"}}>
-                                <div className='w-8 h-8 bg-[linear-gradient(135deg,#1D4ED8,#10B981)] rounded-lg flex items-center justify-center '>
-                                    <span className="text-[#F8FAFC80] font-bold">P</span>
+                                <div className='w-10 h-10 bg-[linear-gradient(135deg,#1D4ED8,#10B981)] rounded-lg flex items-center justify-center '>
+                                    <span className="text-[#F8FAFC80] text-xl font-900">P</span>
                                 </div>
                                 <span className='text-2xl font-bold text-[#111827FF]'>PieceJob</span>
                             </div>
-                        </div>
-                        <p className='text-[#6B7280FF] text-xl font-semibold mb-6 leading-relaxed' style={{marginBottom: "6px",}}>
-                           Where skills meet opportunity. Connect with flexible work opportunities and turn your skills into income with instant payments.
-                        </p>
-                        <div className='flex gap-3 justify-center items-center'>
-                           <button className='hover:border '>
-                             <FaFacebookF size={30}  />
-                           </button>
-                           <button className='hover:border items-center'>
-                              <FaTwitter size={30} />
-                           </button>
-                           <button className='hover:border '>
-                              <FaInstagramSquare size={30} />
-                           </button>
-                           <button className='hover:border '>
-                              <FaLinkedin size={30} />
-                           </button>
+                            <p className='text-[#6B7280FF] text-xl font-semibold mb-6 leading-relaxed' style={{marginBottom: "6px",}}>
+                            Where skills meet opportunity. Connect with flexible work opportunities and turn your skills into income with instant payments.
+                            </p>
+                            <div className='flex gap-3  items-center'>
+                            <button className='hover:border '>
+                                <FaFacebookF size={20}  />
+                            </button>
+                            <button className='hover:border items-center'>
+                                <FaTwitter size={20} />
+                            </button>
+                            <button className='hover:border '>
+                                <FaInstagramSquare size={20} />
+                            </button>
+                            <button className='hover:border '>
+                                <FaLinkedin size={20} />
+                            </button>
+                            </div>
                         </div>
                        {/* Links */}
                         <div>
-                            <h4 className='text-lg font-bold text-[#111827] mb-6' style={{marginBottom:"6px"}}>For Job Seekers</h4>
-                            <ul className="space-y-3">
-                                <li><Link href={'/jobs'} className=' text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Browse Jobs</Link></li>
-                                <li><Link href={'/signup'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Create Profile</Link></li>
-                                <li><Link href={'#how'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>How It Works</Link></li>
-                                <li><Link href={'/reviews'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Success Stories</Link></li>
-                                <li><Link href={'#'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Download App</Link></li>
+                            <h4 className='text-xl font-bold text-[#111827] mb-6' style={{marginBottom:"6px"}}>For Job Seekers</h4>
+                            <ul className=" flex flex-col gap-2 space-y-6">
+                                <li><Link href={'/jobs'} className=' text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Browse Jobs</Link></li>
+                                <li><Link href={'/signup'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Create Profile</Link></li>
+                                <li><Link href={'#how'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>How It Works</Link></li>
+                                <li><Link href={'/reviews'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Success Stories</Link></li>
+                                <li><Link href={'#'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Download App</Link></li>
                             </ul>
                         </div>
                         {/* For Employer Links */}
                         <div>
-                                <h4 className='text-lg font-bold text-[#111827] mb-6' style={{marginBottom: "6px"}}>For Job Posters</h4>
-                                <ul className='space-y-3'>
-                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Post a Job</Link></li>
-                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Find Workers</Link></li>
-                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Pricing</Link></li>
-                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Business Solutions</Link></li>
-                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors'>Support</Link></li>
+                                <h4 className='text-xl font-bold text-[#111827] ' style={{marginBottom: "6px"}}>For Job Posters</h4>
+                                <ul className='flex flex-col gap-2 space-y-3'>
+                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Post a Job</Link></li>
+                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Find Workers</Link></li>
+                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Pricing</Link></li>
+                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Business Solutions</Link></li>
+                                    <li><Link href={'/jobaplicants'} className='text-[#6B7280FF] text-lg font-bold hover:text-[#1D4ED8] transition-colors'>Support</Link></li>
                                 </ul>
                         </div>
                         <div>
-                            <h4 className='text-lg font-bold text-[#111827] mb-6' style={{marginBottom: "6px"}}>Get in Touch</h4>
-                            <div className='space-y-6'>
+                            <h4 className='text-xl font-bold text-[#111827] mb-6' style={{marginBottom: "6px"}}>Get in Touch</h4>
+                            <div className='flex flex-col gap-2 space-y-6'>
                                 <div className='flex items-center gap-4'>
-                                    <Mail className='h-5 w-5 text-[#1D4ED8FF]' />
-                                    <span className='text-[#6B7280FF]'>titan@piecejob.co.za</span>
+                                    <Mail className='h-6 w-6 text-[#1D4ED8FF]' />
+                                    <span className='text-[#6B7280FF] text-lg font-bold'>titan@piecejob.co.za</span>
                                 </div>
                                 <div className='flex items-center gap-4'>
-                                    <Phone className='h-5 w-5 text-[#1D4ED8FF]' />
-                                    <span className='text-[#6B7280FF]'>+27 01 123 4789</span>
+                                    <Phone className='h-6 w-6 text-[#1D4ED8FF]' />
+                                    <span className='text-[#6B7280FF] text-lg font-bold'>+27 01 123 4789</span>
                                 </div>
                                 <div className='flex items-center gap-4'>
-                                    <MapPin className='h-5 w-5 text-[#1D4ED8FF]' />
-                                    <span className='text-[#6B7280FF]'>Pretoria, South Africa</span>
+                                    <MapPin className='h-6 w-6 text-[#1D4ED8FF]' />
+                                    <span className='text-[#6B7280FF] text-lg font-bold'>Pretoria, South Africa</span>
                                 </div>
                             </div>
                     {/* letter */}
                             <div className='mt-8' style={{marginTop: "8px"}}>
-                                <h5 className='text-lg font-semibold text-[#111827] mb-8' style={{marginBottom:"8px"}}>Stay Updated</h5>
+                                <h5 className='text-xl font-semibold text-[#111827] mb-8' style={{marginBottom:"8px"}}>Stay Updated</h5>
                                 <div className="flex gap-2">
-                                    <input type='email' placeholder='Enter your email' className='flex-1 text-lg px-3 py-2 text-white bg-[#111827FF] rounded-lg ' style={{padding: "8px"}}/>
+                                    <input type='email' placeholder='Enter your email' className='flex-1 text-lg px-3 py-2 text-[#111827FF] bg-[#ffffff] border-2 border-gray-300 rounded-lg ' style={{padding: "8px"}}/>
                                     <button className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold text-white bg-[#1D4ED8] hover:bg-[#1D4ED8FF]/90 shadow-medium hover:shadow-strong'>Subscribe</button>
                                 </div>
                             </div>
@@ -116,14 +116,28 @@ const Footer: React.FC = () => {
                         </div>
                     </div>
                     {/* fnb */}
-
+{/* 
                     <div className="mt-8 text-center" style={{marginTop:"10px"}}>
                         <div className='inline-flex items-center gap-2 justify-space-around bg-[#111827FF]/50 backdrop-blur-sm px-6 py-3 rounded-full shadow-soft' style={{paddingRight: "8px", paddingLeft: "8px", paddingTop: "4px", paddingBottom: "4px"}}>
                          <span className='text-md text-[#ffffff]'>Secure payments powered by</span>
                          <span className='font-bold text-[#1D4ED8FF] text-lg'>FNB</span>
                         </div>
 
-                    </div>
+                    </div> */}
+                       <div className="mt-8 text-center" style={{marginTop: "10px"}}>
+                            <div className="inline-flex flex-col gap-4">
+                                
+                                <div
+                                className="bg-slate-500/80 rounded-lg text-[#ffffff] inline-flex flex-row-reverse items-center justify-center gap-4 lg:text-lg"
+                                style={{ padding: "16px" }}
+                                >
+                                <div className="flex items-center gap-2">
+                                    <h3 className="text-blue-700 font-bold text-xl">FNB</h3>
+                                </div>
+                                Secure Payments Powered by 
+                                </div>
+                            </div>
+                       </div>
                 </div>
                 
             </footer>
