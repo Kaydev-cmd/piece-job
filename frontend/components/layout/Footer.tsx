@@ -115,15 +115,7 @@ const Footer: React.FC = () => {
                             <Link href={'#'} className='text-md text-[#6B7280FF] hover:text-[#1D4ED8] transition-colors '>Help Center</Link>
                         </div>
                     </div>
-                    {/* fnb */}
-{/* 
-                    <div className="mt-8 text-center" style={{marginTop:"10px"}}>
-                        <div className='inline-flex items-center gap-2 justify-space-around bg-[#111827FF]/50 backdrop-blur-sm px-6 py-3 rounded-full shadow-soft' style={{paddingRight: "8px", paddingLeft: "8px", paddingTop: "4px", paddingBottom: "4px"}}>
-                         <span className='text-md text-[#ffffff]'>Secure payments powered by</span>
-                         <span className='font-bold text-[#1D4ED8FF] text-lg'>FNB</span>
-                        </div>
-
-                    </div> */}
+                               {/* fnb */}
                        <div className="mt-8 text-center" style={{marginTop: "10px"}}>
                             <div className="inline-flex flex-col gap-4">
                                 
