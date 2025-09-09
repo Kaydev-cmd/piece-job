@@ -35,7 +35,7 @@ const HowItWorks: React.FC = () => {
                     {HOW_IT_WORKS_STEPS.map((step, index) => (
                         <div key={index} className="relative">
                             {/* Card */}
-                            <div  className={`card flex flex-col gap-10 h-80 border-black text-center items-center justify-center shadow-md rounded-lg rounded-lg shadow-md hover:shadow-medium transition-all duration-300 hover:-translate-y-1 border-0 bg-card/70 backdrop-blur-sm`}>
+                            <div  className={`card flex flex-col gap-10 h-80 border-black text-center items-center justify-center shadow-md rounded-lg hover:shadow-medium transition-all duration-300 hover:-translate-y-1 border-0 bg-card/70 backdrop-blur-sm`}>
 
                             {/* card content */}
                                 
