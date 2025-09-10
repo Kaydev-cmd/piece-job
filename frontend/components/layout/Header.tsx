@@ -52,9 +52,7 @@ const Header: React.FC = () => {
 
                   </nav>
                       <div className="hidden md:flex gap-4 items-center">
-
                         <Button title="Login" variant="login" />
-                        <Button title="Sign up" variant="signup" />
                       </div>
 
                       {/* Hamburger menu button */}     

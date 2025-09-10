@@ -38,10 +38,7 @@ export const MOBILE_LINKS = [
     link: "Login",
     href: "/login",
   },
-  {
-    link: "Sign up",
-    href: "/signup",
-  },
+
 ];
 
 export const HERO_STATS = [
