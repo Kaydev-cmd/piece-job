@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                     {/* letter */}
                             <div className='mt-8' style={{marginTop: "8px"}}>
                                 <h5 className='text-xl font-semibold text-[#111827] mb-8' style={{marginBottom:"8px"}}>Stay Updated</h5>
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2">
                                     <input type='email' placeholder='Enter your email' className='flex-1 text-lg px-3 py-2 text-[#111827FF] bg-[#ffffff] border-2 border-gray-300 rounded-lg ' style={{padding: "8px"}}/>
                                     <button className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-lg font-bold text-white bg-[#1D4ED8] hover:bg-[#1D4ED8FF]/90 shadow-medium hover:shadow-strong'>Subscribe</button>
                                 </div>

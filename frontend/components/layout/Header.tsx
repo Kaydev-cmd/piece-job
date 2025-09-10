@@ -36,14 +36,14 @@ const Header: React.FC = () => {
             <header className="sticky top-0 z-50 bg-white py-4">
               <div className="container flex justify-between items-center">
                   <Link href="/" className="flex items-center"> 
-                      <h1 className="text-3xl font-bold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent ">PieceJob</h1>
+                      <h1 className="text-3xl md:text-2xl lg:text-2xl xl:text-3xl font-bold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent ">PieceJob</h1>
                   </Link>
 
                   <nav className="hidden md:flex justify-between gap-4 items-center">
-                      <ul className="flex no-underline  gap-8 items-center transition-all duration-300 ease-in-out">
+                      <ul className="flex no-underline   md:gap-3 lg:gap-3 xl:gap-8  justify-center items-center transition-all duration-300 ease-in-out">
                         {HEADER_LINKS.map(({ link, href }) => (
 
-                          <li key={href} className="text-2xl font-bold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent hover:text-blue-600 transition-colors duration-300 ease-in-out">
+                          <li key={href} className="text-2xl md:text-sm lg:text-2xl font-bold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent hover:text-blue-600 transition-colors duration-300 ease-in-out">
                               <Link href={href}>{link}</Link>
                           </li>
 
