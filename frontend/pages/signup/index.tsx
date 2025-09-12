@@ -58,7 +58,7 @@ const Signup = () => {
       style={{ paddingTop: "0", paddingBottom: "0" }}
     >
       <h1
-        className="text-6xl text-center font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500 lg:text-7xl"
+        className="text-6xl text-center font-semibold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent lg:text-7xl"
         style={{ margin: "16px 0" }}
       >
         PieceJob
@@ -153,7 +153,7 @@ const Signup = () => {
                   {...register("phoneNumber", {
                     required: "Phone number is required",
                     pattern: {
-                      value: /^[0-9]{7,15}$/,
+                      value: /^(?:\+27|0)\d{9}$/,
                       message: "Enter a valid phone number",
                     },
                   })}
@@ -232,6 +232,11 @@ const Signup = () => {
                         placeholder="2025/123456/07"
                         {...register("companyRegistration", {
                           required: "Company registration number is required",
+                          pattern: {
+                            value: /^\d{4}\/\d{6}\/\d{2}$/,
+                            message:
+                              "Enter a valid company registration number",
+                          },
                         })}
                       />
                       <p className="text-center text-red-500">
