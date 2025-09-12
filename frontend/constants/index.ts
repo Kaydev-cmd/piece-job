@@ -11,6 +11,10 @@ export const HEADER_LINKS = [
     link: "Contact",
     href: "/contact",
   },
+  {
+    link: "Jobs",
+    href: "/jobs"
+  }
 ];
 
 export const MOBILE_LINKS = [
@@ -27,13 +31,14 @@ export const MOBILE_LINKS = [
     href: "/contact",
   },
   {
+    link: "Jobs",
+    href: "/jobs"
+  },
+  {
     link: "Login",
     href: "/login",
   },
-  {
-    link: "Sign up",
-    href: "/signup",
-  },
+
 ];
 
 export const HERO_STATS = [
