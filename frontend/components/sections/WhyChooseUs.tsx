@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
         </div>
 
         <div
-          className="flex flex-col-reverse gap-4 text-center lg:flex-row lg:justify-between lg:text-start lg:items-center"
+          className="flex flex-col-reverse gap-4 text-center xl:flex-row lg:justify-between lg:text-start lg:items-center"
           style={{ marginTop: "32px" }}
         >
           <div className="flex flex-col gap-4">

@@ -6,6 +6,9 @@ export interface ButtonProps {
   title: string;
   variant: string;
   onClick?: () => void;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  isActive?: boolean;
 }
 
 export interface HeroStatsCardProps {
@@ -34,7 +37,6 @@ export interface JobExpertiseCardProps {
   title: string;
   count: string;
   rate: string;
-
 }
 
 export interface HowItWorksCardProps {
@@ -43,6 +45,7 @@ export interface HowItWorksCardProps {
   description: string;
   color: string;
   textColor: string;
+}
 
 export interface BannerStatsProps {
   id: number;
@@ -50,4 +53,19 @@ export interface BannerStatsProps {
   statTitle: string;
   statDescription: string;
   variant: string;
+}
+
+export interface SignupFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+  termsAndConditions: string;
+  role: "jobSeeker" | "employer";
+  employerType?: "individual" | "business";
+  companyName?: string;
+  companyRegistration?: string;
+  companyAddress?: string;
 }

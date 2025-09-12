@@ -3,8 +3,11 @@ import HeroStatsCard from "../common/HeroStatsCard";
 import { HERO_STATS } from "@/constants";
 import Button from "../common/Button";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const Hero = () => {
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -54,7 +57,11 @@ const Hero = () => {
             className="flex flex-col justify-center items-center gap-4 lg:flex-row"
             style={{ marginBottom: "16px" }}
           >
-            <Button title="Start Earning Today" variant="primary" />
+            <Button
+              title="Start Earning Today"
+              variant="primary"
+              onClick={() => router.push("/signup")}
+            />
             <Button title="Play Demo Video" variant="secondary" />
           </div>
 

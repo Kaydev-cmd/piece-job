@@ -50,7 +50,8 @@ button:hover {
 }
 
 form input,
-form textarea {
+form textarea,
+.joiningAs {
   background-color: #eaeaea;
   padding: 12px;
   border: none;
