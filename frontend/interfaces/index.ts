@@ -69,3 +69,26 @@ export interface SignupFormValues {
   companyRegistration?: string;
   companyAddress?: string;
 }
+
+export interface JobFeedCardProps {
+  id: number;
+  image?: string;
+  userName: string;
+  timePosted: string;
+  rating: number;
+  jobTitle: string;
+  price: number;
+  duration: string;
+  location: string;
+  distance: string;
+  skills: string[];
+  description: string;
+}
+
+export interface PillProps {
+  title: string;
+}
+
+export interface SearchBarProps {
+  initialQuery?: string;
+}
