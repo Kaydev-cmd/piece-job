@@ -8,6 +8,7 @@ export interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  isActive?: boolean;
 }
 
 export interface HeroStatsCardProps {
@@ -62,5 +63,9 @@ export interface SignupFormValues {
   password: string;
   confirmPassword: string;
   termsAndConditions: string;
-  role: string;
+  role: "jobSeeker" | "employer";
+  employerType?: "individual" | "business";
+  companyName?: string;
+  companyRegistration?: string;
+  companyAddress?: string;
 }
