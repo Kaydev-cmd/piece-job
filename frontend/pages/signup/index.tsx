@@ -22,7 +22,8 @@ const Signup = () => {
       password: "",
       confirmPassword: "",
       termsAndConditions: "",
-      role: "",
+      role: "jobSeeker",
+      employerType: undefined,
     },
   });
 
@@ -199,6 +200,63 @@ const Signup = () => {
                 </p>
               </div>
 
+              {/* Business Employer Extra Fields */}
+              {watch("role") === "employer" &&
+                watch("employerType") === "business" && (
+                  <div className="flex flex-col gap-4 mt-4">
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="companyName" className="font-semibold">
+                        Company Name:
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="ABC Ltd"
+                        {...register("companyName", {
+                          required: "Company name is required",
+                        })}
+                      />
+                      <p className="text-center text-red-500">
+                        {errors.companyName?.message}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label
+                        htmlFor="companyRegistration"
+                        className="font-semibold"
+                      >
+                        Company Registration Number:
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="2025/123456/07"
+                        {...register("companyRegistration", {
+                          required: "Company registration number is required",
+                        })}
+                      />
+                      <p className="text-center text-red-500">
+                        {errors.companyRegistration?.message}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label htmlFor="companyAddress" className="font-semibold">
+                        Company Address:
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="123 Main Street, Johannesburg"
+                        {...register("companyAddress", {
+                          required: "Company address is required",
+                        })}
+                      />
+                      <p className="text-center text-red-500">
+                        {errors.companyAddress?.message}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
               {/* Joining as */}
               <div className="flex flex-col gap-4">
                 <label htmlFor="joiningAs" className="font-semibold">
@@ -209,16 +267,43 @@ const Signup = () => {
                     title="Job Seeker"
                     variant="jobSeeker"
                     type="button"
-                    onClick={() => setValue("role", "jobSeeker")}
+                    onClick={() => {
+                      setValue("role", "jobSeeker");
+                      setValue("employerType", undefined);
+                    }}
+                    isActive={watch("role") === "jobSeeker"}
                   />
                   <Button
                     title="Employer"
                     variant="employer"
                     type="button"
                     onClick={() => setValue("role", "employer")}
+                    isActive={watch("role") === "employer"}
                   />
                 </div>
               </div>
+
+              {watch("role") === "employer" && (
+                <div className="flex flex-col gap-2">
+                  <label className="font-semibold">Employer type:</label>
+                  <div className="flex justify-around">
+                    <Button
+                      title="Individual"
+                      variant="jobSeeker"
+                      type="button"
+                      onClick={() => setValue("employerType", "individual")}
+                      isActive={watch("employerType") === "individual"}
+                    />
+                    <Button
+                      title="Business"
+                      variant="employer"
+                      type="button"
+                      onClick={() => setValue("employerType", "business")}
+                      isActive={watch("employerType") === "business"}
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* Terms and Conditions */}
               <div className="flex flex-col items-center gap-2">
