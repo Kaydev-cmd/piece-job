@@ -10,7 +10,7 @@ const WhyChooseUsStatsCard: React.FC<WhyChooseUsStatsCardProps> = ({
   variant = "primary",
 }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 group-hover:scale-110 transition-transform duration-300">
       <div
         className={`${
           variant === "primary"
@@ -20,9 +20,9 @@ const WhyChooseUsStatsCard: React.FC<WhyChooseUsStatsCardProps> = ({
         style={{ padding: "12px" }}
       >
         {variant === "primary" ? (
-          <LuUsersRound size={20} color="#fff"/>
+          <LuUsersRound size={20} color="#fff" />
         ) : (
-          <FaMoneyBill size={20} color="#fff"/>
+          <FaMoneyBill size={20} color="#fff" />
         )}
       </div>
       <div>
