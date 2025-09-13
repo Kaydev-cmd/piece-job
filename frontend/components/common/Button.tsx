@@ -36,6 +36,8 @@ const Button: React.FC<ButtonProps> = ({
       ? "joiningAs flex flex-row-reverse focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       : variant === "seeMore"
       ? "border border-blue-600"
+      : variant === "cancel"
+      ? "bg-red-600 text-white"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
