@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { JOB_FEED_DATA } from "@/constants";
 import JobFeedCard from "@/components/common/JobFeedCard";
 import SearchBar from "@/components/common/SearchBar";
+import Link from "next/link";
 
 const SearchPage = () => {
   const router = useRouter();
@@ -40,7 +41,9 @@ const SearchPage = () => {
         className="flex flex-col gap-2"
         style={{ marginBottom: "16px", marginTop: "16px" }}
       >
-        <h1 className="text-blue-900 font-bold text-3xl">Available Jobs</h1>
+        <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
+          <Link href="/job-feed">Available Jobs</Link>
+        </h1>
         <p className="text-slate-600 font-semibold">5 jobs near you</p>
       </div>
       <SearchBar />

@@ -347,7 +347,7 @@ const Signup = () => {
                 style={{ marginTop: "16px" }}
               >
                 <Button
-                  title={`${loading ? "Creating account" : "Create account"}`}
+                  title={loading ? "Creating account" : "Create account"}
                   type="submit"
                   variant="subscribe"
                   disabled={loading}
