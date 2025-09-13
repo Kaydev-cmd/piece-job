@@ -18,7 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ initialQuery = "" }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 lg:flex-row">
         {/* Input */}
         <input
           type="text"
