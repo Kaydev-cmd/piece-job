@@ -94,6 +94,7 @@ const JobFeedPage = () => {
             distance={job.distance}
             skills={job.skills}
             description={job.description}
+            onApply={() => setShowForm(true)}
           />
         ))}
       </div>
@@ -228,8 +229,15 @@ const JobFeedPage = () => {
                 </div>
 
                 <Button
-                  title={loading ? "Processing" : "Submit"}
+                  type="submit"
+                  title={loading ? "Processing" : "Apply"}
                   variant="subscribe"
+                />
+                <Button
+                  type="button"
+                  title="Cancel"
+                  variant="cancel"
+                  onClick={() => setShowForm(false)}
                 />
 
                 {/* Feedback Messages */}
@@ -250,11 +258,7 @@ const JobFeedPage = () => {
       )}
 
       <div className="flex justify-center" style={{ marginTop: "16px" }}>
-        <Button
-          title="See more jobs"
-          variant="seeMore"
-          onClick={() => setShowForm(true)}
-        />
+        <Button title="See more jobs" variant="seeMore" />
       </div>
     </section>
   );
