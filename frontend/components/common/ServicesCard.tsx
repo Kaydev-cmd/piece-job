@@ -13,7 +13,7 @@ const ServicesCard: React.FC<ServicesCardProps> = ({
   variant = "Mobile Phone",
 }) => {
   return (
-    <div className="card flex flex-col gap-2 bg-white shadow-md rounded-lg">
+    <div className="card flex flex-col gap-2 bg-white shadow-md rounded-lg cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {variant === "Mobile Phone" ? (
         <MdOutlinePhoneAndroid color="#2196F3" size={30} />
       ) : variant === "Instant Payments" ? (

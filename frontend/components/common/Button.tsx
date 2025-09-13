@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonProps } from "@/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
-import { FaPlayCircle, FaGoogle } from "react-icons/fa";
+import { FaPlayCircle, FaGoogle, FaFilter } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 
 const Button: React.FC<ButtonProps> = ({
@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   isActive,
 }) => {
-  const baseStyles = "flex items-center gap-4 font-semibold";
+  const baseStyles = "flex justify-center items-center gap-4 font-semibold";
 
   const variantStyles =
     variant === "primary"
@@ -34,6 +34,10 @@ const Button: React.FC<ButtonProps> = ({
       ? "joiningAs flex flex-row-reverse focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       : isActive
       ? "joiningAs flex flex-row-reverse focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      : variant === "seeMore"
+      ? "border border-blue-600"
+      : variant === "cancel"
+      ? "bg-red-600 text-white"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
