@@ -228,17 +228,19 @@ const JobFeedPage = () => {
                   </p>
                 </div>
 
-                <Button
-                  type="submit"
-                  title={loading ? "Processing" : "Apply"}
-                  variant="subscribe"
-                />
-                <Button
-                  type="button"
-                  title="Cancel"
-                  variant="cancel"
-                  onClick={() => setShowForm(false)}
-                />
+                <div className="flex flex-col gap-4">
+                  <Button
+                    type="submit"
+                    title={loading ? "Processing" : "Apply"}
+                    variant="subscribe"
+                  />
+                  <Button
+                    type="button"
+                    title="Cancel"
+                    variant="cancel"
+                    onClick={() => setShowForm(false)}
+                  />
+                </div>
 
                 {/* Feedback Messages */}
                 {error && (
