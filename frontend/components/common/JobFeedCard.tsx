@@ -20,6 +20,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   distance,
   skills,
   description,
+  onApply,
 }) => {
   return (
     <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
@@ -95,7 +96,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       <p className="text-slate-600">{description}</p>
 
       {/* CTA */}
-      <Button title="Apply Now" variant="subscribe" />
+      <Button title="Apply Now" variant="subscribe" onClick={onApply} />
     </div>
   );
 };
