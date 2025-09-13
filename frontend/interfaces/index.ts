@@ -92,3 +92,12 @@ export interface PillProps {
 export interface SearchBarProps {
   initialQuery?: string;
 }
+
+export interface ApplicationFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  location: string;
+  resume: string;
+}
