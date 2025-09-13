@@ -83,6 +83,7 @@ export interface JobFeedCardProps {
   distance: string;
   skills: string[];
   description: string;
+  onApply: () => void;
 }
 
 export interface PillProps {
