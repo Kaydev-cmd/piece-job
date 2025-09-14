@@ -1,11 +1,16 @@
-import TotalEarnings from "@/components/common/TotalEarnings";
-import { TOTAL_EARNINGS_DATA } from "@/constants";
 import React from "react";
+import RecentPayments from "@/components/common/RecentPayments";
+import TotalEarnings from "@/components/common/TotalEarnings";
+import { TOTAL_EARNINGS_DATA, RECENT_PAYMENTS_DATA } from "@/constants";
 import { FaWallet } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa6";
 
 const WalletPage = () => {
   return (
-    <section className="container flex flex-col gap-8" style={{ paddingBottom: "0" }}>
+    <section
+      className="container flex flex-col gap-8"
+      style={{ paddingBottom: "0" }}
+    >
       <div className="flex items-center gap-4">
         {/* Icon here... */}
         <div
@@ -31,6 +36,27 @@ const WalletPage = () => {
             availableToWithdraw={data.availableToWithdraw}
           />
         ))}
+      </div>
+
+      {/* Recent Payments here... */}
+      <div className="card flex flex-col gap-4 border border-gray-300 shadow-md rounded-xl">
+        <div className="flex items-center gap-2">
+          {/* Icon here... */}
+          <FaRegClock size={20} />
+          <h1 className="text-2xl font-bold">Recent Payments</h1>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {RECENT_PAYMENTS_DATA.map((payment) => (
+            <RecentPayments
+              key={payment.id}
+              id={payment.id}
+              jobTitle={payment.jobTitle}
+              date={payment.date}
+              price={payment.price}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
