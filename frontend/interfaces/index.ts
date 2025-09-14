@@ -108,3 +108,10 @@ export interface TotalEarningsCardProps {
   totalEarnings: number;
   availableToWithdraw: number;
 }
+
+export interface RecentPaymentsCardProps {
+  id: number;
+  jobTitle: string;
+  date: string;
+  price: number;
+}
