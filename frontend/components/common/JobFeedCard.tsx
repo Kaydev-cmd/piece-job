@@ -88,7 +88,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       {/* Skills */}
       <div className="flex flex-wrap items-center gap-2">
         {skills.map((skill, index) => (
-          <Pill key={index} title={skill} />
+          <Pill key={index} title={skill} variant="default" />
         ))}
       </div>
 
