@@ -389,3 +389,11 @@ export const JOB_FEED_DATA = [
       "Help us setup chairs and tables for a birthday party. Must be available Saturday morning.",
   },
 ];
+
+export const TOTAL_EARNINGS_DATA = [
+  {
+    id: 1,
+    totalEarnings: 2450.75,
+    availableToWithdraw: 1980.5,
+  },
+];
