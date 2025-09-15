@@ -4,8 +4,11 @@ import Button from "../common/Button";
 import { TiTick } from "react-icons/ti";
 import { GET_PAID_INSTANTLY_DATA } from "@/constants";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const GetPaidInstantly = () => {
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -64,7 +67,11 @@ const GetPaidInstantly = () => {
             </div>
 
             <div style={{ marginTop: "32px" }}>
-              <Button title="Start Earning Now" variant="green" />
+              <Button
+                title="Start Earning Now"
+                variant="green"
+                onClick={() => router.push("/signup")}
+              />
             </div>
           </div>
         </div>
