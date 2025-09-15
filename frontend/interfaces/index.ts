@@ -88,6 +88,7 @@ export interface JobFeedCardProps {
 
 export interface PillProps {
   title: string;
+  variant: string;
 }
 
 export interface SearchBarProps {
@@ -101,4 +102,24 @@ export interface ApplicationFormValues {
   phoneNumber: string;
   location: string;
   resume: string;
+}
+
+export interface TotalEarningsCardProps {
+  totalEarnings: number;
+  availableToWithdraw: number;
+}
+
+export interface RecentPaymentsCardProps {
+  id: number;
+  jobTitle: string;
+  date: string;
+  price: number;
+}
+
+export interface WalletSummaryCardProps {
+  id: number;
+  jobsCompleted: number;
+  averagePerJob: number;
+  savingsRate: number;
+  totalEarned: number
 }

@@ -1,8 +1,10 @@
 import React from "react";
 import { ButtonProps } from "@/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
-import { FaPlayCircle, FaGoogle, FaFilter } from "react-icons/fa";
+import { FaPlayCircle, FaGoogle } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
+import { LuDownload } from "react-icons/lu";
+import { MdArrowOutward } from "react-icons/md";
 
 const Button: React.FC<ButtonProps> = ({
   title,
@@ -27,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
       : variant === "subscribe"
       ? "bg-blue-700 text-white"
       : variant === "google"
-      ? "bg-white border border-slate-500 flex flex-row-reverse"
+      ? "bg-white border border-slate-300 flex flex-row-reverse"
       : variant === "jobSeeker"
       ? "joiningAs flex flex-row-reverse focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       : variant === "employer"
@@ -38,6 +40,12 @@ const Button: React.FC<ButtonProps> = ({
       ? "border border-blue-600"
       : variant === "cancel"
       ? "bg-red-600 text-white"
+      : variant === "withdraw"
+      ? "bg-blue-700 text-white flex flex-row-reverse"
+      : variant === "history"
+      ? "bg-white border border-slate-300"
+      : variant === "fnbAccount"
+      ? "bg-white border border-slate-300 flex flex-row-reverse"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
@@ -61,6 +69,10 @@ const Button: React.FC<ButtonProps> = ({
         <GoDotFill color="#1447e6" />
       ) : variant === "employer" ? (
         <GoDotFill color="#ffa500" />
+      ) : variant === "withdraw" ? (
+        <LuDownload color="#fff" size={20} />
+      ) : variant === "fnbAccount" ? (
+        <MdArrowOutward size={20} />
       ) : (
         ""
       )}
