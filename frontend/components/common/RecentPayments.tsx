@@ -20,7 +20,7 @@ const RecentPayments: React.FC<RecentPaymentsCardProps> = ({
           <p className="text-slate-500 font-semibold">{date}</p>
           <Pill title="Completed" variant="default" />
         </div>
-        <hr className="text-slate-400" style={{ marginTop: "8px" }} />
+        <hr className="text-slate-300" style={{ marginTop: "8px" }} />
       </div>
     </div>
   );

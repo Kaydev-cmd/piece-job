@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FaPlayCircle, FaGoogle } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { LuDownload } from "react-icons/lu";
+import { MdArrowOutward } from "react-icons/md";
 
 const Button: React.FC<ButtonProps> = ({
   title,
@@ -43,6 +44,8 @@ const Button: React.FC<ButtonProps> = ({
       ? "bg-blue-700 text-white flex flex-row-reverse"
       : variant === "history"
       ? "bg-white border border-slate-300"
+      : variant === "fnbAccount"
+      ? "bg-white border border-slate-300 flex flex-row-reverse"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
@@ -68,6 +71,8 @@ const Button: React.FC<ButtonProps> = ({
         <GoDotFill color="#ffa500" />
       ) : variant === "withdraw" ? (
         <LuDownload color="#fff" size={20} />
+      ) : variant === "fnbAccount" ? (
+        <MdArrowOutward size={20} />
       ) : (
         ""
       )}
