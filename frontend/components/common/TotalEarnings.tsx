@@ -4,7 +4,7 @@ import Pill from "./Pill";
 import Button from "./Button";
 import { TotalEarningsCardProps } from "@/interfaces";
 import { IoShieldOutline } from "react-icons/io5";
-import { TiTick } from "react-icons/ti";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const TotalEarnings: React.FC<TotalEarningsCardProps> = ({
   totalEarnings,
@@ -50,7 +50,7 @@ const TotalEarnings: React.FC<TotalEarningsCardProps> = ({
         </div>
         <div className="flex items-center gap-2">
           {/* Icon here... */}
-          <TiTick color="#22c55e" size={20} />
+          <IoMdCheckmarkCircleOutline color="#22c55e" size={20} />
           <p>Instant Transfers</p>
         </div>
       </div>
