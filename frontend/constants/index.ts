@@ -424,3 +424,13 @@ export const RECENT_PAYMENTS_DATA = [
     price: 500,
   },
 ];
+
+export const WALLET_SUMMARY_DATA = [
+  {
+    id: 1,
+    jobsCompleted: 12,
+    averagePerJob: 204,
+    savingsRate: 600,
+    totalEarned: 2451,
+  },
+];
