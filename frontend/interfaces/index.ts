@@ -115,3 +115,11 @@ export interface RecentPaymentsCardProps {
   date: string;
   price: number;
 }
+
+export interface WalletSummaryCardProps {
+  id: number;
+  jobsCompleted: number;
+  averagePerJob: number;
+  savingsRate: number;
+  totalEarned: number
+}
