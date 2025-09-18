@@ -121,5 +121,51 @@ export interface WalletSummaryCardProps {
   jobsCompleted: number;
   averagePerJob: number;
   savingsRate: number;
-  totalEarned: number
+  totalEarned: number;
+}
+
+export interface StepProps {
+  pageTracker: number;
+  onNext: () => void;
+  onBack: () => void;
+}
+
+export interface JobDetailsFormProps {
+  jobTitle: string;
+  description: string;
+  location: string;
+}
+
+export interface PaymentAndTimelineFormProps {
+  payRate: number;
+  duration: string;
+}
+
+export interface RequirementsAndReviewFormProps {
+  specialRequirements: string;
+}
+
+export interface JobReviewCardProps {
+  id: number;
+  jobTitle: string;
+  description: string;
+  location: string;
+  pay: number;
+  duration: string;
+}
+
+export interface JobPostData {
+  id: number;
+  jobTitle: string;
+  description: string;
+  location: string;
+  payRate: number;
+  duration: string;
+  specialRequirements?: string;
+}
+
+export interface JobPostContextType {
+  jobData: Partial<JobPostData>;
+  updateJobData: (data: Partial<JobPostData>) => void;
+  resetJobData: () => void;
 }
