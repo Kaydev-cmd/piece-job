@@ -8,6 +8,8 @@ const Pill: React.FC<PillProps> = ({ title, variant = "default" }) => {
       ? "bg-white border border-gray-300"
       : variant === "wallet"
       ? "bg-blue-500/20 border border-blue-600 text-blue-600 font-bold"
+      : variant === "fnb"
+      ? "bg-none border-2 border-yellow-400 text-yellow-500"
       : "";
 
   return (
