@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonProps } from "@/interfaces";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 import { FaPlayCircle, FaGoogle } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { LuDownload } from "react-icons/lu";
@@ -46,6 +46,8 @@ const Button: React.FC<ButtonProps> = ({
       ? "bg-white border border-slate-300"
       : variant === "fnbAccount"
       ? "bg-white border border-slate-300 flex flex-row-reverse"
+      : variant === "back"
+      ? "bg-white border border-slate-300 flex flex-row-reverse"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
@@ -73,6 +75,8 @@ const Button: React.FC<ButtonProps> = ({
         <LuDownload color="#fff" size={20} />
       ) : variant === "fnbAccount" ? (
         <MdArrowOutward size={20} />
+      ) : variant === "back" ? (
+        <FaArrowLeft size={20} />
       ) : (
         ""
       )}
