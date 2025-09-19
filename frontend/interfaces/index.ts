@@ -169,3 +169,20 @@ export interface JobPostContextType {
   updateJobData: (data: Partial<JobPostData>) => void;
   resetJobData: () => void;
 }
+
+export interface ChosenWorkerCardProps {
+  id: number;
+  initials: string;
+  fullName: string;
+  rating: number;
+  jobsCompleted: number;
+  status: string;
+}
+
+export interface PaymentSummaryCardProps {
+  id: number;
+  jobPayment: number;
+  platformFee: number;
+  processingFee: number;
+  total: number;
+}
