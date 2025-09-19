@@ -5,6 +5,7 @@ import { FaPlayCircle, FaGoogle } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { LuDownload } from "react-icons/lu";
 import { MdArrowOutward } from "react-icons/md";
+import { RxLightningBolt } from "react-icons/rx";
 
 const Button: React.FC<ButtonProps> = ({
   title,
@@ -48,6 +49,8 @@ const Button: React.FC<ButtonProps> = ({
       ? "bg-white border border-slate-300 flex flex-row-reverse"
       : variant === "back"
       ? "bg-white border border-slate-300 flex flex-row-reverse"
+      : variant === "processPayment"
+      ? "bg-green-500 flex flex-row-reverse text-white"
       : "bg-green-500 text-white";
 
   const activeStyles = isActive
@@ -77,6 +80,8 @@ const Button: React.FC<ButtonProps> = ({
         <MdArrowOutward size={20} />
       ) : variant === "back" ? (
         <FaArrowLeft size={20} />
+      ) : variant === "processPayment" ? (
+        <RxLightningBolt size={20} />
       ) : (
         ""
       )}
