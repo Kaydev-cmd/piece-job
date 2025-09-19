@@ -434,3 +434,24 @@ export const WALLET_SUMMARY_DATA = [
     totalEarned: 2451,
   },
 ];
+
+export const CHOSEN_WORKER_DATA = [
+  {
+    id: 1,
+    initials: "TM",
+    fullName: "Thendo Mukwevho",
+    rating: 4.8,
+    jobsCompleted: 47,
+    status: "Top Rated",
+  },
+];
+
+export const PAYMENT_SUMMARY_DATA = [
+  {
+    id: 1,
+    jobPayment: 200,
+    platformFee: 0.0,
+    processingFee: 0.0,
+    total: 200,
+  },
+];
