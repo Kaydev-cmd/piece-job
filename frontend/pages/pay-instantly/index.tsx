@@ -41,33 +41,39 @@ const PayInstantlyPage = () => {
         </p>
       </div>
 
-      {/* Selected Worker Card here... */}
-      <div>
-        <SelectedWorkerCard />
-      </div>
+      <div className="lg:grid grid-cols-2 gap-6">
+        <div>
+          {/* Selected Worker Card here... */}
+          <div>
+            <SelectedWorkerCard />
+          </div>
 
-      {/* Payment Method Card here... */}
-      <div>
-        <PaymentMethodCard />
-      </div>
+          {/* Payment Method Card here... */}
+          <div>
+            <PaymentMethodCard />
+          </div>
+        </div>
 
-      {/* Payment Summary Card here... */}
-      <div>
-        {PAYMENT_SUMMARY_DATA.map((summary) => (
-          <PaymentSummaryCard
-            key={summary.id}
-            id={summary.id}
-            jobPayment={summary.jobPayment}
-            platformFee={summary.platformFee}
-            processingFee={summary.processingFee}
-            total={summary.total}
-          />
-        ))}
-      </div>
+        <div>
+          {/* Payment Summary Card here... */}
+          <div>
+            {PAYMENT_SUMMARY_DATA.map((summary) => (
+              <PaymentSummaryCard
+                key={summary.id}
+                id={summary.id}
+                jobPayment={summary.jobPayment}
+                platformFee={summary.platformFee}
+                processingFee={summary.processingFee}
+                total={summary.total}
+              />
+            ))}
+          </div>
 
-      {/* Security Features here... */}
-      <div>
-        <SecurityFeaturesCard />
+          {/* Security Features here... */}
+          <div>
+            <SecurityFeaturesCard />
+          </div>
+        </div>
       </div>
     </section>
   );
