@@ -186,3 +186,7 @@ export interface PaymentSummaryCardProps {
   processingFee: number;
   total: number;
 }
+
+export interface PaymentMethodFormProps {
+  phoneNumber: string;
+}
