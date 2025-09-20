@@ -62,7 +62,7 @@ const PaymentMethodCard = () => {
               </div>
 
               {/* Pill */}
-              <div className="ml-auto">
+              <div>
                 <Pill title="Recommended" variant="recommended" />
               </div>
             </div>
