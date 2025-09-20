@@ -78,49 +78,53 @@ const PostJobPage = () => {
         ))}
       </div>
 
-      {/* Job Details component here... */}
-      <JobPostProvider>
-      {pageTracker === 1 && (
-        <div style={{ marginTop: "32px" }}>
-          <JobDetailsForm
-            pageTracker={pageTracker}
-            onNext={handleNext}
-            onBack={handlePrev}
-          />
+      <div className="lg:grid grid-cols-2 gap-6">
+        {/* Job Details component here... */}
+        <JobPostProvider>
+          {pageTracker === 1 && (
+            <div style={{ marginTop: "32px" }}>
+              <JobDetailsForm
+                pageTracker={pageTracker}
+                onNext={handleNext}
+                onBack={handlePrev}
+              />
+            </div>
+          )}
+
+          {/* Payment and Timeline Form */}
+          {pageTracker === 2 && (
+            <div style={{ marginTop: "32px" }}>
+              <PaymentAndTimelineForm
+                pageTracker={pageTracker}
+                onNext={handleNext}
+                onBack={handlePrev}
+              />
+            </div>
+          )}
+
+          {/* Requirements and Review Form */}
+          {pageTracker === 3 && (
+            <div style={{ marginTop: "32px" }}>
+              <RequirementsAndReviewForm
+                pageTracker={pageTracker}
+                onNext={handleNext}
+                onBack={handlePrev}
+              />
+            </div>
+          )}
+        </JobPostProvider>
+
+        <div>
+          {/* Tips For Success here... */}
+          <div style={{ marginTop: "32px" }}>
+            <TipsForSuccess />
+          </div>
+
+          {/* Instant Payments component here... */}
+          <div style={{ marginTop: "32px" }}>
+            <InstantPaymentsCard />
+          </div>
         </div>
-      )}
-
-      {/* Payment and Timeline Form */}
-      {pageTracker === 2 && (
-        <div style={{ marginTop: "32px" }}>
-          <PaymentAndTimelineForm
-            pageTracker={pageTracker}
-            onNext={handleNext}
-            onBack={handlePrev}
-          />
-        </div>
-      )}
-
-      {/* Requirements and Review Form */}
-      {pageTracker === 3 && (
-        <div style={{ marginTop: "32px" }}>
-          <RequirementsAndReviewForm
-            pageTracker={pageTracker}
-            onNext={handleNext}
-            onBack={handlePrev}
-          />
-        </div>
-      )}
-      </JobPostProvider>
-
-      {/* Tips For Success here... */}
-      <div style={{ marginTop: "32px" }}>
-        <TipsForSuccess />
-      </div>
-
-      {/* Instant Payments component here... */}
-      <div style={{ marginTop: "32px" }}>
-        <InstantPaymentsCard />
       </div>
     </section>
   );
