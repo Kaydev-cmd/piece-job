@@ -455,3 +455,18 @@ export const PAYMENT_SUMMARY_DATA = [
     total: 200,
   },
 ];
+
+export const JOB_SEEKER_PROFILE_DATA = [
+  {
+    id: 1,
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userName: "John Doe",
+    userAge: 22,
+    userLocation: "Johannesburg, Gauteng",
+    userRating: 4.8,
+    numberOfReviews: 24,
+    skills: ["Delivery", "Tutoring", "Gardening", "Cleaning", "Data Entry"],
+    description:
+      "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+  },
+];
