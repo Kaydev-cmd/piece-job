@@ -19,7 +19,7 @@ const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
       <div className="card flex flex-col justify-center items-center gap-4 bg-gray-300/30 rounded-xl">
         {/* Profile Image here... */}
         <div className="flex justify-center">
-          <img
+          <Image
             src={userImage}
             alt={userName}
             width={500}
