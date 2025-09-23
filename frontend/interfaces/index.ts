@@ -193,12 +193,12 @@ export interface PaymentMethodFormProps {
 
 export interface JobSeekerProfileCardProps {
   id: number;
-  userImage: string;
-  userName: string;
-  userAge: number;
-  userLocation: string;
-  userRating: number;
-  numberOfReviews: number;
-  skills: string[];
-  description: string;
+  userImage?: string;
+  userName?: string;
+  userAge?: number;
+  userLocation?: string;
+  userRating?: number;
+  numberOfReviews?: number;
+  skills?: string[];
+  description?: string;
 }
