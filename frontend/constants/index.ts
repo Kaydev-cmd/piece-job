@@ -470,3 +470,42 @@ export const JOB_SEEKER_PROFILE_DATA = [
       "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
   },
 ];
+
+export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
+  {
+    id: 1,
+    userImage: "",
+    userName: "Thabo M.",
+    description:
+      "Very professional and completed the work on time. Highly recommend!",
+    rating: 5,
+  },
+  {
+    id: 2,
+    userImage: "",
+    userName: "Naledi K.",
+    description: "Great attention to detail, but arrived a bit late.",
+    rating: 4,
+  },
+  {
+    id: 3,
+    userImage: "",
+    userName: "Sipho D.",
+    description: "Did an excellent job and was very polite. Will hire again.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    userImage: "",
+    userName: "Aisha P.",
+    description: "Work was okay, but communication could be better.",
+    rating: 3,
+  },
+  {
+    id: 5,
+    userImage: "",
+    userName: "Lerato S.",
+    description: "Outstanding service, went above and beyond my expectations.",
+    rating: 5,
+  },
+];
