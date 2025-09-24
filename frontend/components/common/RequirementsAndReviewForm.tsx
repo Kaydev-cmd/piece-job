@@ -4,14 +4,13 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import Button from "./Button";
 import JobPreview from "./JobPreview";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useJobPost } from "@/context/JobPostContext";
 
 const RequirementsAndReviewForm: React.FC<StepProps> = ({
   pageTracker,
   onBack,
 }) => {
-  const { jobData } = useJobPost();
+  const { draftJob, postJob } = useJobPost();
 
   const { register, handleSubmit, reset } =
     useForm<RequirementsAndReviewFormProps>({
@@ -24,15 +23,15 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const onSubmit = (data: RequirementsAndReviewFormProps) => {
-    const finalData = { ...jobData, ...data };
+  const onSubmit = async (data: RequirementsAndReviewFormProps) => {
+    const finalData = { ...draftJob, ...data };
 
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      axios.post("/api/jobs/createJob", finalData);
+      await postJob(finalData);
       setSuccess("Job posted successfully!");
       reset();
     } catch (err) {
@@ -77,14 +76,15 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
         </div>
 
         {/* Job Preview component here... */}
-        {jobData && (
+        {draftJob && (
           <JobPreview
-            id={jobData.id ?? 0}
-            jobTitle={jobData.jobTitle ?? ""}
-            description={jobData.description ?? ""}
-            location={jobData.location ?? ""}
-            pay={jobData.payRate ?? 0}
-            duration={jobData.duration ?? ""}
+            id={draftJob.id ?? 0}
+            jobTitle={draftJob.jobTitle ?? ""}
+            description={draftJob.description ?? ""}
+            location={draftJob.location ?? ""}
+            pay={draftJob.payRate ?? 0}
+            duration={draftJob.duration ?? ""}
+            skills={(draftJob.skills ?? []).map((skill) => ({ skill: skill }))} // convert to { skill: string }[]
           />
         )}
 
