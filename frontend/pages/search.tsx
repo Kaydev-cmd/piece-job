@@ -40,7 +40,7 @@ const SearchPage = () => {
     try {
       setLoadingJobs(true);
       const response = await axios.get<JobPostData[]>("/api/jobs/jobs", {
-        params: { query: searchQuery },
+        params: { q: searchQuery },
       });
       setJobs(response.data);
     } catch (err) {
