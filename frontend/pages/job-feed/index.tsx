@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import SearchBar from "@/components/common/SearchBar";
-import { JOB_FEED_DATA } from "@/constants";
 import JobFeedCard from "@/components/common/JobFeedCard";
 import Button from "@/components/common/Button";
 import Filter from "@/components/common/JobFeedFilter";
@@ -8,8 +7,11 @@ import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ApplicationFormValues } from "@/interfaces";
+import { useJobPost } from "@/context/JobPostContext";
 
 const JobFeedPage = () => {
+  const { jobFeed } = useJobPost();
+
   const {
     register,
     handleSubmit,
@@ -77,26 +79,28 @@ const JobFeedPage = () => {
         <SearchBar />
       </div>
 
-      {/* Cards here... */}
+      {/* Job Feed */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {JOB_FEED_DATA.map((job) => (
-          <JobFeedCard
-            key={job.id}
-            id={job.id}
-            image={job.image}
-            userName={job.userName}
-            timePosted={job.timePosted}
-            rating={job.rating}
-            jobTitle={job.jobTitle}
-            price={job.price}
-            duration={job.duration}
-            location={job.location}
-            distance={job.distance}
-            skills={job.skills}
-            description={job.description}
-            onApply={() => setShowForm(true)}
-          />
-        ))}
+        {jobFeed.length ? (
+          jobFeed.map((job) => (
+            <JobFeedCard
+              key={job.id}
+              id={job.id}
+              userName={job.userName || "Anonymous"} // fallback
+              timePosted={job.timePosted || "Just now"} // fallback
+              rating={job.rating || 0} // fallback
+              jobTitle={job.jobTitle}
+              payRate={job.payRate}
+              duration={job.duration}
+              location={job.location}
+              skills={job.skills || []}
+              description={job.description}
+              onApply={() => setShowForm(true)}
+            />
+          ))
+        ) : (
+          <p>No jobs posted yet.</p>
+        )}
       </div>
 
       {/* Modal Form */}
