@@ -210,3 +210,12 @@ export interface JobSeekerReviewsAndRatingsCardProps {
   rating: number;
   description: string;
 }
+
+export interface JobSeekerRecentJobsCardProps {
+  id: number;
+  jobTitle: string;
+  client: string;
+  date: string;
+  description: string;
+  rating: number;
+}
