@@ -77,13 +77,12 @@ export interface JobFeedCardProps {
   timePosted: string;
   rating: number;
   jobTitle: string;
-  price: number;
+  payRate: number;
   duration: string;
   location: string;
-  distance: string;
   skills: string[];
   description: string;
-  onApply: () => void;
+  onApply?: () => void;
 }
 
 export interface PillProps {
@@ -134,6 +133,7 @@ export interface JobDetailsFormProps {
   jobTitle: string;
   description: string;
   location: string;
+  skills: { skill: string }[];
 }
 
 export interface PaymentAndTimelineFormProps {
@@ -152,20 +152,28 @@ export interface JobReviewCardProps {
   location: string;
   pay: number;
   duration: string;
+  skills: { skill: string }[];
 }
 
 export interface JobPostData {
   id: number;
+  userName: string;
+  timePosted: string;
+  rating: number;
   jobTitle: string;
   description: string;
   location: string;
   payRate: number;
   duration: string;
   specialRequirements?: string;
+  skills: string[];
+  onApply?: () => void;
 }
 
 export interface JobPostContextType {
-  jobData: Partial<JobPostData>;
+  draftJob: Partial<JobPostData>;
+  jobFeed: JobPostData[];
+  postJob: (data?: Partial<JobPostData>) => Promise<void>;
   updateJobData: (data: Partial<JobPostData>) => void;
   resetJobData: () => void;
 }
