@@ -59,11 +59,11 @@ const JobSeekerProfilePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {JOB_SEEEKER_RECENT_JOBS_DATA.map((job) => (
             <div
+              key={job.id}
               className="bg-blue-300/20 rounded-xl"
               style={{ padding: "16px" }}
             >
               <JobSeekerRecentJobsCard
-                key={job.id}
                 id={job.id}
                 jobTitle={job.jobTitle}
                 client={job.client}
@@ -90,11 +90,11 @@ const JobSeekerProfilePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {JOB_SEEKER_REVIEWS_AND_RATINGS_DATA.map((data) => (
             <div
+              key={data.id}
               className="bg-blue-300/20 rounded-xl"
               style={{ padding: "16px" }}
             >
               <JobSeekerReviewsAndRatingsCard
-                key={data.id}
                 id={data.id}
                 userImage={data.userImage}
                 userName={data.userName}
