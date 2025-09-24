@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { JOB_FEED_DATA } from "@/constants";
 import JobFeedCard from "@/components/common/JobFeedCard";
 import SearchBar from "@/components/common/SearchBar";
 import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ApplicationFormValues } from "@/interfaces";
+import { ApplicationFormValues, JobPostData } from "@/interfaces";
 import Button from "@/components/common/Button";
 
 const SearchPage = () => {
@@ -29,11 +28,34 @@ const SearchPage = () => {
   const router = useRouter();
   const { query: queryParam } = router.query;
   const [query, setQuery] = useState("");
+  const [jobs, setJobs] = useState<JobPostData[]>([]);
+  const [loadingJobs, setLoadingJobs] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const fetchJobs = async (searchQuery: string) => {
+    try {
+      setLoadingJobs(true);
+      const response = await axios.get<JobPostData[]>("/api/jobs/jobs", {
+        params: { query: searchQuery },
+      });
+      setJobs(response.data);
+    } catch (err) {
+      console.error("Error fetching jobs:", err);
+    } finally {
+      setLoadingJobs(false);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof queryParam === "string") {
+      setQuery(queryParam);
+      fetchJobs(queryParam);
+    }
+  }, [queryParam]);
 
   const onSubmit = async (data: ApplicationFormValues) => {
     setLoading(true);
@@ -57,31 +79,6 @@ const SearchPage = () => {
     }, 3000);
   };
 
-  useEffect(() => {
-    if (typeof queryParam === "string") {
-      setQuery(queryParam);
-    }
-  }, [queryParam]);
-
-  const filteredJobs = JOB_FEED_DATA.filter((job) => {
-    const lowerQuery = query.toLowerCase();
-
-    // Searching for jobTitle
-    const matchesTitle = job.jobTitle.toLowerCase().includes(lowerQuery);
-
-    // Searching for location
-    const matchesLocation = job.location.toLowerCase().includes(lowerQuery);
-
-    // Searching for skills
-    const matchesSkills = job.skills.some((skill) =>
-      skill.toLowerCase().includes(lowerQuery)
-    );
-
-    return matchesTitle || matchesLocation || matchesSkills;
-  });
-
-  console.log(filteredJobs);
-
   return (
     <section className="container" style={{ paddingTop: "0" }}>
       <div
@@ -91,29 +88,33 @@ const SearchPage = () => {
         <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
           <Link href="/job-feed">Available Jobs</Link>
         </h1>
-        <p className="text-slate-600 font-semibold">5 jobs near you</p>
+        <p className="text-slate-600 font-semibold">{jobs.length} jobs found</p>
       </div>
-      <SearchBar />
+
+      {/* Search Bar here... */}
+      <div>
+        <SearchBar />
+      </div>
 
       {/* Cards here... */}
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
         style={{ marginTop: "16px" }}
       >
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => (
+        {loadingJobs ? (
+          <p>Loading jobs...</p>
+        ) : jobs.length > 0 ? (
+          jobs.map((job) => (
             <JobFeedCard
               key={job.id}
               id={job.id}
-              image={job.image}
               userName={job.userName}
               timePosted={job.timePosted}
               rating={job.rating}
               jobTitle={job.jobTitle}
-              price={job.price}
+              payRate={job.payRate}
               duration={job.duration}
               location={job.location}
-              distance={job.distance}
               skills={job.skills}
               description={job.description}
               onApply={() => setShowForm(true)}
@@ -124,7 +125,7 @@ const SearchPage = () => {
         )}
       </div>
 
-      {/* Modal Form */}
+      {/* Application Form */}
       {showForm && (
         <div className="fixed inset-0 z-50 bg-white/50 backdrop-blur-sm overflow-y-auto">
           <div className="flex flex-col justify-center items-center">
