@@ -3,7 +3,7 @@ import { ApplicationFormValues } from "@/interfaces";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
-    console.log("Application sent successfully", req.body);
+    console.log("Application failed.", req.body);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
