@@ -198,3 +198,32 @@ export interface PaymentSummaryCardProps {
 export interface PaymentMethodFormProps {
   phoneNumber: string;
 }
+
+export interface JobSeekerProfileCardProps {
+  id: number;
+  userImage?: string;
+  userName?: string;
+  userAge?: number;
+  userLocation?: string;
+  userRating?: number;
+  numberOfReviews?: number;
+  skills?: string[];
+  description?: string;
+}
+
+export interface JobSeekerReviewsAndRatingsCardProps {
+  id: number;
+  userImage: string;
+  userName: string;
+  rating: number;
+  description: string;
+}
+
+export interface JobSeekerRecentJobsCardProps {
+  id: number;
+  jobTitle: string;
+  client: string;
+  date: string;
+  description: string;
+  rating: number;
+}

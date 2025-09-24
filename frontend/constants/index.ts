@@ -332,3 +332,112 @@ export const PAYMENT_SUMMARY_DATA = [
     total: 200,
   },
 ];
+
+export const JOB_SEEKER_PROFILE_DATA = [
+  {
+    id: 1,
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userName: "John Doe",
+    userAge: 22,
+    userLocation: "Johannesburg, Gauteng",
+    userRating: 4.8,
+    numberOfReviews: 24,
+    skills: ["Delivery", "Tutoring", "Gardening", "Cleaning", "Data Entry"],
+    description:
+      "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+  },
+];
+
+export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
+  {
+    id: 1,
+    userImage: "",
+    userName: "Thabo M.",
+    description:
+      "Very professional and completed the work on time. Highly recommend!",
+    rating: 5,
+  },
+  {
+    id: 2,
+    userImage: "",
+    userName: "Naledi K.",
+    description: "Great attention to detail, but arrived a bit late.",
+    rating: 4,
+  },
+  {
+    id: 3,
+    userImage: "",
+    userName: "Sipho D.",
+    description: "Did an excellent job and was very polite. Will hire again.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    userImage: "",
+    userName: "Aisha P.",
+    description: "Work was okay, but communication could be better.",
+    rating: 3,
+  },
+  {
+    id: 5,
+    userImage: "",
+    userName: "Lerato S.",
+    description: "Outstanding service, went above and beyond my expectations.",
+    rating: 5,
+  },
+];
+
+export const JOB_SEEEKER_RECENT_JOBS_DATA = [
+  {
+    id: 1,
+    jobTitle: "Package Delivery",
+    client: "TechNova Solutions",
+    description:
+      "Deliver packages safely and on time to clients across the city.",
+    date: "2025-09-24",
+    rating: 5,
+  },
+  {
+    id: 2,
+    jobTitle: "Private Tutoring",
+    client: "Creative Minds Agency",
+    description:
+      "Provide one-on-one tutoring sessions for students in various subjects.",
+    date: "2025-09-22",
+    rating: 5,
+  },
+  {
+    id: 3,
+    jobTitle: "Garden Maintenance",
+    client: "WordCraft Media",
+    description: "Maintain gardens by planting, watering, and trimming plants.",
+    date: "2025-09-20",
+    rating: 3.4,
+  },
+  {
+    id: 4,
+    jobTitle: "House Cleaning",
+    client: "AppSphere Tech",
+    description:
+      "Clean homes and offices, including dusting, mopping, and organizing.",
+    date: "2025-09-18",
+    rating: 4,
+  },
+  {
+    id: 5,
+    jobTitle: "Data Entry Clerk",
+    client: "MarketBoost Inc.",
+    description: "Enter and manage data in spreadsheets and company databases.",
+    date: "2025-09-15",
+    rating: 3,
+  },
+  {
+    id: 6,
+    jobTitle: "Home Tutoring & Mentoring",
+    client: "NextGen Designs",
+    description:
+      "Assist students with homework and provide mentorship for academic growth.",
+    date: "2025-09-12",
+    rating: 4,
+  },
+];
