@@ -34,7 +34,7 @@ const JobSeekerReviewsAndRatingsCard: React.FC<
 
       {/* Description here... */}
       <div>
-        <p className="text-slate-600">{description}</p>
+        <p>{description}</p>
       </div>
 
       {/* Icons here... */}
