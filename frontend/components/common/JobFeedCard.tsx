@@ -14,10 +14,9 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   timePosted,
   rating,
   jobTitle,
-  price,
+  payRate,
   duration,
   location,
-  distance,
   skills,
   description,
   onApply,
@@ -68,7 +67,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
         className="bg-blue-400/20 flex justify-between items-center rounded-2xl"
         style={{ padding: "16px 16px" }}
       >
-        <h3 className="text-blue-600 font-bold text-2xl">R{price}</h3>
+        <h3 className="text-blue-600 font-bold text-2xl">R{payRate}</h3>
         <p className="text-gray-600 flex items-center gap-2">
           <FaRegClock size={16} />
           {duration}
@@ -76,13 +75,9 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       </div>
 
       {/* Location and distance */}
-      <div className="flex items-center gap-2 text-slate-600">
-        <div className="flex items-center gap-1">
-          <IoLocationOutline size={20} />
-          <p>{location}</p>
-        </div>
-        <LuDot size={20} />
-        <p>{distance}</p>
+      <div className="flex items-center gap-1 text-slate-600">
+        <IoLocationOutline size={20} />
+        <p>{location}</p>
       </div>
 
       {/* Skills */}
