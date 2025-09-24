@@ -48,7 +48,7 @@ const PaymentAndTimelineForm: React.FC<StepProps> = ({
           <label htmlFor="payRate">Pay Rate</label>
           <input
             type="text"
-            placeholder="R150"
+            placeholder="150"
             {...register("payRate", {
               required: "Pay Rate is required",
             })}

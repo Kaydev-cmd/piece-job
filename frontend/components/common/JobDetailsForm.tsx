@@ -2,7 +2,7 @@ import React from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import Button from "./Button";
 import { JobDetailsFormProps, StepProps } from "@/interfaces";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useJobPost } from "@/context/JobPostContext";
 
 const JobDetailsForm: React.FC<StepProps> = ({
@@ -15,17 +15,30 @@ const JobDetailsForm: React.FC<StepProps> = ({
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<JobDetailsFormProps>({
     defaultValues: {
       jobTitle: "",
       description: "",
       location: "",
+      skills: [],
     },
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
+
   const onSubmit = async (data: JobDetailsFormProps) => {
-    updateJobData(data);
+    // transform { skill: string }[] into string[]
+    const normalizedData = {
+      ...data,
+      skills: data.skills.map((skill) => skill.skill),
+    };
+
+    updateJobData(normalizedData);
     onNext();
   };
 
@@ -85,6 +98,49 @@ const JobDetailsForm: React.FC<StepProps> = ({
             })}
           />
           <p className="text-center text-red-500">{errors.location?.message}</p>
+        </div>
+
+        {/* Skills (Dynamic Field Array) */}
+        <div className="flex flex-col gap-2">
+          <label>Skills</label>
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+            <input type="text" placeholder="Enter a skill" id="newSkill" className="lg:flex-1"/>
+            <Button
+              type="button"
+              title="Add Skill"
+              variant="green"
+              onClick={() => {
+                const input = document.getElementById(
+                  "newSkill"
+                ) as HTMLInputElement;
+                if (input && input.value.trim() !== "") {
+                  append({ skill: input.value.trim() });
+                  input.value = "";
+                }
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Render skills as pills */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {fields.map((field, index) => (
+            <span
+              key={field.id}
+              className=" bg-blue-500 text-white rounded-full flex items-center gap-1"
+              style={{ padding: "8px" }}
+            >
+              {field.skill}
+              <button
+                type="button"
+                className="ml-1 text-sm"
+                onClick={() => remove(index)}
+                style={{ padding: "0" }}
+              >
+                ✕
+              </button>
+            </span>
+          ))}
         </div>
 
         {/* CTA here... */}
