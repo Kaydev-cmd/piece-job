@@ -202,3 +202,11 @@ export interface JobSeekerProfileCardProps {
   skills?: string[];
   description?: string;
 }
+
+export interface JobSeekerReviewsAndRatingsCardProps {
+  id: number;
+  userImage: string;
+  userName: string;
+  rating: number;
+  description: string;
+}
