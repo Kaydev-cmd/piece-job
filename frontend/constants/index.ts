@@ -509,3 +509,58 @@ export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
     rating: 5,
   },
 ];
+
+export const JOB_SEEEKER_RECENT_JOBS_DATA = [
+  {
+    id: 1,
+    jobTitle: "Package Delivery",
+    client: "TechNova Solutions",
+    description:
+      "Deliver packages safely and on time to clients across the city.",
+    date: "2025-09-24",
+    rating: 5,
+  },
+  {
+    id: 2,
+    jobTitle: "Private Tutoring",
+    client: "Creative Minds Agency",
+    description:
+      "Provide one-on-one tutoring sessions for students in various subjects.",
+    date: "2025-09-22",
+    rating: 5,
+  },
+  {
+    id: 3,
+    jobTitle: "Garden Maintenance",
+    client: "WordCraft Media",
+    description: "Maintain gardens by planting, watering, and trimming plants.",
+    date: "2025-09-20",
+    rating: 3.4,
+  },
+  {
+    id: 4,
+    jobTitle: "House Cleaning",
+    client: "AppSphere Tech",
+    description:
+      "Clean homes and offices, including dusting, mopping, and organizing.",
+    date: "2025-09-18",
+    rating: 4,
+  },
+  {
+    id: 5,
+    jobTitle: "Data Entry Clerk",
+    client: "MarketBoost Inc.",
+    description: "Enter and manage data in spreadsheets and company databases.",
+    date: "2025-09-15",
+    rating: 3,
+  },
+  {
+    id: 6,
+    jobTitle: "Home Tutoring & Mentoring",
+    client: "NextGen Designs",
+    description:
+      "Assist students with homework and provide mentorship for academic growth.",
+    date: "2025-09-12",
+    rating: 4,
+  },
+];
