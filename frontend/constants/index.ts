@@ -47,6 +47,11 @@ export const MOBILE_LINKS = [
     link: "Login",
     href: "/login",
   },
+  {
+    id: 6,
+    link: "Signup",
+    href: "/signup",
+  },
 ];
 
 export const HERO_STATS = [

@@ -37,19 +37,31 @@ const Signup = () => {
     setSuccess(null);
 
     try {
-      await axios.post("/api/signup/signup", data);
+      await axios.post("/api/signup/signup", data, { withCredentials: true });
       setSuccess("Account created successfully!");
+
+      // If role is job seeker, redirect to job feed
+      if (data.role === "jobSeeker") {
+        window.location.href = "/job-feed";
+      } else {
+        window.location.href = "/wallet";
+      }
+
       reset();
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message || "Something went wrong. Please try again."
+      );
     } finally {
       setLoading(false);
     }
 
-    setTimeout(() => {
-      setSuccess("");
-      setError("");
-    }, 3000);
+    if (success || error) {
+      setTimeout(() => {
+        setSuccess(null);
+        setError(null);
+      }, 3000);
+    }
   };
 
   return (
@@ -379,7 +391,7 @@ const Signup = () => {
       <p className="text-center" style={{ marginTop: "16px" }}>
         Already have an account?{" "}
         <Link href="/login" className="text-blue-700">
-          Sign in here
+          Login here
         </Link>
       </p>
     </section>
