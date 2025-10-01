@@ -79,7 +79,7 @@ const WhyChooseUs = () => {
             alt="Phone"
             width={500}
             height={500}
-            className="w-full rounded-xl lg:w-[700px]"
+            className="w-full rounded-xl lg:w-[540px]"
           />
         </div>
 
