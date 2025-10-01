@@ -18,7 +18,10 @@ export function middleware(req: NextRequest, res: NextResponse) {
     return NextResponse.redirect(new URL("/signup", req.url));
   }
 
-  if (req.nextUrl.pathname.startsWith("/wallet") && user.role !== "employer") {
+  if (
+    req.nextUrl.pathname.startsWith("/job-poster-feed") &&
+    user.role !== "employer"
+  ) {
     return NextResponse.redirect(new URL("/signup", req.url));
   }
 
