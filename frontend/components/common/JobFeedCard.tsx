@@ -1,7 +1,7 @@
 import React from "react";
 import { JobFeedCardProps } from "@/interfaces";
 import Image from "next/image";
-import { LuUserRound, LuDot } from "react-icons/lu";
+import { LuUserRound } from "react-icons/lu";
 import { FaStar, FaRegClock } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import Pill from "./Pill";
@@ -21,6 +21,15 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   description,
   onApply,
 }) => {
+  const normalizedSkills: string[] = Array.isArray(skills)
+    ? skills
+    : skills
+    ? (skills as unknown as string)
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean)
+    : [];
+
   return (
     <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {/* Image, name and rating here... */}
@@ -82,7 +91,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
 
       {/* Skills */}
       <div className="flex flex-wrap items-center gap-2">
-        {skills.map((skill, index) => (
+        {normalizedSkills.map((skill, index) => (
           <Pill key={index} title={skill} variant="default" />
         ))}
       </div>
