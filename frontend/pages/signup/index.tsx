@@ -44,7 +44,7 @@ const Signup = () => {
       if (data.role === "jobSeeker") {
         window.location.href = "/job-feed";
       } else {
-        window.location.href = "/wallet";
+        window.location.href = "/job-poster-feed";
       }
 
       reset();
