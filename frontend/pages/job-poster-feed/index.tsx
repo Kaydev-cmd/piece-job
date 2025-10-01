@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+import SearchBar from "@/components/common/SearchBar";
+import Button from "@/components/common/Button";
+import Filter from "@/components/common/JobFeedFilter";
+import Link from "next/link";
+import { useJobPost } from "@/context/JobPostContext";
+import JobPosterFeedCard from "@/components/common/JobPosterFeedCard";
+import EditJobModal from "@/components/common/EditJobModal";
+import DeleteJobModal from "@/components/common/DeleteJobModal";
+
+const JobPosterFeedPage = () => {
+  const { jobFeed, editJob, deleteJob } = useJobPost();
+  const [editingJob, setEditingJob] = useState<any | null>(null);
+  const [deletingJob, setDeletingJob] = useState<any | null>(null);
+
+  const handleSave = async (updatedJob: any) => {
+    await editJob(updatedJob.id, updatedJob);
+    setEditingJob(null);
+  };
+
+  const handleConfirmDelete = async (id: number) => {
+    await deleteJob(id);
+    setDeletingJob(null);
+  };
+
+  return (
+    <section
+      className="container"
+      style={{ paddingTop: "0", paddingBottom: "0" }}
+    >
+      <div className="flex items-center justify-between">
+        <div
+          className="flex flex-col gap-2"
+          style={{ marginBottom: "16px", marginTop: "16px" }}
+        >
+          <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
+            <Link href="/job-feed">Jobs Posted</Link>
+          </h1>
+          {jobFeed.length > 0 ? (
+            <p className="text-slate-600 font-semibold">
+              {jobFeed.length} job(s) posted
+            </p>
+          ) : (
+            <p className="text-slate-600 font-semibold">0 job(s) posted</p>
+          )}
+        </div>
+
+        {/* Filter */}
+        <Filter />
+      </div>
+
+      {/* Search box here.... */}
+      <div style={{ marginBottom: "16px" }}>
+        <SearchBar />
+      </div>
+
+      {/* Job Feed */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {jobFeed.length ? (
+          jobFeed.map((job) => (
+            <JobPosterFeedCard
+              key={job.id}
+              id={job.id}
+              userName={job.userName || "Anonymous"} // fallback
+              timePosted={job.timePosted || "Just now"} // fallback
+              rating={job.rating || 0} // fallback
+              jobTitle={job.jobTitle}
+              payRate={job.payRate}
+              duration={job.duration}
+              location={job.location}
+              skills={job.skills || []}
+              description={job.description}
+              onEdit={() => setEditingJob(job)}
+              onDelete={() => setDeletingJob(job)}
+            />
+          ))
+        ) : (
+          <p>No jobs posted yet.</p>
+        )}
+      </div>
+
+      {/* Edit Modal */}
+      {editingJob && (
+        <EditJobModal
+          job={editingJob}
+          onClose={() => setEditingJob(null)}
+          onSave={handleSave}
+        />
+      )}
+
+      {/* Delete Modal */}
+      {deletingJob && (
+        <DeleteJobModal
+          jobTitle={deletingJob.jobTitle}
+          onClose={() => setDeletingJob(null)}
+          onConfirm={() => handleConfirmDelete(deletingJob.id)}
+        />
+      )}
+
+      <div className="flex justify-center" style={{ marginTop: "16px" }}>
+        <Button title="See more jobs" variant="seeMore" />
+      </div>
+    </section>
+  );
+};
+
+export default JobPosterFeedPage;

@@ -176,6 +176,8 @@ export interface JobPostContextType {
   postJob: (data?: Partial<JobPostData>) => Promise<void>;
   updateJobData: (data: Partial<JobPostData>) => void;
   resetJobData: () => void;
+  editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
+  deleteJob: (id: number) => Promise<void>;
 }
 
 export interface ChosenWorkerCardProps {
@@ -226,4 +228,24 @@ export interface JobSeekerRecentJobsCardProps {
   date: string;
   description: string;
   rating: number;
+}
+
+export interface EditJobModalProps {
+  job: {
+    id: number;
+    jobTitle: string;
+    description: string;
+    location: string;
+    payRate: number;
+    duration: string;
+    skills: string[];
+  };
+  onClose: () => void;
+  onSave: (data: any) => void;
+}
+
+export interface DeleteJobModalProps {
+  onClose: () => void;
+  onConfirm: () => void;
+  jobTitle?: string;
 }

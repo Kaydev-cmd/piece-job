@@ -67,7 +67,13 @@ const JobFeedPage = () => {
           <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
             <Link href="/job-feed">Available Jobs</Link>
           </h1>
-          <p className="text-slate-600 font-semibold">5 jobs near you</p>
+          {jobFeed.length > 0 ? (
+            <p className="text-slate-600 font-semibold">
+              {jobFeed.length} job(s) available
+            </p>
+          ) : (
+            <p className="text-slate-600 font-semibold">0 job(s) available</p>
+          )}
         </div>
 
         {/* Filter */}

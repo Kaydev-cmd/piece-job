@@ -79,6 +79,7 @@ const Header: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
+            style={{ padding: "24px" }}
           >
             {MOBILE_LINKS.map(({ link, href }) => (
               <li

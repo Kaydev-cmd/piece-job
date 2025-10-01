@@ -43,11 +43,44 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  // Edit the posted job
+  const editJob = async (id: number, updatedFields: Partial<JobPostData>) => {
+    try {
+      const res = await axios.put("/api/jobs/jobs", { id, ...updatedFields });
+      const updatedJob = res.data;
+
+      setJobFeed((prev) =>
+        prev.map((job) => (job.id === id ? updatedJob : job))
+      );
+    } catch (err) {
+      console.error("Failed to update job:", err);
+    }
+  };
+
+  // Delete the posted job
+  const deleteJob = async (id: number) => {
+    try {
+      await axios.delete(`/api/jobs/jobs?id=${id}`);
+
+      setJobFeed((prev) => prev.filter((job) => job.id !== id));
+    } catch (err) {
+      console.error("Failed to delete job:", err);
+    }
+  };
+
   const resetJobData = () => setDraftJob({});
 
   return (
     <JobPostContext.Provider
-      value={{ draftJob, jobFeed, updateJobData, postJob, resetJobData }}
+      value={{
+        draftJob,
+        jobFeed,
+        updateJobData,
+        postJob,
+        resetJobData,
+        editJob,
+        deleteJob,
+      }}
     >
       {children}
     </JobPostContext.Provider>
