@@ -32,6 +32,7 @@ const Signup = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   const onSubmit = async (data: SignupFormValues) => {
+    
     setLoading(true);
     setError(null);
     setSuccess(null);
