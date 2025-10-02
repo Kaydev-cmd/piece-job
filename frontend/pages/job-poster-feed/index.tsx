@@ -98,7 +98,7 @@ const JobPosterFeedPage = () => {
       )}
 
       <div className="flex justify-center" style={{ marginTop: "16px" }}>
-        {jobFeed.length > 6 ? (
+        {jobFeed.length >= 6 ? (
           <Button title="See more jobs" variant="seeMore" />
         ) : null}
       </div>
