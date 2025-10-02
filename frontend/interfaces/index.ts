@@ -6,6 +6,7 @@ export interface ButtonProps {
   title: string;
   variant: string;
   onClick?: () => void;
+  className?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   isActive?: boolean;
@@ -68,6 +69,11 @@ export interface SignupFormValues {
   companyName?: string;
   companyRegistration?: string;
   companyAddress?: string;
+}
+
+export interface LoginProps {
+  email: string;
+  password: string;
 }
 
 export interface JobFeedCardProps {

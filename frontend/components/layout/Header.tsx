@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "motion/react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { HiX } from "react-icons/hi";
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 import Button from "../common/Button";
 
 const Header: React.FC = () => {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -53,7 +55,11 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="hidden md:flex gap-4 items-center">
-          <Button title="Login" variant="login" />
+          <Button
+            title="Login"
+            onClick={() => router.push("/login")}
+            variant="login"
+          />
         </div>
 
         {/* Hamburger menu button */}

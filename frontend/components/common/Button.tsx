@@ -10,11 +10,12 @@ import { RxLightningBolt } from "react-icons/rx";
 const Button: React.FC<ButtonProps> = ({
   title,
   variant = "primary",
+  className,
   onClick,
   type,
   isActive,
 }) => {
-  const baseStyles = "flex justify-center items-center gap-4 font-semibold";
+  const baseStyles = `flex justify-center items-center gap-4 font-semibold ${className}`;
 
   const variantStyles =
     variant === "primary"
