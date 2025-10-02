@@ -98,7 +98,9 @@ const JobPosterFeedPage = () => {
       )}
 
       <div className="flex justify-center" style={{ marginTop: "16px" }}>
-        <Button title="See more jobs" variant="seeMore" />
+        {jobFeed.length > 6 ? (
+          <Button title="See more jobs" variant="seeMore" />
+        ) : null}
       </div>
     </section>
   );
