@@ -1,4 +1,3 @@
-// /pages/api/jobs/jobs.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { JobPostData } from "@/interfaces";
 
