@@ -75,6 +75,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         draftJob,
         jobFeed,
+        setJobFeed,
         updateJobData,
         postJob,
         resetJobData,
