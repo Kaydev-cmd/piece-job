@@ -184,6 +184,7 @@ export interface JobPostContextType {
   resetJobData: () => void;
   editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
   deleteJob: (id: number) => Promise<void>;
+  setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
 }
 
 export interface ChosenWorkerCardProps {
@@ -254,4 +255,12 @@ export interface DeleteJobModalProps {
   onClose: () => void;
   onConfirm: () => void;
   jobTitle?: string;
+}
+
+export interface JobFeedFilterProps {
+  onApplyFilters: (filters: {
+    jobTitle?: string;
+    location?: string;
+    skills?: string[];
+  }) => void;
 }
