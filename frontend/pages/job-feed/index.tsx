@@ -10,7 +10,7 @@ import { ApplicationFormValues } from "@/interfaces";
 import { useJobPost } from "@/context/JobPostContext";
 
 const JobFeedPage = () => {
-  const { jobFeed } = useJobPost();
+  const { jobFeed, setJobFeed } = useJobPost();
 
   const {
     register,
@@ -77,7 +77,28 @@ const JobFeedPage = () => {
         </div>
 
         {/* Filter */}
-        <Filter />
+        <Filter
+          onApplyFilters={(filters) => {
+            const { jobTitle = "", location = "", skills = [] } = filters;
+
+            setJobFeed((prevJobs) =>
+              prevJobs.filter((job) => {
+                const matchesTitle = job.jobTitle
+                  .toLowerCase()
+                  .includes(jobTitle.toLowerCase());
+                const matchesLocation = job.location
+                  .toLowerCase()
+                  .includes(location.toLowerCase());
+                const matchesSkills = skills.some((s) =>
+                  job.skills.some((skill) =>
+                    skill.toLowerCase().includes(s.toLowerCase())
+                  )
+                );
+                return matchesTitle || matchesLocation || matchesSkills;
+              })
+            );
+          }}
+        />
       </div>
 
       {/* Search box here.... */}
