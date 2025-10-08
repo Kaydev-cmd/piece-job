@@ -127,15 +127,25 @@ const LoginPage: React.FC = () => {
               </p>
             </div>
             <div
-              className=" flex flex-col gap-1 w-full"
+              className=" flex flex-col gap-1 w-full  space-y-2"
               style={{ color: "#6B7280" }}
             >
-              <div className=" leading-none tracking-tight text-2xl font-bold text-[#111827]">
-                Welcome back
-              </div>
-              <div className="text-sm text-[#6B7280]">
-                Sign in to your account to continue earning
-              </div>
+              <label htmlFor="password">Password:</label>
+              <input
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters long",
+                  },
+                })}
+                type="password"
+                placeholder="Enter your password"
+                className="h-12"
+              />
+              <p className="text-center text-red-500">
+                {errors.password?.message}
+              </p>
             </div>
 
             <div className="flex items-center justify-between">
