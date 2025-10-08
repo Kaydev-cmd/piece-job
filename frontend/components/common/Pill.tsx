@@ -14,6 +14,14 @@ const Pill: React.FC<PillProps> = ({ title, variant = "default" }) => {
       ? "bg-green-300/20 border-2 border-green-400 text-green-500"
       : variant === "recommended"
       ? "bg-none border-2 border-blue-400 text-blue-500"
+      : variant === "rating"
+      ? "bg-white border-2 border-black text-black"
+      : variant === "Active"
+      ? "bg-none border-2 border-green-400 text-green-500 "
+      : variant === "progress"
+      ? "bg-none border-2 border-yellow-300 text-yellow-400"
+      : variant === "Completed"
+      ? "bg-white border border-gray-500 text-black"
       : "";
 
   return (

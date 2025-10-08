@@ -219,6 +219,21 @@ export interface JobSeekerProfileCardProps {
   description?: string;
 }
 
+export interface JobPosterProfileCardProps {
+  id: number;
+  userImage?: string;
+  userName?: string;
+  userAge?: number;
+  userLocation?: string;
+  userRating?: number;
+  numberOfReviews?: number;
+  isVerified?: boolean;
+  postedJobs?: number;
+  activeJobs?: number;
+  biography?: string;
+  businessName?: string;
+}
+
 export interface JobSeekerReviewsAndRatingsCardProps {
   id: number;
   userImage: string;
