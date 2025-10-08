@@ -347,7 +347,23 @@ export const JOB_SEEKER_PROFILE_DATA = [
     userLocation: "Johannesburg, Gauteng",
     userRating: 4.8,
     numberOfReviews: 24,
-    skills: ["Delivery", "Tutoring", "Gardening", "Cleaning", "Data Entry"],
+    skills: [
+      {
+        id: 1,
+        skillName: "Driving",
+        priorityLevel: "low",
+      },
+      {
+        id: 2,
+        skillName: "Data Entry",
+        priorityLevel: "high",
+      },
+      {
+        id: 3,
+        skillName: "Gardening",
+        priorityLevel: "moderate",
+      },
+    ],
     description:
       "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
   },

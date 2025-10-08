@@ -207,6 +207,12 @@ export interface PaymentMethodFormProps {
   phoneNumber: string;
 }
 
+export interface RequiredSkillProps {
+  id: number;
+  skillName: string;
+  priorityLevel: string;
+}
+
 export interface JobSeekerProfileCardProps {
   id: number;
   userImage?: string;
@@ -215,7 +221,11 @@ export interface JobSeekerProfileCardProps {
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
-  skills?: string[];
+}
+
+export interface JobSeekerSkillsCardProps {
+  id: number;
+  skills: RequiredSkillProps[];
   description?: string;
 }
 
