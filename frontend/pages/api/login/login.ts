@@ -14,7 +14,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   );
 
   if (!user) {
-    return res.status(401).json({ message: "no such user" });
+    return res
+      .status(401)
+      .json({ message: "Please enter a valid email address" });
   }
 
   // compare password
