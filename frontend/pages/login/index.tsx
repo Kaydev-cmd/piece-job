@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { LoginProps } from "@/interfaces";
@@ -7,7 +6,7 @@ import axios from "axios";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/router";
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
@@ -39,7 +38,7 @@ const Login: React.FC = () => {
           if (response.data.user.role === "jobSeeker") {
             router.push("/job-feed");
           } else if (response.data.user.role === "employer") {
-            router.push("/wallet");
+            router.push("/job-poster-feed");
           } else {
             router.push("/");
           }
@@ -64,7 +63,10 @@ const Login: React.FC = () => {
     }, 3000);
   };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <section
+      className="container min-h-screen flex items-center justify-center"
+      style={{ paddingTop: "0", paddingBottom: "0" }}
+    >
       <div
         className="w-full h-full max-w-md"
         style={{
@@ -73,39 +75,38 @@ const Login: React.FC = () => {
         }}
       >
         {/* Logo/Brand */}
-        <div className="text-center mb-8" style={{ marginBottom: "32px" }}>
+        <div className="text-center" style={{ margin: "32px 0" }}>
           <Link href="/" className="inline-block">
-            <h1 className="text-5xl font-bold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent">
+            <h1 className="text-6xl text-center font-semibold bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent lg:text-7xl">
               PieceJob
             </h1>
-            <p className="text-[#6B7280] text-sm mt-1">
+            <p className="text-center text-slate-500 font-semibold">
               Where skills meet opportunity
             </p>
           </Link>
         </div>
 
         <div
-          className="rounded-lg h-full flex flex-col items-center justify-around p-8  bg-[#FFFFFF] text-[#F9FAFB] shadow-sm shadow-medium border-0"
+          className="bg-white rounded-xl shadow-md w-full lg:max-w-4xl"
           style={{ padding: "24px", marginBottom: "16px" }}
         >
           <div
-            className="flex flex-col mb-8  gap-2 p-6 space-y-1 text-center"
+            className="flex flex-col gap-2 text-center"
             style={{ marginBottom: "16px", padding: "10px" }}
           >
-            <div className=" leading-none tracking-tight text-2xl font-bold text-[#111827]">
-              Welcome back
-            </div>
-            <div className="text-sm text-[#6B7280]">
+            <h2 className="text-4xl font-bold text-center">Welcome back</h2>
+            <p className="text-center text-slate-500 font-semibold">
               Sign in to your account to continue earning
-            </div>
+            </p>
           </div>
+
           {/* form  */}
           <form
-            className=" flex flex-col gap-2 items-center  space-y-4"
+            className="flex flex-col gap-4 items-center"
             onSubmit={handleSubmit(onSubmit)}
             style={{ marginBottom: "16px", width: "100%" }}
           >
-            <div className=" flex flex-col gap-1 w-full  space-y-2">
+            <div className=" flex flex-col gap-1 w-full">
               <label htmlFor="email" style={{ color: "#6B7280" }}>
                 Email or Phone:
               </label>
@@ -126,7 +127,7 @@ const Login: React.FC = () => {
               </p>
             </div>
             <div
-              className=" flex flex-col gap-1 w-full  space-y-2"
+              className=" flex flex-col gap-1 w-full"
               style={{ color: "#6B7280" }}
             >
               <label htmlFor="password">Password:</label>
@@ -147,7 +148,7 @@ const Login: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between">
               <Link
                 href="#"
                 className="text-[#6B7280] hover:text-[#1D4ED8] transition-colors"
@@ -156,32 +157,29 @@ const Login: React.FC = () => {
               </Link>
             </div>
 
-            <Button
-              title={loading ? "Signing In..." : "Sign In"}
-              variant="subscribe"
-              type="submit"
-              className="w-full h-12"
-              disabled={loading}
-            />
+            <div className="flex flex-col gap-6">
+              <Button
+                title={loading ? "Signing In..." : "Sign In"}
+                variant="subscribe"
+                type="submit"
+                disabled={loading}
+              />
 
-            <div className="relative mt-4">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-[#E5E7EB]" />
+              <div className="relative">
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-[#F9FAFB] px-2 text-[#6B7280]">
+                    Or continue with
+                  </span>
+                </div>
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#F9FAFB] px-2 text-[#6B7280]">
-                  Or continue with
-                </span>
-              </div>
+
+              <Button
+                title="Continue with Google"
+                variant="google"
+                className="text-black"
+                type="button"
+              />
             </div>
-
-            <Button
-              title="Continue with Google"
-              variant="google"
-              className="text-black"
-              type="button"
-            />
-
             {/* Feedback Messages */}
             {resolved && (
               <p className="text-center text-green-600 font-semibold">
@@ -195,10 +193,10 @@ const Login: React.FC = () => {
         </div>
 
         <div
-          className="text-center mt-6"
+          className="text-center"
           style={{ marginBottom: "24px", marginTop: "24px" }}
         >
-          <p className="text-[#6B7280] text-sm">
+          <p className="text-[#6B7280]">
             Don&apos;t have an account?{" "}
             <Link
               href="/signup"
@@ -211,12 +209,12 @@ const Login: React.FC = () => {
 
         {/* Quick Login Options for PieceJob */}
         <div
-          className="mt-8 p-4 bg-[#10B981]/10 rounded-lg border border-[#10B981]/20"
-          style={{ padding: "16px", marginTop: "2px" }}
+          className="bg-[#10B981]/10 rounded-lg border border-[#10B981]/20"
+          style={{ padding: "24px" }}
         >
           <h3
-            className="font-semibold text-[#111827] mb-2 text-center"
-            style={{ marginBottom: "8px" }}
+            className="font-semibold text-[#111827] text-center"
+            style={{ marginBottom: "16px" }}
           >
             New to PieceJob?
           </h3>
@@ -224,21 +222,21 @@ const Login: React.FC = () => {
             <Button
               title="I'm a Job Seeker"
               variant="subscribe"
-              onClick={() => (window.location.href = "/signup")}
+              onClick={() => router.push("/signup")}
               className="text-xs"
             />
 
             <Button
               title="I'm an Employer"
-              onClick={() => (window.location.href = "/signup")}
+              onClick={() => router.push("/signup")}
               variant="subscribe"
               className="text-xs"
             />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Login;
+export default LoginPage;
