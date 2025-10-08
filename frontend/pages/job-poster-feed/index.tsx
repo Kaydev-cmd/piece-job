@@ -9,7 +9,7 @@ import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
 
 const JobPosterFeedPage = () => {
-  const { jobFeed, editJob, deleteJob } = useJobPost();
+  const { jobFeed, editJob, deleteJob, setJobFeed } = useJobPost();
   const [editingJob, setEditingJob] = useState<any | null>(null);
   const [deletingJob, setDeletingJob] = useState<any | null>(null);
 
@@ -34,7 +34,7 @@ const JobPosterFeedPage = () => {
           style={{ marginBottom: "16px", marginTop: "16px" }}
         >
           <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
-            <Link href="/job-feed">Jobs Posted</Link>
+            <Link href="/job-poster-feed">Jobs Posted</Link>
           </h1>
           {jobFeed.length > 0 ? (
             <p className="text-slate-600 font-semibold">
@@ -46,7 +46,28 @@ const JobPosterFeedPage = () => {
         </div>
 
         {/* Filter */}
-        <Filter />
+        <Filter
+          onApplyFilters={(filters) => {
+            const { jobTitle = "", location = "", skills = [] } = filters;
+
+            setJobFeed((prevJobs) =>
+              prevJobs.filter((job) => {
+                const matchesTitle = job.jobTitle
+                  .toLowerCase()
+                  .includes(jobTitle.toLowerCase());
+                const matchesLocation = job.location
+                  .toLowerCase()
+                  .includes(location.toLowerCase());
+                const matchesSkills = skills.some((s) =>
+                  job.skills.some((skill) =>
+                    skill.toLowerCase().includes(s.toLowerCase())
+                  )
+                );
+                return matchesTitle && matchesLocation && matchesSkills;
+              })
+            );
+          }}
+        />
       </div>
 
       {/* Search box here.... */}
