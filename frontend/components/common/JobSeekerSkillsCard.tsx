@@ -2,11 +2,12 @@ import React from "react";
 import { FaMedal } from "react-icons/fa";
 import Pill from "./Pill";
 import { JobSeekerProfileCardProps } from "@/interfaces";
-import { JOB_SEEKER_PROFILE_DATA } from "@/constants";
+import { JobSeekerSkillsCardProps } from "@/interfaces";
 
-const JobSeekerSkillsCard: React.FC<JobSeekerProfileCardProps> = ({
+const JobSeekerSkillsCard: React.FC<JobSeekerSkillsCardProps> = ({
   id,
   description,
+  skills,
 }) => {
   return (
     <div className="card flex flex-col gap-4 bg-gray-300/30 rounded-xl">
@@ -18,15 +19,13 @@ const JobSeekerSkillsCard: React.FC<JobSeekerProfileCardProps> = ({
 
       {/* Skills here... */}
       <div className="flex items-center flex-wrap gap-2">
-        {JOB_SEEKER_PROFILE_DATA.map((seeker) =>
-          seeker.skills.map((skill, index) => (
-            <Pill
-              key={`${seeker.id}-${index}`}
-              title={skill}
-              variant="topRated"
-            />
-          ))
-        )}
+        {skills.map((skill, index) => (
+          <Pill
+            key={`${skill.id}-${index}`}
+            title={skill.skillName}
+            variant={skill.priorityLevel}
+          />
+        ))}
       </div>
 
       {/* Description here... */}

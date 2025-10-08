@@ -347,16 +347,71 @@ export const JOB_SEEKER_PROFILE_DATA = [
     userLocation: "Johannesburg, Gauteng",
     userRating: 4.8,
     numberOfReviews: 24,
-    skills: ["Delivery", "Tutoring", "Gardening", "Cleaning", "Data Entry"],
+    skills: [
+      {
+        id: 1,
+        skillName: "Driving",
+        priorityLevel: "low",
+      },
+      {
+        id: 2,
+        skillName: "Data Entry",
+        priorityLevel: "high",
+      },
+      {
+        id: 3,
+        skillName: "Gardening",
+        priorityLevel: "moderate",
+      },
+    ],
     description:
       "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+  },
+];
+
+export const JOB_POSTER_PROFILE_DATA = [
+  {
+    id: 1,
+    username: "Sarah Johnson",
+    businessName: "Green Gardens Landscaping",
+    userlocation: "Cape Town, Western Cape",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userRating: 4.9,
+    numberOfReviews: 45,
+    isVerified: true,
+    postedJobs: 23,
+    activeJobs: 3,
+    bio: "Small landscaping business offering flexible work opportunities for motivated individuals.",
+    recentJobs: [
+      {
+        title: "Weekend Garden Maintenance",
+        applicants: 8,
+        status: "Active",
+        budget: 500,
+        date: "2024-01-18",
+      },
+      {
+        title: "Lawn Mowing Service",
+        applicants: 12,
+        status: "progress",
+        budget: 300,
+        date: "2024-01-16",
+      },
+      {
+        title: "Plant Installation",
+        applicants: 6,
+        status: "Completed",
+        budget: 800,
+        date: "2024-01-14",
+      },
+    ],
   },
 ];
 
 export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   {
     id: 1,
-    userImage: "",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userName: "Thabo M.",
     description:
       "Very professional and completed the work on time. Highly recommend!",
@@ -364,28 +419,28 @@ export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   },
   {
     id: 2,
-    userImage: "",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userName: "Naledi K.",
     description: "Great attention to detail, but arrived a bit late.",
     rating: 4,
   },
   {
     id: 3,
-    userImage: "",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userName: "Sipho D.",
     description: "Did an excellent job and was very polite. Will hire again.",
     rating: 5,
   },
   {
     id: 4,
-    userImage: "",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userName: "Aisha P.",
     description: "Work was okay, but communication could be better.",
     rating: 3,
   },
   {
     id: 5,
-    userImage: "",
+    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userName: "Lerato S.",
     description: "Outstanding service, went above and beyond my expectations.",
     rating: 5,

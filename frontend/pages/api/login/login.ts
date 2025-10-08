@@ -2,7 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { users } from "@/data/users";
 import bcrypt from "bcryptjs";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
     return res.status(405).end();
   }
@@ -20,7 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // compare password
-  const isPasswordValid = bcrypt.compare(password, user.password);
+  const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     return res.status(401).json({ message: "Invalid password" });
   }
