@@ -94,7 +94,7 @@ const JobFeedPage = () => {
                     skill.toLowerCase().includes(s.toLowerCase())
                   )
                 );
-                return matchesTitle || matchesLocation || matchesSkills;
+                return matchesTitle && matchesLocation && matchesSkills;
               })
             );
           }}
