@@ -36,7 +36,7 @@ const Signup = () => {
     setLoading(true);
     setError(null);
     setSuccess(null);
-
+    console.log("data: ",data)
     try {
       await axios.post("/api/signup/signup", data, { withCredentials: true });
       setSuccess("Account created successfully!");
