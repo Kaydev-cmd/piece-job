@@ -41,7 +41,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const newJob: JobPostData = {
       id: JOB_FEED_DATA.length + 1,
-      userName: "John K.", //  Make this dynamic later
+      userName: "Brian J.", //  Make this dynamic later
       timePosted: "Just now", // Make this dynamic later
       rating: 4.6, // Make this dynamic later
       jobTitle,
