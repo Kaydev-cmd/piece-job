@@ -3,7 +3,6 @@ import { JobSeekerRecentJobsCardProps } from "@/interfaces";
 import { FaStar } from "react-icons/fa";
 
 const JobSeekerRecentJobsCard: React.FC<JobSeekerRecentJobsCardProps> = ({
-  id,
   jobTitle,
   client,
   date,

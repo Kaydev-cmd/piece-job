@@ -6,7 +6,7 @@ import { FaStar } from "react-icons/fa";
 
 const JobSeekerReviewsAndRatingsCard: React.FC<
   JobSeekerReviewsAndRatingsCardProps
-> = ({ id, userImage, userName, rating, description }) => {
+> = ({ userImage, userName, rating, description }) => {
   return (
     <div className="flex flex-col gap-3">
       {/* Username and Image here... */}

@@ -8,7 +8,6 @@ import Pill from "./Pill";
 import Button from "./Button";
 
 const JobFeedCard: React.FC<JobFeedCardProps> = ({
-  id,
   image,
   userName,
   timePosted,

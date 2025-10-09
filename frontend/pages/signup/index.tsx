@@ -32,7 +32,6 @@ const Signup = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   const onSubmit = async (data: SignupFormValues) => {
-    
     setLoading(true);
     setError(null);
     setSuccess(null);
@@ -49,10 +48,12 @@ const Signup = () => {
       }
 
       reset();
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || "Something went wrong. Please try again."
-      );
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err) && err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -278,7 +279,7 @@ const Signup = () => {
               {/* Joining as */}
               <div className="flex flex-col gap-4">
                 <label htmlFor="joiningAs" className="font-semibold">
-                  I'm joining as:
+                  I&apos;m joining as:
                 </label>
                 <div className="flex justify-around">
                   <Button

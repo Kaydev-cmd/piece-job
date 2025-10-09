@@ -2,7 +2,6 @@ import React from "react";
 import { WalletSummaryCardProps } from "@/interfaces";
 
 const WalletSummary: React.FC<WalletSummaryCardProps> = ({
-  id,
   jobsCompleted,
   averagePerJob,
   savingsRate,

@@ -7,7 +7,6 @@ import { PaymentMethodFormProps } from "@/interfaces";
 const PaymentMethodCard = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<PaymentMethodFormProps>({
     defaultValues: {

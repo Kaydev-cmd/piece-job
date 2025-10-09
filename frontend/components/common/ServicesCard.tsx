@@ -7,7 +7,6 @@ import { TiStarOutline } from "react-icons/ti";
 import { IoMdTime } from "react-icons/io";
 
 const ServicesCard: React.FC<ServicesCardProps> = ({
-  id,
   serviceTitle,
   serviceDescription,
   variant = "Mobile Phone",

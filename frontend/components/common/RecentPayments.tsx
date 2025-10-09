@@ -3,7 +3,6 @@ import { RecentPaymentsCardProps } from "@/interfaces";
 import Pill from "./Pill";
 
 const RecentPayments: React.FC<RecentPaymentsCardProps> = ({
-  id,
   jobTitle,
   date,
   price,

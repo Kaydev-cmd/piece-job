@@ -7,14 +7,19 @@ import { useJobPost } from "@/context/JobPostContext";
 import JobPosterFeedCard from "@/components/common/JobPosterFeedCard";
 import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
+import { Job } from "@/interfaces";
 
-const JobPosterFeedPage = () => {
+const JobPosterFeedPage: React.FC<Job> = () => {
   const { jobFeed, editJob, deleteJob, setJobFeed } = useJobPost();
-  const [editingJob, setEditingJob] = useState<any | null>(null);
-  const [deletingJob, setDeletingJob] = useState<any | null>(null);
+  const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const [deletingJob, setDeletingJob] = useState<Job | null>(null);
 
-  const handleSave = async (updatedJob: any) => {
-    await editJob(updatedJob.id, updatedJob);
+  const handleSave = async (updatedJob: Job) => {
+    const updatedJobData = {
+      ...updatedJob,
+      payRate: Number(updatedJob.payRate),
+    };
+    await editJob(updatedJob.id, updatedJobData);
     setEditingJob(null);
   };
 
@@ -91,8 +96,15 @@ const JobPosterFeedPage = () => {
               location={job.location}
               skills={job.skills || []}
               description={job.description}
-              onEdit={() => setEditingJob(job)}
-              onDelete={() => setDeletingJob(job)}
+              onEdit={() =>
+                setEditingJob({
+                  ...job,
+                  payRate: job.payRate.toString(),
+                })
+              }
+              onDelete={() =>
+                setDeletingJob({ ...job, payRate: job.payRate.toString() })
+              }
             />
           ))
         ) : (
@@ -103,7 +115,12 @@ const JobPosterFeedPage = () => {
       {/* Edit Modal */}
       {editingJob && (
         <EditJobModal
-          job={editingJob}
+          job={{
+            ...editingJob,
+            description: editingJob.description ?? "",
+            skills: editingJob.skills ?? [],
+            payRate: Number(editingJob.payRate),
+          }}
           onClose={() => setEditingJob(null)}
           onSave={handleSave}
         />

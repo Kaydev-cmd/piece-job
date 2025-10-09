@@ -289,3 +289,16 @@ export interface JobFeedFilterProps {
     skills?: string[];
   }) => void;
 }
+
+export interface Job {
+  id: number;
+  userName?: string;
+  timePosted?: string;
+  rating?: number;
+  jobTitle: string;
+  payRate: string;
+  duration: string;
+  location: string;
+  skills?: string[];
+  description?: string;
+}

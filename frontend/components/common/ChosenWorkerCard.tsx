@@ -5,7 +5,6 @@ import { FaStar } from "react-icons/fa";
 import { LuDot } from "react-icons/lu";
 
 const ChosenWorkerCard: React.FC<ChosenWorkerCardProps> = ({
-  id,
   initials,
   fullName,
   rating,

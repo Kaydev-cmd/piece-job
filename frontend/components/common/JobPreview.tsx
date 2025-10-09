@@ -3,7 +3,6 @@ import { RxLightningBolt } from "react-icons/rx";
 import { JobReviewCardProps } from "@/interfaces";
 
 const JobPreview: React.FC<JobReviewCardProps> = ({
-  id,
   jobTitle,
   description,
   location,

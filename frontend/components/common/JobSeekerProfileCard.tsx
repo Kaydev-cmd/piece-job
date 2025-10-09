@@ -5,7 +5,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 
 const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
-  id,
   userImage,
   userName,
   userAge,
@@ -19,9 +18,9 @@ const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
       <div className="card flex flex-col justify-center items-center gap-4 bg-gray-300/30 rounded-xl">
         {/* Profile Image here... */}
         <div className="flex justify-center">
-          <img
-            src={userImage}
-            alt={userName}
+          <Image
+            src={userImage ?? "/default-profile.png"}
+            alt={userName ?? "Profile image"}
             width={500}
             height={500}
             className="w-1/2 rounded-full"
