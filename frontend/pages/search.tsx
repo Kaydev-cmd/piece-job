@@ -27,7 +27,7 @@ const SearchPage = () => {
 
   const router = useRouter();
   const { query: queryParam } = router.query;
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState<JobPostData[]>([]);
   const [loadingJobs, setLoadingJobs] = useState(false);
 
@@ -52,7 +52,7 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (typeof queryParam === "string") {
-      setQuery(queryParam);
+      // setQuery(queryParam);
       fetchJobs(queryParam);
     }
   }, [queryParam]);
@@ -67,6 +67,7 @@ const SearchPage = () => {
       setSuccess("Application sent successfully!");
       reset();
     } catch (err) {
+      console.error("Error:", err);
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

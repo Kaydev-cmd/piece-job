@@ -43,6 +43,7 @@ const JobFeedPage = () => {
       setSuccess("Application sent successfully!");
       reset();
     } catch (err) {
+      console.error("Error:", err)
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

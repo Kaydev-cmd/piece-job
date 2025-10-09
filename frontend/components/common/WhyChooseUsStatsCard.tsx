@@ -4,7 +4,6 @@ import { LuUsersRound } from "react-icons/lu";
 import { FaMoneyBill } from "react-icons/fa";
 
 const WhyChooseUsStatsCard: React.FC<WhyChooseUsStatsCardProps> = ({
-  id,
   statDetails,
   statDescription,
   variant = "primary",
