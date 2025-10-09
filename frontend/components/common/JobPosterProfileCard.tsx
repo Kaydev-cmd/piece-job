@@ -5,19 +5,18 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import Link from "next/link";
+
 const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
   userImage,
   userName,
-
   userLocation,
   userRating,
   numberOfReviews,
 }) => {
   return (
-    /* Name  */
     <div
       style={{ padding: "24px" }}
-      className="card flex flex-revese-col md:flex-row md:justify-around p-10 items-center gap-4 justify-center bg-gray-300/30 shadow-md hover:shadow-lg transition-shadow  rounded-xl "
+      className="card flex flex-col justify-center items-center gap-4 bg-gray-300/30 rounded-xl"
     >
       {/* Profile Image here... */}
       <div className="md:flex flex-col gap-6 items-center">
@@ -32,7 +31,7 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
         </div>
         {/* User Details */}
         <div className="flex flex-col text-center gap-2">
-          <h1 className="text-2xl   md:text-4xl items-center font-bold">
+          <h1 className="text-4xl font-bold">
             {userName}
           </h1>
           <p className="flex items-center gap-2">
@@ -52,10 +51,10 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
         </div>
       </div>
 
-      <div className="inline-flex self-start  items-center justify-center gap-2 whitespace-nowrap  text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 rounded-md px-3">
+      <div className="flex justify-end w-full relative bottom-[196] md:bottom-[218] md:right-2">
         {/* settings Link */}
         <Link href="/settings">
-          <FiSettings className="w-4 h-4" />
+          <FiSettings size={20} />
         </Link>
       </div>
     </div>

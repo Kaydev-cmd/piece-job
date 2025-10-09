@@ -6,6 +6,7 @@ import { FaStar, FaRegClock } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import Pill from "./Pill";
 import Button from "./Button";
+import Link from "next/link";
 
 const JobFeedCard: React.FC<JobFeedCardProps> = ({
   id,
@@ -35,28 +36,33 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       {/* Image, name and rating here... */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
-          {image ? (
-            <Image
-              src={image}
-              alt={userName}
-              width={200}
-              height={200}
-              className="w-full"
-            />
-          ) : (
-            <div
-              className="bg-gray-200 rounded-full"
-              style={{ padding: "8px" }}
-            >
-              <LuUserRound size={20} />
+          <Link
+            href={`/users/job-poster/${encodeURIComponent(userName)}`}
+            className="flex items-center gap-3"
+          >
+            {image ? (
+              <Image
+                src={image}
+                alt={userName}
+                width={200}
+                height={200}
+                className="w-full"
+              />
+            ) : (
+              <div
+                className="bg-gray-200 rounded-full"
+                style={{ padding: "8px" }}
+              >
+                <LuUserRound size={20} />
+              </div>
+            )}
+            <div className="flex flex-col gap-1">
+              <h1 className="font-semibold">{userName}</h1>
+              <p className="flex items-center gap-1 text-slate-600 font-semibold">
+                <FaStar size={16} color="#FFD700" /> {rating}
+              </p>
             </div>
-          )}
-          <div className="flex flex-col gap-1">
-            <h1 className="font-semibold">{userName}</h1>
-            <p className="flex items-center gap-1 text-slate-600 font-semibold">
-              <FaStar size={16} color="#FFD700" /> {rating}
-            </p>
-          </div>
+          </Link>
         </div>
 
         {/* Time Posted */}
