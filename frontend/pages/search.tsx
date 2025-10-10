@@ -27,7 +27,6 @@ const SearchPage = () => {
 
   const router = useRouter();
   const { query: queryParam } = router.query;
-  // const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState<JobPostData[]>([]);
   const [loadingJobs, setLoadingJobs] = useState(false);
 
@@ -52,7 +51,6 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (typeof queryParam === "string") {
-      // setQuery(queryParam);
       fetchJobs(queryParam);
     }
   }, [queryParam]);
