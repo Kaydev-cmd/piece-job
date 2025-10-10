@@ -5,6 +5,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import Link from "next/link";
+import { LuUserRound } from "react-icons/lu";
 
 const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
   userImage,
@@ -21,19 +22,23 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
       {/* Profile Image here... */}
       <div className="md:flex flex-col gap-6 items-center">
         <div className="flex justify-center">
-          <Image
-            src={userImage || "/default-profile.png"}
-            alt={userName ? `${userName}'s profile picture` : "Profile picture"}
-            width={80}
-            height={80}
-            className="rounded-full object-cover"
-          />
+          {userImage ? (
+            <Image
+              src={userImage || "/default-profile.png"}
+              alt={
+                userName ? `${userName}'s profile picture` : "Profile picture"
+              }
+              width={80}
+              height={80}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <LuUserRound size={100} />
+          )}
         </div>
         {/* User Details */}
         <div className="flex flex-col text-center gap-2">
-          <h1 className="text-4xl font-bold">
-            {userName}
-          </h1>
+          <h1 className="text-4xl font-bold">{userName}</h1>
           <p className="flex items-center gap-2">
             {/* Location Icon*/}
             <IoLocationOutline size={20} />
@@ -51,7 +56,7 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-end w-full relative bottom-[196] md:bottom-[218] md:right-2">
+      <div className="flex justify-end w-full relative bottom-[220] right-2 md:bottom-[246]">
         {/* settings Link */}
         <Link href="/settings">
           <FiSettings size={20} />
