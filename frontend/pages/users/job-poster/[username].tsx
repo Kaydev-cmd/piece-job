@@ -68,7 +68,7 @@ const JobPosterProfilePage = () => {
             style={{ marginTop: "32px" }}
             className="card flex flex-col gap-4 bg-gray-300/30 rounded-xl"
           >
-            <h1 className="flex items-center gap-2 text-3xl font-bold">
+            <h1 className="flex items-center gap-2 text-2xl md:text-3xl font-bold">
               <IoMdTrendingUp size={22} color="#1D4ED8" /> Recent Job Postings
             </h1>
             <div className="w-full">
@@ -82,7 +82,7 @@ const JobPosterProfilePage = () => {
                     style={{ padding: "16px" }}
                     className="card flex flex-col gap-4 bg-blue-300/20 rounded-xl"
                   >
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
                       <div className="flex flex-col gap-2">
                         <h2 className="text-2xl font-bold">{job.title}</h2>
                         <p className="text-gray-900 font-semibold">
@@ -90,7 +90,9 @@ const JobPosterProfilePage = () => {
                         </p>
                         <p className="text-sm text-slate-600">{job.date}</p>
                       </div>
-                      <Pill title={job.status} variant={job.status} />
+                      <div className="flex justify-center">
+                        <Pill title={job.status} variant={job.status} />
+                      </div>
                     </div>
 
                     <div
