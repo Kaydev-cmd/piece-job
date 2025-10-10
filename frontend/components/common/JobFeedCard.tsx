@@ -9,7 +9,6 @@ import Button from "./Button";
 import Link from "next/link";
 
 const JobFeedCard: React.FC<JobFeedCardProps> = ({
-  id,
   image,
   userName,
   timePosted,

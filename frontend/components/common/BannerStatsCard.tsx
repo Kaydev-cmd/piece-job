@@ -3,7 +3,6 @@ import { BannerStatsProps } from "@/interfaces";
 import { motion } from "framer-motion";
 
 const BannerStatsCard: React.FC<BannerStatsProps> = ({
-  id,
   statNumber,
   statTitle,
   statDescription,

@@ -12,6 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log("Received user application data: ", data);
     return res.status(200).json({ message: "Application posted successfully" });
   } catch (err) {
+    console.error("Error:", err);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

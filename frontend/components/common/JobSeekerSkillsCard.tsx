@@ -1,11 +1,9 @@
 import React from "react";
 import { FaMedal } from "react-icons/fa";
 import Pill from "./Pill";
-import { JobSeekerProfileCardProps } from "@/interfaces";
 import { JobSeekerSkillsCardProps } from "@/interfaces";
 
 const JobSeekerSkillsCard: React.FC<JobSeekerSkillsCardProps> = ({
-  id,
   description,
   skills,
 }) => {

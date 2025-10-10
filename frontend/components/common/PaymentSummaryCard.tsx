@@ -4,7 +4,6 @@ import { PaymentSummaryCardProps } from "@/interfaces";
 import { FaDollarSign } from "react-icons/fa6";
 
 const PaymentSummaryCard: React.FC<PaymentSummaryCardProps> = ({
-  id,
   jobPayment,
   processingFee,
   platformFee,

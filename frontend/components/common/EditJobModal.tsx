@@ -12,7 +12,7 @@ const EditJobModal: React.FC<EditJobModalProps> = ({
     defaultValues: job,
   });
 
-  const submitHandler = (data: any) => {
+  const submitHandler = (data: unknown) => {
     onSave(data);
     reset();
     onClose();
