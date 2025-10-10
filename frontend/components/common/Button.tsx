@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   isActive,
 }) => {
-  const baseStyles = `flex justify-center items-center gap-4 font-semibold ${className}`;
+  const baseStyles = `flex justify-center items-center gap-2 font-semibold ${className}`;
 
   const variantStyles =
     variant === "primary"
