@@ -302,3 +302,23 @@ export interface Job {
   skills?: string[];
   description?: string;
 }
+
+interface Applicant {
+  id: string;
+  userName?: string;
+  userImage?: string;
+  rating?: number;
+  reviewCount?: number;
+  location?: string;
+  appliedDate?: string;
+  skills?: string[] | undefined;
+  experience?: string;
+  hourlyRate?: number;
+  status: "pending" | "accepted" | "rejected";
+}
+
+export interface ApplicantCardProps {
+  applicant: Applicant;
+  onAccept: (id: string) => void;
+  onReject: (id: string) => void;
+}
