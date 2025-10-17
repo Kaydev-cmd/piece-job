@@ -55,11 +55,11 @@ const JobApplicants = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <section
-        className="container mx-auto px-4 py-8 max-w-6xl"
+        className="container "
         style={{ paddingBottom: "0", marginTop: "0px" }}
       >
         {/* Header */}
-        <div className="flex  flex-col items-center gap-4 mb-6">
+        <div className="flex  flex-col items-center gap-4">
           <button
             className="flex items-center gap-2 text-blue-500"
             style={{ padding: "24px" }}
@@ -84,7 +84,7 @@ const JobApplicants = () => {
         </div>
         {/* Stats and Filters */}
         <div
-          className="flex flex-col gap-4 mt-4 md:flex-row items-center justify-between mb-6"
+          className="flex flex-col gap-4 md:flex-row items-center justify-between "
           style={{ marginBottom: "24px", marginTop: "18px" }}
         >
           <div className="flex items-center gap-6">
@@ -107,7 +107,7 @@ const JobApplicants = () => {
                 placeholder="Search by name or skills..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-90  w-64"
+                className=""
                 style={{ paddingLeft: "24px" }}
               />
             </div>
@@ -126,12 +126,12 @@ const JobApplicants = () => {
             ))
           ) : (
             <div
-              className="flex flex-col text-center relative items-center  py-12"
+              className="flex flex-col text-center relative items-center"
               style={{ marginBottom: "34px" }}
             >
               <div className="flex flex-col relative text-center md:self-end items-center">
-                <Users className="w-16 h-16 text-[#64748B]  mx-auto mb-4" />
-                <h3 className="text-lg font-medium  text-[#111827] mb-2">
+                <Users className="w-16 h-16 text-[#64748B]  mx-auto " />
+                <h3 className="text-lg font-medium  text-[#111827] ">
                   No applicants found
                 </h3>
                 <p className="text-[#64748B] ">
