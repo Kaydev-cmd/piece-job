@@ -9,7 +9,7 @@ const HowItWorksCard: React.FC<HowItWorksCardProps> = ({
   textColor,
 }) => {
   return (
-    <div className=" flex flex-col gap-4 text-center items-center ">
+    <div className="flex flex-col gap-4 text-center items-center">
       {/* Icon */}
       <div
         className={`w-16 h-16 ${color} ${textColor} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}

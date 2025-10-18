@@ -55,23 +55,23 @@ const JobApplicants = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <section
-        className="container "
-        style={{ paddingBottom: "0", marginTop: "0px" }}
+        className="container"
+        style={{ paddingTop: "16px", paddingBottom: "0" }}
       >
         {/* Header */}
-        <div className="flex  flex-col items-center gap-4">
+        <div className="flex flex-col items-center">
           <button
             className="flex items-center gap-2 text-blue-500"
             style={{ padding: "24px" }}
-            onClick={() => router.push("/job-poster")}
+            onClick={() => router.push("/")}
           >
             {/* Icon here... */}
             <FaArrowLeft size={12} />
-            Back to Profile
+            Back to Home
           </button>
 
-          <div className="flex flex-col items-center  gap-2 ">
-            <h1 className="text-4xl font-bold  text-[#111827]">
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="text-4xl font-bold text-[#111827]">
               Job{" "}
               <span className="bg-[linear-gradient(135deg,#1D4ED8,#10B981)] bg-clip-text text-transparent">
                 Applicants
@@ -82,37 +82,41 @@ const JobApplicants = () => {
             </p>
           </div>
         </div>
+
         {/* Stats and Filters */}
         <div
           className="flex flex-col gap-4 md:flex-row items-center justify-between "
           style={{ marginBottom: "24px", marginTop: "18px" }}
         >
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#1D4ED8]" />
-              <span className="text-sm font-medium">
+              <Users className="text-[#1D4ED8]" />
+              <span className="font-medium">
                 {filteredApplicants.length} applicants
               </span>
             </div>
-            <div className="text-sm text-[#64748B]">
+            <div className="text-[#64748B]">
               {pendingCount} pending • {acceptedCount} accepted
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className=" flex relative gap-4 ">
-              <Search className="absolute left-1 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#64748B]" />
+          <div className="flex items-center gap-3" style={{marginTop: "8px"}}>
+            <div className="flex relative">
+              <Search
+                size={16}
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 text-[#64748B]"
+              />
               <input
                 type="text"
                 placeholder="Search by name or skills..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className=""
                 style={{ paddingLeft: "24px" }}
               />
             </div>
           </div>
         </div>
+
         {/* Applicant List */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredApplicants.length > 0 ? (
