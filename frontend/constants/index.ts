@@ -54,6 +54,85 @@ export const MOBILE_LINKS = [
   },
 ];
 
+export const FOR_JOB_SEEKERS_LINKS = [
+  {
+    id: 1,
+    linkName: "Browse Jobs",
+    path: "/job-feed",
+  },
+  {
+    id: 2,
+    linkName: "Create Profile",
+    path: "#",
+  },
+  {
+    id: 3,
+    linkName: "How It Works",
+    path: "#",
+  },
+  {
+    id: 4,
+    linkName: "Success Stories",
+    path: "#",
+  },
+  {
+    id: 5,
+    linkName: "Download App",
+    path: "#",
+  },
+];
+
+export const FOR_JOB_POSTERS_LINKS = [
+  {
+    id: 1,
+    linkName: "Post a Job",
+    path: "/post-job",
+  },
+  {
+    id: 2,
+    linkName: "Find Workers",
+    path: "#",
+  },
+  {
+    id: 3,
+    linkName: "Pricing",
+    path: "#",
+  },
+  {
+    id: 4,
+    linkName: "Business Solutions",
+    path: "#",
+  },
+  {
+    id: 5,
+    linkName: "Support",
+    path: "#",
+  },
+];
+
+export const FOOTER_LINKS = [
+  {
+    id: 1,
+    linkName: "Privacy Policy",
+    path: "#",
+  },
+  {
+    id: 2,
+    linkName: "Terms of Service",
+    path: "#",
+  },
+  {
+    id: 3,
+    linkName: "Cookie Policy",
+    path: "#",
+  },
+  {
+    id: 4,
+    linkName: "Help Center",
+    path: "#",
+  },
+];
+
 export const HERO_STATS = [
   {
     id: 1,
@@ -540,7 +619,7 @@ export const JOB_SEEEKER_RECENT_JOBS_DATA = [
 
 export const mockApplicants = [
   {
-    id: "1",
+    id: 1,
     userName: "Sarah Chen",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     rating: 4.9,
@@ -553,7 +632,7 @@ export const mockApplicants = [
     status: "pending" as const,
   },
   {
-    id: "2",
+    id: 2,
     userName: "Marcus Johnson",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     rating: 4.7,
@@ -566,7 +645,7 @@ export const mockApplicants = [
     status: "pending" as const,
   },
   {
-    id: "3",
+    id: 3,
     userName: "Emily Rodriguez",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     rating: 4.8,
@@ -579,7 +658,7 @@ export const mockApplicants = [
     status: "accepted" as const,
   },
   {
-    id: "4",
+    id: 4,
     userName: "David Kim",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     rating: 4.6,
@@ -592,7 +671,7 @@ export const mockApplicants = [
     status: "pending" as const,
   },
   {
-    id: "5",
+    id: 5,
     userName: "Lisa Thompson",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     rating: 4.5,
