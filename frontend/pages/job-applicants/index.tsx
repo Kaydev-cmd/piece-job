@@ -15,7 +15,7 @@ const JobApplicants = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  const handleAccept = (id: string) => {
+  const handleAccept = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
         applicant.id === id
@@ -24,7 +24,7 @@ const JobApplicants = () => {
       )
     );
   };
-  const handleReject = (id: string) => {
+  const handleReject = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
         applicant.id === id
@@ -100,7 +100,7 @@ const JobApplicants = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3" style={{marginTop: "8px"}}>
+          <div className="flex items-center gap-3" style={{ marginTop: "8px" }}>
             <div className="flex relative">
               <Search
                 size={16}

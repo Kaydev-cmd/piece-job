@@ -304,7 +304,7 @@ export interface Job {
 }
 
 interface Applicant {
-  id: string;
+  id: number;
   userName?: string;
   userImage?: string;
   rating?: number;
@@ -319,6 +319,6 @@ interface Applicant {
 
 export interface ApplicantCardProps {
   applicant: Applicant;
-  onAccept: (id: string) => void;
-  onReject: (id: string) => void;
+  onAccept: (id: number) => void;
+  onReject: (id: number) => void;
 }
