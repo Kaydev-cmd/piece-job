@@ -72,7 +72,7 @@ export interface SignupFormValues {
 }
 
 export interface LoginProps {
-  email: string;
+  username: string;
   password: string;
 }
 

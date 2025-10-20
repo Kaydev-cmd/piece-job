@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const url = "http://localhost:8080/login"
   const {
     register,
     handleSubmit,
@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -28,16 +28,20 @@ const LoginPage: React.FC = () => {
     setLoading(true);
     setResolved(null);
     setError(null);
+    console.log("data: ",data)
     try {
-      const response = await axios.post("/api/login/login", data);
-      if (response.data.success) {
+      // const response = await axios.post("/api/login/login", data);
+      const response = await axios.post(url, data);
+      console.log("api res: ",response.data)
+      const resApi = response.data
+      if (resApi.data) {
         setResolved("Login successful! Redirecting...");
 
         // Redirect based on email or role
         setTimeout(() => {
-          if (response.data.user.role === "jobSeeker") {
+          if (resApi.data.role === "jobSeeker") {
             router.push("/job-feed");
-          } else if (response.data.user.role === "employer") {
+          } else if (resApi.data.role === "employer") {
             router.push("/job-poster-feed");
           } else {
             router.push("/");
@@ -45,9 +49,12 @@ const LoginPage: React.FC = () => {
           reset();
         }, 1500);
       } else {
+      console.log("err res: ",resApi)
         setError("Invalid credentials. Please try again.");
       }
     } catch (err: unknown) {
+        console.log("caught err: ",err)
+
       if (axios.isAxiosError(err) && err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
@@ -111,19 +118,19 @@ const LoginPage: React.FC = () => {
                 Email or Phone:
               </label>
               <input
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Enter a valid email",
-                  },
+                {...register("username", {
+                  required: "Username or Email is required",
+                  // pattern: {
+                  //   value: /^\S+@\S+$/i,
+                  //   message: "Enter a valid email",
+                  // },
                 })}
-                type="email"
+                type="text"
                 placeholder="Enter your email or phone number"
                 className="h-12 w-full"
               />
               <p className="text-center text-red-500">
-                {errors.email?.message}
+                {errors.username?.message}
               </p>
             </div>
             <div
@@ -134,10 +141,10 @@ const LoginPage: React.FC = () => {
               <input
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
+                  // minLength: {
+                  //   value: 6,
+                  //   message: "Password must be at least 6 characters long",
+                  // },
                 })}
                 type="password"
                 placeholder="Enter your password"
