@@ -208,10 +208,10 @@ export interface PaymentMethodFormProps {
   phoneNumber: string;
 }
 
-export interface RequiredSkillProps {
-  id: number;
+export interface SkillsProps {
+  id?: number;
   skillName: string;
-  priorityLevel: string;
+  priorityLevel?: string;
 }
 
 export interface JobSeekerProfileCardProps {
@@ -226,7 +226,7 @@ export interface JobSeekerProfileCardProps {
 
 export interface JobSeekerSkillsCardProps {
   id: number;
-  skills: RequiredSkillProps[];
+  skills: SkillsProps[];
   description?: string;
 }
 
@@ -303,16 +303,16 @@ export interface Job {
   description?: string;
 }
 
-interface Applicant {
-  id: string;
-  userName?: string;
+export interface Applicant {
+  id: number;
+  userName: string;
   userImage?: string;
   rating?: number;
   reviewCount?: number;
   location?: string;
   appliedDate?: string;
-  skills?: string[] | undefined;
-  experience?: string;
+  skillSet: SkillsProps[] ;
+  experience?: number;
   hourlyRate?: number;
   status: "pending" | "accepted" | "rejected";
 }

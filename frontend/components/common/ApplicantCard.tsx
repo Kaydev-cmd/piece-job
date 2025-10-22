@@ -18,7 +18,7 @@ const ApplicantCard = ({
     reviewCount,
     location,
     appliedDate,
-    skills,
+    skillSet,
     experience,
     status,
   } = applicant;
@@ -64,16 +64,16 @@ const ApplicantCard = ({
                   <span className="text-[#64748B]">Applied {appliedDate}</span>
                 </div>
                 <span className="text-xl text-slate-500">•</span>
-                <span className="text-[#64748B]">{experience}</span>
+                <span className="text-[#64748B]">{experience}"+ years experience"</span>
               </div>
 
               <div
                 className="flex items-center justify-center flex-wrap gap-2"
                 style={{ marginTop: "8px" }}
               >
-                {skills &&
-                  skills.map((skill, index) => (
-                    <Pill key={index} title={skill} variant="topRated" />
+                {skillSet &&
+                  skillSet.map((skill, index) => (
+                    <Pill key={index} title={skill.skillName} variant="topRated" />
                   ))}
               </div>
             </div>
@@ -89,14 +89,14 @@ const ApplicantCard = ({
               <Button
                 title="Reject"
                 variant="cancel"
-                onClick={() => onReject(id)}
+                onClick={() => onReject( id.toString())}
                 className="flex-1"
               />
 
               <Button
                 title="Accept"
                 variant="default"
-                onClick={() => onAccept(id)}
+                onClick={() => onAccept(id.toString())}
                 className="flex-1"
               />
             </div>

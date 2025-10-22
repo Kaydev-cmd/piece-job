@@ -7,7 +7,7 @@ const JobPostContext = createContext<JobPostContextType | undefined>(undefined);
 export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const token = "";
+  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
   // Store all job posts
   const [jobFeed, setJobFeed] = useState<JobPostData[]>([]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
@@ -8,17 +8,35 @@ import { mockApplicants } from "@/constants";
 
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { Applicant } from "@/interfaces";
+import axios from "axios";
 
 const JobApplicants = () => {
   const router = useRouter();
-  const [applicants, setApplicants] = useState(mockApplicants);
+  const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+
+  useEffect(()=>{
+    const fetchJobApplicants = async () => {
+    try{
+        const response = await axios.get("http://localhost:8080/jobs/1") ;
+        console.log("res: ",response)
+        if (response.data){
+          setApplicants(response.data)
+        }
+    }
+    catch(err:any){
+      console.log("error occ: ",err)
+    }
+  }
+  fetchJobApplicants() ;
+  },[])
 
   const handleAccept = (id: string) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
-        applicant.id === id
+        applicant.id === parseInt(id)
           ? { ...applicant, status: "accepted" as const }
           : applicant
       )
@@ -27,7 +45,7 @@ const JobApplicants = () => {
   const handleReject = (id: string) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
-        applicant.id === id
+        applicant.id === parseInt(id)
           ? { ...applicant, status: "rejected" as const }
           : applicant
       )
@@ -36,8 +54,8 @@ const JobApplicants = () => {
   const filteredApplicants = applicants.filter((applicant) => {
     const matchesSearch =
       applicant.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      applicant.skills.some((skill) =>
-        skill.toLowerCase().includes(searchTerm.toLowerCase())
+      applicant.skillSet.some((skill) =>
+        skill.skillName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     const matchesStatus =
       filterStatus === "all" || applicant.status === filterStatus;
