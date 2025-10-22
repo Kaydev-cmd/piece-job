@@ -1,13 +1,16 @@
 import { JobPostContextType, JobPostData } from "@/interfaces";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 const JobPostContext = createContext<JobPostContextType | undefined>(undefined);
 
 export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
+  // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
+  const {loggedInToken }= useAuth() 
+  // const loggedInToken = useAuth() 
   // Store all job posts
   const [jobFeed, setJobFeed] = useState<JobPostData[]>([]);
 
@@ -16,10 +19,12 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const fetchJobs = async () => {
+      console.log("Job Context: ",loggedInToken,".")
+      if (!loggedInToken) return ;
       try {
         const res = await axios.get("http://localhost:8080/jobs", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${loggedInToken}`,
           },
         });
         console.log("Fetched jobs:", res);
@@ -29,7 +34,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     fetchJobs();
-  }, []);
+  }, [loggedInToken]);
 
   // Update the draft form data
   const updateJobData = (data: Partial<JobPostData>) => {
