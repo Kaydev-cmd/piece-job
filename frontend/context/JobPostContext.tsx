@@ -43,7 +43,6 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Post the draft as a new job in the feed
   const postJob = async (data?: Partial<JobPostData>) => {
-    console.log("Posting job from context...");
     const jobToPost = data ?? draftJob;
 
     try {
@@ -75,8 +74,13 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Delete the posted job
   const deleteJob = async (id: number) => {
+    console.log("Deleting job: ", loggedInToken);
     try {
-      await axios.delete(`/api/jobs/jobs?id=${id}`);
+      await axios.delete(`http://localhost:8080/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${loggedInToken}`,
+        },
+      });
 
       setJobFeed((prev) => prev.filter((job) => job.id !== id));
     } catch (err) {
