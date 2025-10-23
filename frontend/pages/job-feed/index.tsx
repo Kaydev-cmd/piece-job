@@ -127,7 +127,7 @@ const JobFeedPage = () => {
             />
           ))
         ) : (
-          <p>No jobs posted yet.</p>
+          <p>Loading...</p>
         )}
       </div>
 
