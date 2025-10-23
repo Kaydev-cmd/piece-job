@@ -265,7 +265,7 @@ export interface JobSeekerRecentJobsCardProps {
 export interface EditJobModalProps {
   job: {
     id: number;
-    jobTitle: string;
+    title: string;
     description: string;
     location: string;
     payRate: number;
@@ -284,7 +284,7 @@ export interface DeleteJobModalProps {
 
 export interface JobFeedFilterProps {
   onApplyFilters: (filters: {
-    jobTitle?: string;
+    title?: string;
     location?: string;
     skills?: string[];
   }) => void;
