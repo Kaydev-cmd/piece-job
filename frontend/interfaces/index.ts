@@ -82,7 +82,7 @@ export interface JobFeedCardProps {
   userName: string;
   timePosted: string;
   rating: number;
-  jobTitle: string;
+  title: string;
   payRate: number;
   duration: string;
   location: string;
@@ -166,7 +166,7 @@ export interface JobPostData {
   userName: string;
   timePosted: string;
   rating: number;
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
   payRate: number;
