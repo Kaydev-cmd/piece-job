@@ -32,7 +32,7 @@ const EditJobModal: React.FC<EditJobModalProps> = ({
           {/* Job Title */}
           <div className="flex flex-col gap-1">
             <label className="font-semibold">Job Title</label>
-            <input type="text" {...register("jobTitle")} />
+            <input type="text" {...register("title")} />
           </div>
 
           {/* Description */}
@@ -65,7 +65,7 @@ const EditJobModal: React.FC<EditJobModalProps> = ({
             <input
               type="text"
               {...register("skills")}
-              placeholder="e.g. React, Tailwind"
+              placeholder="e.g. Cleaning, Driving"
             />
           </div>
 
