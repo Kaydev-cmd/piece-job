@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const loweredQuery = query.toLowerCase();
     const filteredJobs = JOB_FEED_DATA.filter((job) => {
-      const matchesTitle = job.jobTitle.toLowerCase().includes(loweredQuery);
+      const matchesTitle = job.title.toLowerCase().includes(loweredQuery);
       const matchesLocation = job.location.toLowerCase().includes(loweredQuery);
 
       const skillsArray = normalizeSkills(job.skills);
@@ -44,7 +44,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       userName: "Simon K.", //  Make this dynamic later
       timePosted: "Just now", // Make this dynamic later
       rating: 4.6, // Make this dynamic later
-      jobTitle,
+      title: jobTitle,
       description,
       location,
       payRate: payRate ?? 250,
