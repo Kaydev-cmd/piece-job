@@ -6,12 +6,12 @@ import Button from "./Button";
 
 const JobFeedFilter: React.FC<JobFeedFilterProps> = ({ onApplyFilters }) => {
   const [showSideBar, setShowSideBar] = useState(false);
-  const [jobTitle, setJobTitle] = useState("");
+  const [title, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
 
   const handleApplyFilters = () => {
-    onApplyFilters({ jobTitle, location, skills });
+    onApplyFilters({ title, location, skills });
     setShowSideBar(false);
   };
 
@@ -65,7 +65,7 @@ const JobFeedFilter: React.FC<JobFeedFilterProps> = ({ onApplyFilters }) => {
               </label>
               <input
                 type="text"
-                value={jobTitle}
+                value={title}
                 onChange={(e) => setJobTitle(e.target.value)}
                 placeholder="e.g., Developer"
                 className="w-full border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
