@@ -61,8 +61,20 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   // Edit the posted job
   const editJob = async (id: number, updatedFields: Partial<JobPostData>) => {
     try {
-      const res = await axios.put("/api/jobs/jobs", { id, ...updatedFields });
-      const updatedJob = res.data;
+      const res = await axios.put(
+        `http://localhost:8080/jobs/${id}`,
+        {
+          id,
+          ...updatedFields,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${loggedInToken}`,
+          },
+        }
+      );
+      const updatedJob = res.data.data;
+      // console.log("Edited job: ", updatedJob);
 
       setJobFeed((prev) =>
         prev.map((job) => (job.id === id ? updatedJob : job))
