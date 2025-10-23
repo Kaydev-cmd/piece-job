@@ -6,11 +6,11 @@ import ErrorBoundary from "@/components/common/ErrorBoundary";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <JobPostProvider>
-        <ErrorBoundary>
+      <ErrorBoundary>
+        <JobPostProvider>
           <Component {...pageProps} />
-        </ErrorBoundary>
-      </JobPostProvider>
+        </JobPostProvider>
+      </ErrorBoundary>
     </Layout>
   );
 }
