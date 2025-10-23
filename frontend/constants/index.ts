@@ -1,4 +1,4 @@
-import { Applicant } from "@/interfaces";
+import { Applicant, JobPosterProfileCardProps } from "@/interfaces";
 
 export const HEADER_LINKS = [
   {
@@ -450,78 +450,78 @@ export const JOB_SEEKER_PROFILE_DATA = [
   },
 ];
 
-export const JOB_POSTER_PROFILE_DATA = [
+export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
   {
     id: 1,
-    username: "Brian J.",
+    companyName: "Brian J.",
     businessName: "Green Gardens Landscaping",
-    userlocation: "Cape Town, Western Cape",
+    userLocation: "Cape Town, Western Cape",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small landscaping business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography: "Small landscaping business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
   {
     id: 2,
-    username: "Simon K.",
+    companyName: "Simon K.",
     businessName: "XYZ Incorporations",
-    userlocation: "Pretoria, Gauteng",
+    userLocation: "Pretoria, Gauteng",
     userImage: "",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small tech business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography: "Small tech business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
 ];
 

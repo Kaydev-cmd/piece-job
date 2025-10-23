@@ -9,8 +9,10 @@ import { LuUserRound } from "react-icons/lu";
 
 const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
   userImage,
-  userName,
-  userLocation,
+  lastName,
+  firstName,
+  companyName,
+  companyAddress,
   userRating,
   numberOfReviews,
 }) => {
@@ -26,7 +28,7 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
             <Image
               src={userImage || "/default-profile.png"}
               alt={
-                userName ? `${userName}'s profile picture` : "Profile picture"
+                companyName ? `${companyName}'s profile picture` : "Profile picture"
               }
               width={80}
               height={80}
@@ -38,11 +40,11 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
         </div>
         {/* User Details */}
         <div className="flex flex-col text-center gap-2">
-          <h1 className="text-4xl font-bold">{userName}</h1>
+          <h1 className="text-4xl font-bold">{firstName} {lastName}</h1>
           <p className="flex items-center gap-2">
             {/* Location Icon*/}
             <IoLocationOutline size={20} />
-            {userLocation}
+            {companyAddress}
           </p>
 
           <div className="flex items-center  justify-center gap-2">

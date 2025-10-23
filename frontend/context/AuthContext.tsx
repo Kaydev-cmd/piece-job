@@ -2,11 +2,13 @@ import React,{ useState, createContext, useContext, useEffect } from "react";
 
 export interface AuthContextType{
     loggedInToken: string | null ;
+    baseUrl: string
     login: (newToken:string)=> void;
     logout : () => void;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType) ;
+const AuthContext = createContext<AuthContextType>({
+} as AuthContextType) ;
 
 export const AuthContextProvider : React.FC<{children:React.ReactNode}> =({children})=>{
     const [loggedInToken,setLoggedInToken] = useState<string>("") ;
@@ -15,13 +17,9 @@ export const AuthContextProvider : React.FC<{children:React.ReactNode}> =({child
         setLoggedInToken(newToken)
     } 
     const logout =() => setLoggedInToken("")
-
-    useEffect(()=>{
-        console.log("AuthContext mount");
-    },[])
-
+    const baseUrl = "http://localhost:8080"
     return (
-        <AuthContext.Provider value={{loggedInToken,login,logout}}>
+        <AuthContext.Provider value={{loggedInToken,login,logout,baseUrl}}>
             {children}
         </AuthContext.Provider>
     )

@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const JobFeedCard: React.FC<JobFeedCardProps> = ({
   image,
-  userName,
+  postedBy,
   timePosted,
   rating,
   title,
@@ -38,13 +38,13 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           <Link
-            href={`/users/job-poster/${encodeURIComponent(userName)}`}
+            href={`/users/job-poster/${encodeURIComponent(postedBy.id)}`}
             className="flex items-center gap-3"
           >
             {image ? (
               <Image
                 src={image}
-                alt={userName}
+                alt={postedBy.companyName?postedBy.companyName:""}
                 width={200}
                 height={200}
                 className="w-full"
@@ -58,7 +58,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
               </div>
             )}
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold">{userName}</h1>
+              <h1 className="font-semibold">{postedBy.companyName}</h1>
               <p className="flex items-center gap-1 text-slate-600 font-semibold">
                 <FaStar size={16} color="#FFD700" /> {rating}
               </p>

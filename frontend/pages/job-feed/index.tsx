@@ -80,13 +80,13 @@ const JobFeedPage = () => {
         {/* Filter */}
         <Filter
           onApplyFilters={(filters) => {
-            const { jobTitle = "", location = "", skills = [] } = filters;
+            const { title = "", location = "", skills = [] } = filters;
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
                 const matchesTitle = job.title
                   .toLowerCase()
-                  .includes(jobTitle.toLowerCase());
+                  .includes(title.toLowerCase());
                 const matchesLocation = job.location
                   .toLowerCase()
                   .includes(location.toLowerCase());
@@ -114,7 +114,7 @@ const JobFeedPage = () => {
             <JobFeedCard
               key={job.id}
               id={job.id}
-              userName={job.userName || "Anonymous"} // fallback
+              postedBy={job.postedBy|| "Anonymous"} // fallback
               timePosted={job.timePosted || "Just now"} // fallback
               rating={job.rating || 0} // fallback
               title={job.title}
