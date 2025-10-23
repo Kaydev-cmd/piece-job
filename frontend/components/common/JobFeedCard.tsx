@@ -13,7 +13,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   userName,
   timePosted,
   rating,
-  jobTitle,
+  title,
   payRate,
   duration,
   location,
@@ -22,7 +22,9 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   onApply,
 }) => {
   const normalizedSkills: string[] = Array.isArray(skills)
-    ? skills
+    ? skills.map((skill: any) =>
+        typeof skill === "string" ? skill : skill.skillName
+      )
     : skills
     ? (skills as unknown as string)
         .split(",")
@@ -74,7 +76,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       </div>
 
       {/* Job Title */}
-      <h2 className="font-bold text-2xl">{jobTitle}</h2>
+      <h2 className="font-bold text-2xl">{title}</h2>
 
       {/* Price and duration */}
       <div
