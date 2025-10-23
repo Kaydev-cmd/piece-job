@@ -14,7 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 
 const JobApplicants = () => {
   const router = useRouter();
-  const {loggedInToken} = useAuth()
+  const {baseUrl,loggedInToken} = useAuth()
   const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -22,7 +22,7 @@ const JobApplicants = () => {
   useEffect(()=>{
     const fetchJobApplicants = async () => {
     try{
-        const response = await axios.get("http://localhost:8080/jobs/1",{
+        const response = await axios.get(baseUrl+"/jobs/1",{
           headers:{Authorization: `Bearer ${loggedInToken}`}
         }) ;
         console.log("res: ",response)

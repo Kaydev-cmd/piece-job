@@ -9,11 +9,11 @@ import { useAuth } from "@/context/AuthContext";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const {login} = useAuth() ;
+  const {login, baseUrl} = useAuth() ;
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const url = "http://localhost:8080/login"
+  const url = baseUrl+"/login"
   const {
     register,
     handleSubmit,
