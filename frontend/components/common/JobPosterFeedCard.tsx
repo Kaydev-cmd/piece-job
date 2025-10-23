@@ -18,7 +18,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
   userName,
   timePosted,
   rating,
-  jobTitle,
+  title,
   payRate,
   duration,
   location,
@@ -110,7 +110,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
       </div>
 
       {/* Job Title */}
-      <h2 className="font-bold text-2xl">{jobTitle}</h2>
+      <h2 className="font-bold text-2xl">{title}</h2>
 
       {/* Price and duration */}
       <div
