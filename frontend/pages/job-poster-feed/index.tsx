@@ -57,7 +57,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
-                const matchesTitle = job.jobTitle
+                const matchesTitle = job.title
                   .toLowerCase()
                   .includes(jobTitle.toLowerCase());
                 const matchesLocation = job.location
@@ -83,30 +83,44 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       {/* Job Feed */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {jobFeed.length ? (
-          jobFeed.map((job) => (
-            <JobPosterFeedCard
-              key={job.id}
-              id={job.id}
-              userName={job.userName || "Anonymous"} // fallback
-              timePosted={job.timePosted || "Just now"} // fallback
-              rating={job.rating || 0} // fallback
-              jobTitle={job.jobTitle}
-              payRate={job.payRate}
-              duration={job.duration}
-              location={job.location}
-              skills={job.skills || []}
-              description={job.description}
-              onEdit={() =>
-                setEditingJob({
-                  ...job,
-                  payRate: job.payRate.toString(),
-                })
-              }
-              onDelete={() =>
-                setDeletingJob({ ...job, payRate: job.payRate.toString() })
-              }
-            />
-          ))
+          jobFeed.map((job) => {
+            const normalizedSkills =
+              Array.isArray(job.skills) && job.skills.length > 0
+                ? job.skills.map((skill: any) =>
+                    typeof skill === "string" ? skill : skill.skillName
+                  )
+                : [];
+
+            return (
+              <JobPosterFeedCard
+                key={job.id}
+                id={job.id}
+                userName={job.userName || "Anonymous"} // fallback
+                timePosted={job.timePosted || "Just now"} // fallback
+                rating={job.rating || 0} // fallback
+                title={job.title}
+                payRate={job.payRate}
+                duration={job.duration}
+                location={job.location}
+                skills={normalizedSkills}
+                description={job.description}
+                onEdit={() =>
+                  setEditingJob({
+                    ...job,
+                    jobTitle: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+                onDelete={() =>
+                  setDeletingJob({
+                    ...job,
+                    jobTitle: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+              />
+            );
+          })
         ) : (
           <p>No jobs posted yet.</p>
         )}
