@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { LoginProps } from "@/interfaces";
+import { LoggedInUser, LoginProps } from "@/interfaces";
 import axios from "axios";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const {login, baseUrl} = useAuth() ;
+  const {login, baseUrl,setLoggedInUser} = useAuth() ;
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -34,17 +34,23 @@ const LoginPage: React.FC = () => {
     try {
       // const response = await axios.post("/api/login/login", data);
       const response = await axios.post(url, data);
-      console.log("api res: ",response.data)
       const resApi = response.data
       if (resApi.data) {
         setResolved("Login successful! Redirecting...");
         login(resApi.data.loggedInToken);
+        const loggedUser : LoggedInUser = {
+          role : resApi.data.role,
+          username : resApi.data.username
+        }
+        console.log("api res: ",response.data, "logged in",loggedUser)
+        setLoggedInUser(loggedUser);
+        
         // axios.defaults.headers.common['Authorization'] = `Bearer ${resApi.data.loggedInToken}`
         // Redirect based on email or role
         setTimeout(() => {
-          if (resApi.data.role === "jobSeeker") {
+          if (loggedUser.role === "jobSeeker") {
             router.push("/job-feed");
-          } else if (resApi.data.role === "employer") {
+          } else if (loggedUser.role === "employer") {
             router.push("/job-poster-feed");
           } else {
             router.push("/");

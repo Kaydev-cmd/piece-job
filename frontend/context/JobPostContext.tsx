@@ -2,6 +2,7 @@ import { JobPostContextType, JobPostData } from "@/interfaces";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobPostContext = createContext<JobPostContextType | undefined>(undefined);
 
@@ -10,6 +11,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
   const { baseUrl,loggedInToken } = useAuth();
+  const {loading,setLoading} = useAPIRequster()
   // const loggedInToken = useAuth()
   // Store all job posts
   const [jobFeed, setJobFeed] = useState<JobPostData[]>([]);
@@ -22,6 +24,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
       console.log("Job Context: ", loggedInToken, ".");
       if (!loggedInToken) return;
       try {
+        setLoading(true);
         const res = await axios.get(baseUrl+"/jobs", {
           headers: {
             Authorization: `Bearer ${loggedInToken}`,
@@ -29,8 +32,11 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         console.log("Fetched jobs:", res);
         setJobFeed(res.data);
+        setLoading(false);
+
       } catch (err) {
         console.error("Failed to fetch jobs:", err);
+        setLoading(false);
       }
     };
     fetchJobs();
@@ -46,14 +52,17 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
     const jobToPost = data ?? draftJob;
 
     try {
+        setLoading(true);
       const res = await axios.post(baseUrl+"/jobs", jobToPost, {
         headers: {
           Authorization: `Bearer ${loggedInToken}`,
         },
       });
       const createdJob = res.data;
+        setLoading(false);
       setJobFeed((prev) => [...prev, createdJob]);
     } catch (err) {
+        setLoading(false);
       console.error("Failed to post job:", err);
     }
   };
@@ -61,6 +70,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   // Edit the posted job
   const editJob = async (id: number, updatedFields: Partial<JobPostData>) => {
     try {
+        setLoading(true);
       const res = await axios.put(
         `${baseUrl}/jobs/${id}`,
         {
@@ -75,11 +85,12 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       const updatedJob = res.data.data;
       // console.log("Edited job: ", updatedJob);
-
+        setLoading(false);
       setJobFeed((prev) =>
         prev.map((job) => (job.id === id ? updatedJob : job))
       );
     } catch (err) {
+        setLoading(false);
       console.error("Failed to update job:", err);
     }
   };
@@ -88,15 +99,18 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   const deleteJob = async (id: number) => {
     console.log("Deleting job: ", loggedInToken);
     try {
+        setLoading(true);
       await axios.delete(`${baseUrl}/jobs/${id}`, {
         headers: {
           Authorization: `Bearer ${loggedInToken}`,
         },
       });
+        setLoading(false);
 
       setJobFeed((prev) => prev.filter((job) => job.id !== id));
     } catch (err) {
       console.error("Failed to delete job:", err);
+        setLoading(false);
     }
   };
 

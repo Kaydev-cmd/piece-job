@@ -1,4 +1,4 @@
-import { Applicant, JobPosterProfileCardProps } from "@/interfaces";
+import { Applicant, JobPosterProfileCardProps, JobSeekerProfileCardProps } from "@/interfaces";
 
 export const HEADER_LINKS = [
   {
@@ -419,16 +419,16 @@ export const PAYMENT_SUMMARY_DATA = [
   },
 ];
 
-export const JOB_SEEKER_PROFILE_DATA = [
+export const JOB_SEEKER_PROFILE_DATA : JobSeekerProfileCardProps =
   {
     id: 1,
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    userName: "John Doe",
+    lastName: "John Doe",
     userAge: 22,
     userLocation: "Johannesburg, Gauteng",
     userRating: 4.8,
     numberOfReviews: 24,
-    skills: [
+    skillSet: [
       {
         id: 1,
         skillName: "Driving",
@@ -445,17 +445,16 @@ export const JOB_SEEKER_PROFILE_DATA = [
         priorityLevel: "moderate",
       },
     ],
-    description:
-      "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
-  },
-];
+    // description:
+    //   "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+  };
 
 export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
   {
     id: 1,
     companyName: "Brian J.",
-    businessName: "Green Gardens Landscaping",
-    userLocation: "Cape Town, Western Cape",
+    // businessName: "Green Gardens Landscaping",
+    companyAddress: "Cape Town, Western Cape",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userRating: 4.9,
     numberOfReviews: 45,
@@ -490,8 +489,8 @@ export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
   {
     id: 2,
     companyName: "Simon K.",
-    businessName: "XYZ Incorporations",
-    userLocation: "Pretoria, Gauteng",
+    // businessName: "XYZ Incorporations",
+    companyAddress: "Pretoria, Gauteng",
     userImage: "",
     userRating: 4.9,
     numberOfReviews: 45,

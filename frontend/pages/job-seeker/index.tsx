@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import JobSeekerProfileCard from "@/components/common/JobSeekerProfileCard";
 import {
   JOB_SEEEKER_RECENT_JOBS_DATA,
@@ -10,37 +10,65 @@ import JobSeekerReviewsAndRatingsCard from "@/components/common/JobSeekerReviews
 import { SlSpeech } from "react-icons/sl";
 import { IoMdTrendingUp } from "react-icons/io";
 import JobSeekerRecentJobsCard from "@/components/common/JobSeekerRecentJobsCard";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
+import { JobSeekerProfileCardProps } from "@/interfaces";
 
 const JobSeekerProfilePage = () => {
+  const {baseUrl,loggedInToken} = useAuth()
+  const [seeker,setSeeker] = useState<JobSeekerProfileCardProps>(JOB_SEEKER_PROFILE_DATA)
+  const {loading, setLoading,loadingScreen} = useAPIRequster()
+  const fetchSeekerProfile =async ()=>{
+      setLoading(true);
+    try{
+      const apiRes = await axios.get(`${baseUrl}/seeker-profile/s11`,{
+        headers:{
+          Authorization: "Bearer "+loggedInToken 
+        }
+      })
+      console.log("res: ", apiRes) ; 
+      setLoading(false);
+      setSeeker(apiRes.data.data)
+    }
+    catch(error: unknown){
+      console.log("error occured: ",error)
+      setLoading(false);
+    }
+  }
+  useEffect(()=>{
+    fetchSeekerProfile()
+  },[])
+  var user = seeker
+  if (loading) return loadingScreen
   return (
     <section className="container" style={{ paddingBottom: "0" }}>
       <div className="lg:grid grid-cols-2 gap-4">
         {/* User Profile component here... */}
         <div>
-          {JOB_SEEKER_PROFILE_DATA.map((user) => (
-            <JobSeekerProfileCard
+          <JobSeekerProfileCard
               key={user.id}
               id={user.id}
               userImage={user.userImage}
-              userName={user.userName}
+              lastName={user.lastName}
+              firstName={user.firstName}
               userAge={user.userAge}
               userLocation={user.userLocation}
               userRating={user.userRating}
               numberOfReviews={user.numberOfReviews}
+              skillSet={user.skillSet}
+
             />
-          ))}
         </div>
 
         {/* Skills cards here... */}
         <div style={{ marginTop: "32px" }}>
-          {JOB_SEEKER_PROFILE_DATA.map((user) => (
-            <JobSeekerSkillsCard
+          <JobSeekerSkillsCard
               key={user.id}
               id={user.id}
-              skills={user.skills}
-              description={user.description}
+              skills={user.skillSet}
+              // description={user.description}
             />
-          ))}
         </div>
       </div>
 

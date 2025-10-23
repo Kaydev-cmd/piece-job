@@ -56,6 +56,11 @@ export interface BannerStatsProps {
   variant: string;
 }
 
+export interface LoggedInUser{
+  username: string,
+  role: "jobSeeker" | "employer";
+  employerType?: "individual" | "business";
+}
 export interface SignupFormValues {
   firstName: string;
   lastName: string;
@@ -226,11 +231,13 @@ export interface SkillsProps {
 export interface JobSeekerProfileCardProps {
   id: number;
   userImage?: string;
-  userName?: string;
+  lastName?: string;
+  firstName?: string;
   userAge?: number;
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
+  skillSet:SkillsProps[]; 
 }
 
 export interface JobSeekerSkillsCardProps {
