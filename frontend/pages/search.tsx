@@ -110,7 +110,7 @@ const SearchPage = () => {
               userName={job.userName}
               timePosted={job.timePosted}
               rating={job.rating}
-              jobTitle={job.jobTitle}
+              title={job.title}
               payRate={job.payRate}
               duration={job.duration}
               location={job.location}
