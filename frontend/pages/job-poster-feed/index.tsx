@@ -53,13 +53,13 @@ const JobPosterFeedPage: React.FC<Job> = () => {
         {/* Filter */}
         <Filter
           onApplyFilters={(filters) => {
-            const { jobTitle = "", location = "", skills = [] } = filters;
+            const { title = "", location = "", skills = [] } = filters;
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
                 const matchesTitle = job.title
                   .toLowerCase()
-                  .includes(jobTitle.toLowerCase());
+                  .includes(title.toLowerCase());
                 const matchesLocation = job.location
                   .toLowerCase()
                   .includes(location.toLowerCase());
@@ -131,6 +131,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
         <EditJobModal
           job={{
             ...editingJob,
+            title: editingJob.jobTitle ?? "",
             description: editingJob.description ?? "",
             skills: editingJob.skills ?? [],
             payRate: Number(editingJob.payRate),
