@@ -7,7 +7,7 @@ const JobPostContext = createContext<JobPostContextType | undefined>(undefined);
 export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const url = "http://localhost:8080/jobs";
+  const token = "";
   // Store all job posts
   const [jobFeed, setJobFeed] = useState<JobPostData[]>([]);
 
@@ -17,8 +17,12 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get("/api/jobs/jobs");
-        // const res = await axios.get(url);
+        const res = await axios.get("http://localhost:8080/jobs", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Fetched jobs:", res);
         setJobFeed(res.data);
       } catch (err) {
         console.error("Failed to fetch jobs:", err);
