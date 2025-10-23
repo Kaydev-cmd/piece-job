@@ -28,7 +28,11 @@ const JobPosterFeedCard: React.FC<Props> = ({
   onDelete,
 }) => {
   const normalizedSkills: string[] = Array.isArray(skills)
-    ? skills
+    ? (skills as any[])
+        .map((skill) =>
+          typeof skill === "string" ? skill : skill?.name ?? skill?.title ?? ""
+        )
+        .filter(Boolean)
     : skills
     ? (skills as unknown as string)
         .split(",")

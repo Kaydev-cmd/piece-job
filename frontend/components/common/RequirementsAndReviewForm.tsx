@@ -80,12 +80,12 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
         {draftJob && (
           <JobPreview
             id={draftJob.id ?? 0}
-            jobTitle={draftJob.jobTitle ?? ""}
+            title={draftJob.title ?? ""}
             description={draftJob.description ?? ""}
             location={draftJob.location ?? ""}
             pay={draftJob.payRate ?? 0}
             duration={draftJob.duration ?? ""}
-            skills={(draftJob.skills ?? []).map((skill) => ({ skill: skill }))} // convert to { skill: string }[]
+            // skills={(draftJob.skills ?? []).map((skill) => ({ skill: skill }))} // convert to { skill: string }[]
           />
         )}
 

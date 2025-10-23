@@ -86,7 +86,7 @@ export interface JobFeedCardProps {
   payRate: number;
   duration: string;
   location: string;
-  skills: string[];
+  skills: SkillsProps[];
   description: string;
   onApply?: () => void;
 }
@@ -136,10 +136,10 @@ export interface StepProps {
 }
 
 export interface JobDetailsFormProps {
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
-  skills: { skill: string }[];
+  skills: SkillsProps[];
 }
 
 export interface PaymentAndTimelineFormProps {
@@ -153,12 +153,12 @@ export interface RequirementsAndReviewFormProps {
 
 export interface JobReviewCardProps {
   id: number;
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
   pay: number;
   duration: string;
-  skills: { skill: string }[];
+  // skills: { skill: string }[];
 }
 
 export interface JobPostData {
@@ -172,7 +172,7 @@ export interface JobPostData {
   payRate: number;
   duration: string;
   specialRequirements?: string;
-  skills: string[];
+  skills: SkillsProps[];
   onApply?: () => void;
 }
 
@@ -270,7 +270,7 @@ export interface EditJobModalProps {
     location: string;
     payRate: number;
     duration: string;
-    skills: string[];
+    skills: SkillsProps[];
   };
   onClose: () => void;
   onSave: (data: any) => void;
@@ -279,7 +279,7 @@ export interface EditJobModalProps {
 export interface DeleteJobModalProps {
   onClose: () => void;
   onConfirm: () => void;
-  jobTitle?: string;
+  title?: string;
 }
 
 export interface JobFeedFilterProps {
@@ -299,7 +299,7 @@ export interface Job {
   payRate: string;
   duration: string;
   location: string;
-  skills?: string[];
+  skills?: SkillsProps[];
   description?: string;
 }
 
@@ -311,7 +311,7 @@ export interface Applicant {
   reviewCount?: number;
   location?: string;
   appliedDate?: string;
-  skillSet: SkillsProps[] ;
+  skillSet: SkillsProps[];
   experience?: number;
   hourlyRate?: number;
   status: "pending" | "accepted" | "rejected";

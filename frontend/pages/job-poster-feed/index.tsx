@@ -65,7 +65,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
                   .includes(location.toLowerCase());
                 const matchesSkills = skills.some((s) =>
                   job.skills.some((skill) =>
-                    skill.toLowerCase().includes(s.toLowerCase())
+                    skill.skillName.toLowerCase().includes(s.toLowerCase())
                   )
                 );
                 return matchesTitle && matchesLocation && matchesSkills;
@@ -143,7 +143,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       {/* Delete Modal */}
       {deletingJob && (
         <DeleteJobModal
-          jobTitle={deletingJob.jobTitle}
+          title={deletingJob.jobTitle}
           onClose={() => setDeletingJob(null)}
           onConfirm={() => handleConfirmDelete(deletingJob.id)}
         />

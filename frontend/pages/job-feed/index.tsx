@@ -92,7 +92,7 @@ const JobFeedPage = () => {
                   .includes(location.toLowerCase());
                 const matchesSkills = skills.some((s) =>
                   job.skills.some((skill) =>
-                    skill.toLowerCase().includes(s.toLowerCase())
+                    skill.skillName.toLowerCase().includes(s.toLowerCase())
                   )
                 );
                 return matchesTitle && matchesLocation && matchesSkills;

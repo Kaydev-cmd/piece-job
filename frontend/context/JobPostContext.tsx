@@ -9,8 +9,8 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
-  const {loggedInToken }= useAuth() 
-  // const loggedInToken = useAuth() 
+  const { loggedInToken } = useAuth();
+  // const loggedInToken = useAuth()
   // Store all job posts
   const [jobFeed, setJobFeed] = useState<JobPostData[]>([]);
 
@@ -19,8 +19,8 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const fetchJobs = async () => {
-      console.log("Job Context: ",loggedInToken,".")
-      if (!loggedInToken) return ;
+      console.log("Job Context: ", loggedInToken, ".");
+      if (!loggedInToken) return;
       try {
         const res = await axios.get("http://localhost:8080/jobs", {
           headers: {
@@ -43,10 +43,15 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Post the draft as a new job in the feed
   const postJob = async (data?: Partial<JobPostData>) => {
+    console.log("Posting job from context...");
     const jobToPost = data ?? draftJob;
 
     try {
-      const res = await axios.post("/api/jobs/jobs", jobToPost);
+      const res = await axios.post("http://localhost:8080/jobs", jobToPost, {
+        headers: {
+          Authorization: `Bearer ${loggedInToken}`,
+        },
+      });
       const createdJob = res.data;
       setJobFeed((prev) => [...prev, createdJob]);
     } catch (err) {

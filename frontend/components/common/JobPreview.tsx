@@ -3,7 +3,7 @@ import { RxLightningBolt } from "react-icons/rx";
 import { JobReviewCardProps } from "@/interfaces";
 
 const JobPreview: React.FC<JobReviewCardProps> = ({
-  jobTitle,
+  title,
   description,
   location,
   pay,
@@ -22,7 +22,7 @@ const JobPreview: React.FC<JobReviewCardProps> = ({
         {/* Title */}
         <p>
           <span className="font-bold">Title: </span>
-          {jobTitle}
+          {title}
         </p>
 
         {/* Description */}

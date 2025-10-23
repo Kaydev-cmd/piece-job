@@ -619,7 +619,7 @@ export const JOB_SEEEKER_RECENT_JOBS_DATA = [
   },
 ];
 
-export const mockApplicants : Applicant[] = [
+export const mockApplicants: Applicant[] = [
   {
     id: 1,
     userName: "Sarah Chen",
@@ -628,7 +628,12 @@ export const mockApplicants : Applicant[] = [
     reviewCount: 124,
     location: "San Francisco, CA",
     appliedDate: "2 hours ago",
-    skillSet: [{skillName:"React"}, {skillName:"TypeScript"}, {skillName:"Node.js"}, {skillName:"MongoDB"}],
+    skillSet: [
+      { skillName: "React" },
+      { skillName: "TypeScript" },
+      { skillName: "Node.js" },
+      { skillName: "MongoDB" },
+    ],
     experience: 5,
     hourlyRate: 85,
     status: "pending" as const,
@@ -641,7 +646,12 @@ export const mockApplicants : Applicant[] = [
     reviewCount: 89,
     location: "Austin, TX",
     appliedDate: "4 hours ago",
-    skillSet: [{skillName:"Python"}, {skillName:"Django"},{skillName: "PostgreSQL"},{skillName: "AWS"}],
+    skillSet: [
+      { skillName: "Python" },
+      { skillName: "Django" },
+      { skillName: "PostgreSQL" },
+      { skillName: "AWS" },
+    ],
     experience: 3,
     hourlyRate: 75,
     status: "pending" as const,
@@ -654,7 +664,12 @@ export const mockApplicants : Applicant[] = [
     reviewCount: 156,
     location: "New York, NY",
     appliedDate: "6 hours ago",
-    skillSet: [{skillName:"Vue.js"}, {skillName:"Laravel"}, {skillName:"MySQL"}, {skillName:"Docker"}],
+    skillSet: [
+      { skillName: "Vue.js" },
+      { skillName: "Laravel" },
+      { skillName: "MySQL" },
+      { skillName: "Docker" },
+    ],
     experience: 4,
     hourlyRate: 80,
     status: "accepted" as const,
@@ -667,7 +682,12 @@ export const mockApplicants : Applicant[] = [
     reviewCount: 67,
     location: "Seattle, WA",
     appliedDate: "1 day ago",
-    skillSet: [{skillName: "Angular"}, {skillName:"C#"}, {skillName:".NET"}, {skillName:"Azure"}],
+    skillSet: [
+      { skillName: "Angular" },
+      { skillName: "C#" },
+      { skillName: ".NET" },
+      { skillName: "Azure" },
+    ],
     experience: 6,
     hourlyRate: 90,
     status: "pending" as const,
@@ -680,7 +700,12 @@ export const mockApplicants : Applicant[] = [
     reviewCount: 43,
     location: "Chicago, IL",
     appliedDate: "1 day ago",
-    skillSet: [{skillName:"React Native"},{skillName: "Swift"}, {skillName:"Kotlin"}, {skillName:"Firebase"}],
+    skillSet: [
+      { skillName: "React Native" },
+      { skillName: "Swift" },
+      { skillName: "Kotlin" },
+      { skillName: "Firebase" },
+    ],
     experience: 2,
     hourlyRate: 70,
     status: "rejected" as const,
