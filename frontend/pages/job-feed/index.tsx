@@ -84,7 +84,7 @@ const JobFeedPage = () => {
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
-                const matchesTitle = job.jobTitle
+                const matchesTitle = job.title
                   .toLowerCase()
                   .includes(jobTitle.toLowerCase());
                 const matchesLocation = job.location
@@ -117,7 +117,7 @@ const JobFeedPage = () => {
               userName={job.userName || "Anonymous"} // fallback
               timePosted={job.timePosted || "Just now"} // fallback
               rating={job.rating || 0} // fallback
-              jobTitle={job.jobTitle}
+              title={job.title}
               payRate={job.payRate}
               duration={job.duration}
               location={job.location}
