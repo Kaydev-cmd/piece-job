@@ -15,7 +15,7 @@ interface Props extends JobFeedCardProps {
 const JobPosterFeedCard: React.FC<Props> = ({
   id,
   image,
-  userName,
+  postedBy,
   timePosted,
   rating,
   title,
@@ -50,7 +50,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
           {image ? (
             <Image
               src={image}
-              alt={userName}
+              alt={postedBy.companyName?postedBy.companyName:""}
               width={200}
               height={200}
               className="w-full"
@@ -64,7 +64,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
             </div>
           )}
           <div className="flex flex-col gap-1">
-            <h1 className="font-semibold">{userName}</h1>
+            <h1 className="font-semibold">{postedBy.companyName}</h1>
             <p className="flex items-center gap-1 text-slate-600 font-semibold">
               <FaStar size={16} color="#FFD700" /> {rating}
             </p>

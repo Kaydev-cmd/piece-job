@@ -12,9 +12,10 @@ import Pill from "@/components/common/Pill";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
-import { APIRequester, JobPosterProfileCardProps } from "@/interfaces";
+import {  JobPosterProfileCardProps } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
-const JobPosterProfilePage :React.FC<APIRequester> = () => {
+const JobPosterProfilePage  = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -22,7 +23,7 @@ const JobPosterProfilePage :React.FC<APIRequester> = () => {
 
   // Find the user by username
   const {baseUrl,loggedInToken} = useAuth()
-  const [loading, setLoading] = useState<boolean>(false)
+  const {loading, setLoading,loadingScreen} = useAPIRequster()
   const fetchBusiness = async ()=>{
     setLoading(true);
     try{
@@ -53,11 +54,7 @@ const JobPosterProfilePage :React.FC<APIRequester> = () => {
   } 
     ,[])
 if (loading){
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">Loading...</h1>
-      </div>
-    );
+   return loadingScreen ;
   }
   else if (!user.id) {
     return (
