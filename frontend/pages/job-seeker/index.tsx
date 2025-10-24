@@ -16,13 +16,20 @@ import { useAuth } from "@/context/AuthContext";
 import { JobSeekerProfileCardProps } from "@/interfaces";
 
 const JobSeekerProfilePage = () => {
-  const {baseUrl,loggedInToken} = useAuth()
+  const {baseUrl,loggedInToken, loggedUser} = useAuth()
   const [seeker,setSeeker] = useState<JobSeekerProfileCardProps>(JOB_SEEKER_PROFILE_DATA)
   const {loading, setLoading,loadingScreen} = useAPIRequster()
   const fetchSeekerProfile =async ()=>{
-      setLoading(true);
+    if (loggedUser.role == null || loggedUser.employerType ==null){
+      console.error("logged user has null role or null employerType") ;
+      return ;
+    }
+    if (loggedUser.role === "employer" && loggedUser.employerType === "business"){
+        return ; //business-employer's do not have a seeker profile.
+    }
+    setLoading(true);
     try{
-      const apiRes = await axios.get(`${baseUrl}/seeker-profile/s11`,{
+      const apiRes = await axios.get(`${baseUrl}/seeker-profile/${loggedUser.username}`,{
         headers:{
           Authorization: "Bearer "+loggedInToken 
         }
@@ -44,7 +51,7 @@ const JobSeekerProfilePage = () => {
   return (
     <section className="container" style={{ paddingBottom: "0" }}>
       <div className="lg:grid grid-cols-2 gap-4">
-        {/* User Profile component here... */}
+        {/* User Profile component h... */}
         <div>
           <JobSeekerProfileCard
               key={user.id}
@@ -61,7 +68,7 @@ const JobSeekerProfilePage = () => {
             />
         </div>
 
-        {/* Skills cards here... */}
+        {/* Skills cards h... */}
         <div style={{ marginTop: "32px" }}>
           <JobSeekerSkillsCard
               key={user.id}
@@ -72,18 +79,18 @@ const JobSeekerProfilePage = () => {
         </div>
       </div>
 
-      {/* Recent Jobs here... */}
+      {/* Recent Jobs h... */}
       <div
         className="card flex flex-col gap-4 bg-gray-300/30 rounded-xl"
         style={{ marginTop: "32px" }}
       >
         <div className="flex items-center gap-2">
-          {/* Icon here... */}
+          {/* Icon h... */}
           <IoMdTrendingUp size={22} color="#1D4ED8" />
           <h1 className="text-3xl font-bold">Recent Jobs</h1>
         </div>
 
-        {/* Recent Jobs Card here... */}
+        {/* Recent Jobs Card h... */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {JOB_SEEEKER_RECENT_JOBS_DATA.map((job) => (
             <div
@@ -104,13 +111,13 @@ const JobSeekerProfilePage = () => {
         </div>
       </div>
 
-      {/* Reviews and Ratings here... */}
+      {/* Reviews and Ratings h... */}
       <div
         className="card flex flex-col gap-4 bg-gray-300/30 rounded-xl"
         style={{ marginTop: "32px" }}
       >
         <div className="flex items-center gap-2">
-          {/* Icon here... */}
+          {/* Icon h... */}
           <SlSpeech size={20} color="#1D4ED8" />
           <h1 className="text-3xl font-bold">Reviews & Ratings</h1>
         </div>

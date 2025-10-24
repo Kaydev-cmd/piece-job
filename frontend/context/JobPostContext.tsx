@@ -23,7 +23,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
       if (!loggedInToken) return;
       try {
         setLoading(true);
-        if (loggedUser == null){
+        if (loggedUser.role == null){
           console.error("something went wrong, logged user is null")
           return ;
         }

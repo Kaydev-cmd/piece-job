@@ -37,7 +37,7 @@ const Header: React.FC = () => {
   }, [isMenuOpen]);
 
   const whatToRender = (user: LoggedInUser) =>{
-    // console.log("rerender: ",user)
+    console.log("rerender: ",user)
     if (user.role == null){
       return <Button
             title="Login"

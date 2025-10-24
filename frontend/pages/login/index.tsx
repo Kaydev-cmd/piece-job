@@ -40,7 +40,8 @@ const LoginPage: React.FC = () => {
         login(resApi.data.loggedInToken);
         const loggedUser : LoggedInUser = {
           role : resApi.data.role,
-          username : resApi.data.username
+          username : resApi.data.username,
+          employerType: resApi.data.employerType
         }
         console.log("api res: ",response.data, "logged in",loggedUser)
         setLoggedInUser(loggedUser);
