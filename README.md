@@ -137,7 +137,7 @@ By leveraging **FNB’s digital payment solutions**, workers are paid instantly 
 We maintain a full technical document that describes **system architecture**, **user cases**, **user roles**, **error handling**, and **operational flows** for both **Job Seekers** and **Job Posters** within the PieceJob platform.
 
 **Download / view the PDF:**  
-[📄 Full Technical Documentation (PDF)]([./docs/technical-documentation.pdf](https://drive.google.com/file/d/1or4rm4OfVE5Q4Avx_SbXSddyreCUwuOx/view?usp=sharing))
+[📄 Full Technical Documentation (PDF)](https://drive.google.com/file/d/1or4rm4OfVE5Q4Avx_SbXSddyreCUwuOx/view?usp=sharing)
 
 > Quick highlights (extracted from the technical doc) — outlining key user roles and representative system flows:
 
