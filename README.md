@@ -31,6 +31,98 @@ By leveraging **FNB’s digital payment solutions**, workers are paid instantly 
 
 ---
 
+---
+
+## 📚 Technical Documentation (PDF)
+
+We maintain a full technical document that describes **system architecture**, **user cases**, **user roles**, **error handling**, and **operational flows** for both **Job Seekers** and **Job Posters** within the PieceJob platform.
+
+**Download / view the PDF:**  
+[📄 Full Technical Documentation (PDF)](https://drive.google.com/file/d/1or4rm4OfVE5Q4Avx_SbXSddyreCUwuOx/view?usp=sharing)
+
+> Quick highlights (extracted from the technical doc) — outlining key user roles and representative system flows:
+
+<details>
+<summary><strong>Key User Roles</strong></summary>
+
+### 👤 Individual (Job Seeker)
+- Creates a personal profile with skills, photo, and experience.  
+- Views and applies for available jobs in the feed.  
+- Accepts appointments and completes jobs.  
+- Confirms completion and receives **instant payment**.  
+- Rates and reviews job posters.  
+
+### 🏢 Business / Individual (Job Poster)
+- Posts jobs by filling out job details (title, pay, skills required, location, urgency status).  
+- Reviews applicants, views their profiles and ratings, and selects suitable candidates.  
+- Pays seekers upon job completion (FNB instant payment integration).  
+- Leaves feedback and ratings for job seekers.  
+
+### 🧑‍💼 Admin / System Actor
+- Oversees job postings, verifies users, and ensures fair usage.  
+- Manages platform-wide disputes and payment validation.  
+- Handles data consistency, visibility control (“invisible” state once a job is filled), and cleanup (auto-deleting completed jobs).
+
+</details>
+
+<details>
+<summary><strong>Representative User Cases</strong></summary>
+
+### 📌 Use Case: Post a Job
+**Actor:** Job Poster  
+**Trigger:** User clicks **“Post a Job”** button.  
+**Preconditions:** Signed-in user (Individual or Business).  
+**Standard Flow:**
+1. User fills out job form (name, short description, pay, skills, and location).  
+2. System validates input — highlights missing info if any.  
+3. Job becomes visible on the job feed.  
+4. Applicants can now apply.  
+5. Once a seeker is appointed and paid, the job post auto-deletes.  
+
+**Alternative Flow:** Missing required fields → system displays error highlights.  
+
+---
+
+### 🧾 Use Case: Apply for a Job
+**Actor:** Job Seeker  
+**Trigger:** User clicks **“Apply”** on a job listing.  
+**Preconditions:** Signed-in user, valid skills in profile.  
+**Standard Flow:**
+1. System sends seeker’s profile and ratings to job poster.  
+2. Poster reviews and accepts or rejects application.  
+3. Upon acceptance → Job Order created.  
+4. Seeker completes the job and confirms completion.  
+5. Poster verifies completion and pays instantly.  
+
+**Error Situations:**  
+- Missing skills or invalid profile → show notification to update profile.  
+- Failed submission → show “try again” modal.  
+
+---
+
+### ⭐ Use Case: Rate and Review
+**Actor:** Job Poster / Job Seeker  
+**Trigger:** Job completion confirmation.  
+**Standard Flow:**
+1. Both parties rate each other (1–5 stars).  
+2. Reviews appear on profiles and can be sorted or filtered.  
+3. System handles failed submissions gracefully with retry prompts.  
+
+**Error Situations:**  
+- Review fails to post → display retry modal.  
+- Sorting/filtering error → show “no data” state.  
+
+---
+
+### 🧱 System Behaviors
+- **Job Order Creation:** Represents accepted contract between poster and seeker.  
+- **Job Completion Flow:** Seeker marks job as complete → poster confirms → triggers payment and rating process.  
+- **Error Handling:** Missing inputs and failed submissions trigger contextual UI prompts rather than crashes.  
+
+</details>
+
+---
+
 ## 🌟 Core Features
 ### For Job Seekers
 - Profile creation (skills, photo, experience)  
@@ -129,100 +221,6 @@ By leveraging **FNB’s digital payment solutions**, workers are paid instantly 
 - Insurance & worker protection  
 
 ---
-
----
-
-## 📚 Technical Documentation (PDF)
-
-We maintain a full technical document that describes **system architecture**, **user cases**, **user roles**, **error handling**, and **operational flows** for both **Job Seekers** and **Job Posters** within the PieceJob platform.
-
-**Download / view the PDF:**  
-[📄 Full Technical Documentation (PDF)](https://drive.google.com/file/d/1or4rm4OfVE5Q4Avx_SbXSddyreCUwuOx/view?usp=sharing)
-
-> Quick highlights (extracted from the technical doc) — outlining key user roles and representative system flows:
-
-<details>
-<summary><strong>Key User Roles</strong></summary>
-
-### 👤 Individual (Job Seeker)
-- Creates a personal profile with skills, photo, and experience.  
-- Views and applies for available jobs in the feed.  
-- Accepts appointments and completes jobs.  
-- Confirms completion and receives **instant payment**.  
-- Rates and reviews job posters.  
-
-### 🏢 Business / Individual (Job Poster)
-- Posts jobs by filling out job details (title, pay, skills required, location, urgency status).  
-- Reviews applicants, views their profiles and ratings, and selects suitable candidates.  
-- Pays seekers upon job completion (FNB instant payment integration).  
-- Leaves feedback and ratings for job seekers.  
-
-### 🧑‍💼 Admin / System Actor
-- Oversees job postings, verifies users, and ensures fair usage.  
-- Manages platform-wide disputes and payment validation.  
-- Handles data consistency, visibility control (“invisible” state once a job is filled), and cleanup (auto-deleting completed jobs).
-
-</details>
-
-<details>
-<summary><strong>Representative User Cases</strong></summary>
-
-### 📌 Use Case: Post a Job
-**Actor:** Job Poster  
-**Trigger:** User clicks **“Post a Job”** button.  
-**Preconditions:** Signed-in user (Individual or Business).  
-**Standard Flow:**
-1. User fills out job form (name, short description, pay, skills, and location).  
-2. System validates input — highlights missing info if any.  
-3. Job becomes visible on the job feed.  
-4. Applicants can now apply.  
-5. Once a seeker is appointed and paid, the job post auto-deletes.  
-
-**Alternative Flow:** Missing required fields → system displays error highlights.  
-
----
-
-### 🧾 Use Case: Apply for a Job
-**Actor:** Job Seeker  
-**Trigger:** User clicks **“Apply”** on a job listing.  
-**Preconditions:** Signed-in user, valid skills in profile.  
-**Standard Flow:**
-1. System sends seeker’s profile and ratings to job poster.  
-2. Poster reviews and accepts or rejects application.  
-3. Upon acceptance → Job Order created.  
-4. Seeker completes the job and confirms completion.  
-5. Poster verifies completion and pays instantly.  
-
-**Error Situations:**  
-- Missing skills or invalid profile → show notification to update profile.  
-- Failed submission → show “try again” modal.  
-
----
-
-### ⭐ Use Case: Rate and Review
-**Actor:** Job Poster / Job Seeker  
-**Trigger:** Job completion confirmation.  
-**Standard Flow:**
-1. Both parties rate each other (1–5 stars).  
-2. Reviews appear on profiles and can be sorted or filtered.  
-3. System handles failed submissions gracefully with retry prompts.  
-
-**Error Situations:**  
-- Review fails to post → display retry modal.  
-- Sorting/filtering error → show “no data” state.  
-
----
-
-### 🧱 System Behaviors
-- **Job Order Creation:** Represents accepted contract between poster and seeker.  
-- **Job Completion Flow:** Seeker marks job as complete → poster confirms → triggers payment and rating process.  
-- **Error Handling:** Missing inputs and failed submissions trigger contextual UI prompts rather than crashes.  
-
-</details>
-
----
-
-_For full technical context — including system architecture diagrams, API endpoints, OTP & JWT authentication, error states, and FNB payment workflows — refer to the PDF linked above._
 
 ## 📌 Project Status
 - **Stage:** Planning & Documentation  
