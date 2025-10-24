@@ -176,12 +176,11 @@ We maintain a full technical document that describes **system architecture**, **
 ---
 
 ## 🛠 Tech Stack
-**Frontend:** React Native, React Navigation, TailwindCSS  
-**Backend:** Node.js / Express OR Firebase  
-**Database:** Firebase Firestore / MongoDB / Supabase  
+**Frontend:** Next.js, TailwindCSS  
+**Backend:** Java SpringBoot  
+**Database:** PostgreSQL, Supabase  
 **Payments:** FNB APIs (eWallet, PayMe, PayShap, SnapScan)  
-**Auth:** OTP login (Twilio / Firebase Auth)  
-**Location Services:** Google Maps API / Expo Location  
+**Auth:** OAuth 2.0 (Google, Facebook, or custom provider)  
 
 ---
 
@@ -191,7 +190,7 @@ We maintain a full technical document that describes **system architecture**, **
 - Basic profile creation  
 - Ratings system  
 - Mock payments (simulate instant pay)  
-- OTP authentication  
+- OAuth 2.0 login (Google, Facebook, or custom)  
 
 ---
 
@@ -222,6 +221,5 @@ We maintain a full technical document that describes **system architecture**, **
 
 ## 📌 Project Status
 - **Stage:** Planning & Documentation  
-- **Next Step:** Build MVP with Nextjs + Firebase + FNB API integration  
+- **Next Step:** Build MVP with **Next.js + SpringBoot + PostgreSQL + FNB API + OAuth 2.0 integration**  
 
----
