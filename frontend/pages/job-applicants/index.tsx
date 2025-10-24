@@ -46,7 +46,7 @@ const JobApplicants = () => {
       )
     );
   };
-  const handleReject = (id: string) => {
+  const handleReject = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
         applicant.id === parseInt(id)
@@ -122,7 +122,7 @@ const JobApplicants = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3" style={{marginTop: "8px"}}>
+          <div className="flex items-center gap-3" style={{ marginTop: "8px" }}>
             <div className="flex relative">
               <Search
                 size={16}

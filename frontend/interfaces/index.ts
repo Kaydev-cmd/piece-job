@@ -349,6 +349,6 @@ export interface Applicant {
 
 export interface ApplicantCardProps {
   applicant: Applicant;
-  onAccept: (id: string) => void;
-  onReject: (id: string) => void;
+  onAccept: (id: number) => void;
+  onReject: (id: number) => void;
 }
