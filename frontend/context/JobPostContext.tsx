@@ -10,7 +10,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzMTAiLCJpYXQiOjE3NjExNTAwNjEsImV4cCI6MTc2MTI1ODA2MX0.FtLPqCzGFvyzep2VICvefJLqiirY1J2O1LM98ckONNA";
-  const { baseUrl,loggedInToken } = useAuth();
+  const { baseUrl,loggedInToken ,loggedUser} = useAuth();
   const {loading,setLoading} = useAPIRequster()
   // const loggedInToken = useAuth()
   // Store all job posts
@@ -18,20 +18,23 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Store current form draft
   const [draftJob, setDraftJob] = useState<Partial<JobPostData>>({});
-
-  useEffect(() => {
-    const fetchJobs = async () => {
+  const fetchJobs = async () => {
       console.log("Job Context: ", loggedInToken, ".");
       if (!loggedInToken) return;
       try {
         setLoading(true);
-        const res = await axios.get(baseUrl+"/jobs", {
+        if (loggedUser == null){
+          console.error("something went wrong, logged user is null")
+          return ;
+        }
+        const feedUrlBasedOnRole = loggedUser.role === "employer" ? "/jobs" :"/piece-jobs"
+        const res = await axios.get(baseUrl+feedUrlBasedOnRole, {
           headers: {
             Authorization: `Bearer ${loggedInToken}`,
           },
         });
         console.log("Fetched jobs:", res);
-        setJobFeed(res.data);
+        setJobFeed(res.data.data);
         setLoading(false);
 
       } catch (err) {
@@ -39,6 +42,8 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
         setLoading(false);
       }
     };
+  useEffect(() => {
+    
     fetchJobs();
   }, [loggedInToken]);
 
@@ -47,6 +52,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
     setDraftJob((prev) => ({ ...prev, ...data }));
   };
 
+  const requesting = loading
   // Post the draft as a new job in the feed
   const postJob = async (data?: Partial<JobPostData>) => {
     const jobToPost = data ?? draftJob;
@@ -127,6 +133,8 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
         resetJobData,
         editJob,
         deleteJob,
+        fetchJobs,
+        requesting
       }}
     >
       {children}

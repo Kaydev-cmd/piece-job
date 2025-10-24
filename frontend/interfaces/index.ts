@@ -12,6 +12,12 @@ export interface ButtonProps {
   isActive?: boolean;
 }
 
+export interface Header_Link{
+    id:number,
+    link: string,
+    href: string,
+}
+
 export interface HeroStatsCardProps {
   id: number;
   statNumber: string;
@@ -199,6 +205,8 @@ export interface JobPostContextType {
   editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
   deleteJob: (id: number) => Promise<void>;
   setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
+  fetchJobs: ()=>void;
+  requesting : boolean ;
 }
 
 export interface ChosenWorkerCardProps {

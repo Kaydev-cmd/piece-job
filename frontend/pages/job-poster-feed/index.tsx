@@ -8,9 +8,11 @@ import JobPosterFeedCard from "@/components/common/JobPosterFeedCard";
 import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
 import { Job } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
-  const { jobFeed, editJob, deleteJob, setJobFeed } = useJobPost();
+  const { jobFeed, editJob, deleteJob, setJobFeed ,requesting, fetchJobs} = useJobPost();
+  const {loadingScreen} = useAPIRequster()
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [deletingJob, setDeletingJob] = useState<Job | null>(null);
 
@@ -27,6 +29,58 @@ const JobPosterFeedPage: React.FC<Job> = () => {
     await deleteJob(id);
     setDeletingJob(null);
   };
+
+  const fetchedJobs = ()=>{
+    if (requesting){
+      return <p>{loadingScreen} Loading...</p>
+    }
+    return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {jobFeed.length ? (
+          jobFeed.map((job) => {
+            const normalizedSkills =
+              Array.isArray(job.skills) && job.skills.length > 0
+                ? job.skills.map((skill: any) =>
+                    typeof skill === "string" ? skill : skill.skillName
+                  )
+                : [];
+
+            return (
+              <JobPosterFeedCard
+                key={job.id}
+                id={job.id}
+                postedBy={job.postedBy || "Anonymous"} // fallback
+                timePosted={job.timePosted || "Just now"} // fallback
+                rating={job.rating || 0} // fallback
+                title={job.title}
+                payRate={job.payRate}
+                duration={job.duration}
+                location={job.location}
+                skills={normalizedSkills}
+                description={job.description}
+                onEdit={() =>
+                  setEditingJob({
+                    ...job,
+                    jobTitle: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+                onDelete={() =>
+                  setDeletingJob({
+                    ...job,
+                    jobTitle: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+              />
+            );
+          })
+        ) : (<>
+          <p>No jobs found, try posting a Job..</p>
+          <Button title="refresh Jobs" variant="tertiary" onClick={fetchJobs}/>
+        </>
+        )}
+      </div>
+  }
 
   return (
     <section
@@ -81,50 +135,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       </div>
 
       {/* Job Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {jobFeed.length ? (
-          jobFeed.map((job) => {
-            const normalizedSkills =
-              Array.isArray(job.skills) && job.skills.length > 0
-                ? job.skills.map((skill: any) =>
-                    typeof skill === "string" ? skill : skill.skillName
-                  )
-                : [];
-
-            return (
-              <JobPosterFeedCard
-                key={job.id}
-                id={job.id}
-                postedBy={job.postedBy || "Anonymous"} // fallback
-                timePosted={job.timePosted || "Just now"} // fallback
-                rating={job.rating || 0} // fallback
-                title={job.title}
-                payRate={job.payRate}
-                duration={job.duration}
-                location={job.location}
-                skills={normalizedSkills}
-                description={job.description}
-                onEdit={() =>
-                  setEditingJob({
-                    ...job,
-                    jobTitle: job.title ?? job.title,
-                    payRate: job.payRate.toString(),
-                  })
-                }
-                onDelete={() =>
-                  setDeletingJob({
-                    ...job,
-                    jobTitle: job.title ?? job.title,
-                    payRate: job.payRate.toString(),
-                  })
-                }
-              />
-            );
-          })
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
+      {fetchedJobs()}
 
       {/* Edit Modal */}
       {editingJob && (

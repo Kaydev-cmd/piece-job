@@ -1,6 +1,6 @@
-import { Applicant, JobPosterProfileCardProps, JobSeekerProfileCardProps } from "@/interfaces";
+import { Applicant, Header_Link, JobPosterProfileCardProps, JobSeekerProfileCardProps } from "@/interfaces";
 
-export const HEADER_LINKS = [
+export const HEADER_LINKS : Header_Link[] = [
   {
     id: 1,
     link: "Home",
@@ -15,12 +15,7 @@ export const HEADER_LINKS = [
     id: 3,
     link: "Contact",
     href: "/contact",
-  },
-  {
-    id: 4,
-    link: "Jobs",
-    href: "/job-feed",
-  },
+  }
 ];
 
 export const MOBILE_LINKS = [
