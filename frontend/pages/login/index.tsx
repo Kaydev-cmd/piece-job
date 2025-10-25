@@ -45,6 +45,7 @@ const LoginPage: React.FC = () => {
 
         const loggedUser: LoggedInUser = {
           role: resApi.data.role,
+          userImage: resApi.data.userImage,
           username: resApi.data.username,
           employerType: resApi.data.employerType || null,
         };

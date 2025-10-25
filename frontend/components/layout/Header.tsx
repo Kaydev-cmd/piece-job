@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { HEADER_LINKS } from "@/constants";
+import {
+  HEADER_LINKS,
+  JOB_SEEKER_DROPDOWN_LINKS,
+  JOB_POSTER_DROPDOWN_LINKS,
+} from "@/constants";
 import { MOBILE_LINKS } from "@/constants";
 import { motion, AnimatePresence } from "motion/react";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -9,11 +13,15 @@ import { useRouter } from "next/router";
 import Button from "../common/Button";
 import { useAuth } from "@/context/AuthContext";
 import { Header_Link, LoggedInUser } from "@/interfaces";
+import { FaRegUserCircle } from "react-icons/fa";
+import Image from "next/image";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const {loggedUser} = useAuth();
+  const { loggedUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [dropdownMenu, setIsDropdownMenu] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -36,46 +44,107 @@ const Header: React.FC = () => {
     };
   }, [isMenuOpen]);
 
-  const whatToRender = (user: LoggedInUser) =>{
-    console.log("rerender: ",user)
-    if (user.role == null){
-      return <Button
-            title="Login"
-            onClick={() => router.push("/login")}
-            variant="login"
-          />
-    }
-    else if (user.role === "employer"){
-      return <Button
-            title="post a job"
-            onClick={() => router.push("/post-job")}
-            variant="login"
-          />
-    }
-    else{
-      return <Button
-            title="profile"
-            onClick={() => router.push("/job-seeker")}
-            variant="login"
-          />
-    }
-  }
+  const handleDropdown = () => {
+    setIsDropdownMenu((prev) => !prev);
+  };
 
-  const getHeaderLinks :()=>Header_Link[] = () =>{
-    if (loggedUser!= null){
+  const whatToRender = (user: LoggedInUser) => {
+    console.log("rerender: ", user);
+    if (user.role == null) {
+      return (
+        <Button
+          title="Login"
+          onClick={() => router.push("/login")}
+          variant="login"
+        />
+      );
+    } else {
+      return (
+        <div className="flex items-center gap-2 relative">
+          <Link
+            href={`${
+              loggedUser.role === "jobSeeker"
+                ? "/job-seeker"
+                : `/users/job-poster/${loggedUser.username}`
+            }`}
+            className="flex items-center gap-2"
+          >
+            {loggedUser.userImage ? (
+              <Image
+                src={`${loggedUser.userImage}`}
+                alt={`${loggedUser.username}`}
+                width={500}
+                height={500}
+              />
+            ) : (
+              <FaRegUserCircle size={26} />
+            )}
+            <p>{loggedUser.username}</p>
+          </Link>
+
+          {/* Dropdown */}
+          <div onClick={handleDropdown} className="cursor-pointer">
+            {dropdownMenu ? (
+              <>
+                <IoIosArrowUp size={20} />
+                {/* Navigation Links */}
+                <div className="absolute top-10 left-0 shadow-md rounded-md">
+                  {loggedUser.role === "jobSeeker" ? (
+                    <div
+                      className="bg-white flex flex-col gap-2"
+                      style={{ padding: "32px" }}
+                    >
+                      {JOB_SEEKER_DROPDOWN_LINKS.map((link) => (
+                        <Link
+                          key={link.id}
+                          href={link.href}
+                          className="text-sm hover:text-blue-500"
+                        >
+                          {link.linkName}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div
+                      className="bg-white flex flex-col gap-2"
+                      style={{ padding: "32px" }}
+                    >
+                      {JOB_POSTER_DROPDOWN_LINKS.map((link) => (
+                        <Link
+                          key={link.id}
+                          href={link.href}
+                          className="text-sm hover:text-blue-500"
+                        >
+                          {link.linkName}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <IoIosArrowDown size={20} />
+            )}
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const getHeaderLinks: () => Header_Link[] = () => {
+    if (loggedUser != null) {
       var header_link: Header_Link = {
-      id: 4,
-      link: "Jobs",
-      href: "/job-feed",
+        id: 4,
+        link: "Jobs",
+        href: "/job-feed",
+      };
+      if (loggedUser.role === "employer") header_link.href = "/job-poster-feed";
+      return [...HEADER_LINKS, header_link];
     }
-      if (loggedUser.role === "employer")
-        header_link.href = "/job-poster-feed"
-      return [...HEADER_LINKS,header_link]
-    }
-    return HEADER_LINKS ;
+    return HEADER_LINKS;
     //show dummy jobs? rn, the choice is to completely remove it..
-  }
-  
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white">
       <div className="container flex justify-between items-center">
@@ -98,15 +167,15 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="hidden md:flex gap-4 items-center">
-          {
-            loggedUser.username === null ?
+          {loggedUser.username === null ? (
             <Button
-            title="Login"
-            onClick={() => router.push("/login")}
-            variant="login"
-          /> 
-          :whatToRender(loggedUser)
-          }
+              title="Login"
+              onClick={() => router.push("/login")}
+              variant="login"
+            />
+          ) : (
+            whatToRender(loggedUser)
+          )}
         </div>
 
         {/* Hamburger menu button */}

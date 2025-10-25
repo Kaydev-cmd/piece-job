@@ -11,8 +11,8 @@ import { useJobPost } from "@/context/JobPostContext";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobFeedPage = () => {
-  const { jobFeed, setJobFeed,requesting } = useJobPost();
-  const {loadingScreen} = useAPIRequster()
+  const { jobFeed, setJobFeed, requesting } = useJobPost();
+  const { loadingScreen } = useAPIRequster();
   const {
     register,
     handleSubmit,
@@ -57,34 +57,36 @@ const JobFeedPage = () => {
     }, 3000);
   };
 
-  const returnJobFeed = ()=> {
-    if (requesting){
-      console.log("loading")
-      return <p>{loadingScreen}</p>
-    }
-    else return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {jobFeed.length ? (
-          jobFeed.map((job) => (
-            <JobFeedCard
-              key={job.id}
-              id={job.id}
-              postedBy={job.postedBy|| "Anonymous"} // fallback
-              timePosted={job.timePosted || "Just now"} // fallback
-              rating={job.rating || 0} // fallback
-              title={job.title}
-              payRate={job.payRate}
-              duration={job.duration}
-              location={job.location}
-              skills={job.skills || []}
-              description={job.description}
-              onApply={() => setShowForm(true)}
-            />
-          ))
-        ) : (
-          <p>Could not fetch jobs</p>
-        )}
-      </div>
-  }
+  const returnJobFeed = () => {
+    if (requesting) {
+      console.log("loading");
+      return <p>{loadingScreen}</p>;
+    } else
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {jobFeed.length ? (
+            jobFeed.map((job) => (
+              <JobFeedCard
+                key={job.id}
+                id={job.id}
+                postedBy={job.postedBy || "Anonymous"} // fallback
+                timePosted={job.timePosted || "Just now"} // fallback
+                rating={job.rating || 0} // fallback
+                title={job.title}
+                payRate={job.payRate}
+                duration={job.duration}
+                location={job.location}
+                skills={job.skills || []}
+                description={job.description}
+                onApply={() => setShowForm(true)}
+              />
+            ))
+          ) : (
+            <p>Could not fetch jobs</p>
+          )}
+        </div>
+      );
+  };
   return (
     <section
       className="container"

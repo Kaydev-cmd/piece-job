@@ -16,66 +16,72 @@ import { useAuth } from "@/context/AuthContext";
 import { JobSeekerProfileCardProps } from "@/interfaces";
 
 const JobSeekerProfilePage = () => {
-  const {baseUrl,loggedInToken, loggedUser} = useAuth()
-  const [seeker,setSeeker] = useState<JobSeekerProfileCardProps>(JOB_SEEKER_PROFILE_DATA)
-  const {loading, setLoading,loadingScreen} = useAPIRequster()
-  const fetchSeekerProfile =async ()=>{
-    if (loggedUser.role == null || loggedUser.employerType ==null){
-      console.error("logged user has null role or null employerType") ;
-      return ;
+  const { baseUrl, loggedInToken, loggedUser } = useAuth();
+  const [seeker, setSeeker] = useState<JobSeekerProfileCardProps>(
+    JOB_SEEKER_PROFILE_DATA
+  );
+  const { loading, setLoading, loadingScreen } = useAPIRequster();
+  const fetchSeekerProfile = async () => {
+    if (loggedUser.role == null || loggedUser.employerType == null) {
+      console.error("logged user has null role or null employerType");
+      return;
     }
-    if (loggedUser.role === "employer" && loggedUser.employerType === "business"){
-        return ; //business-employer's do not have a seeker profile.
+    if (
+      loggedUser.role === "employer" &&
+      loggedUser.employerType === "business"
+    ) {
+      return; //business-employer's do not have a seeker profile.
     }
     setLoading(true);
-    try{
-      const apiRes = await axios.get(`${baseUrl}/seeker-profile/${loggedUser.username}`,{
-        headers:{
-          Authorization: "Bearer "+loggedInToken 
+    try {
+      const apiRes = await axios.get(
+        `${baseUrl}/seeker-profile/${loggedUser.username}`,
+        {
+          headers: {
+            Authorization: "Bearer " + loggedInToken,
+          },
         }
-      })
-      console.log("res: ", apiRes) ; 
+      );
+      console.log("res: ", apiRes);
       setLoading(false);
-      setSeeker(apiRes.data.data)
-    }
-    catch(error: unknown){
-      console.log("error occured: ",error)
+      setSeeker(apiRes.data.data);
+    } catch (error: unknown) {
+      console.log("error occured: ", error);
       setLoading(false);
     }
-  }
-  useEffect(()=>{
-    fetchSeekerProfile()
-  },[])
-  var user = seeker
-  if (loading) return loadingScreen
+  };
+  useEffect(() => {
+    fetchSeekerProfile();
+  }, []);
+  var user = seeker;
+  if (loading) return loadingScreen;
   return (
     <section className="container" style={{ paddingBottom: "0" }}>
       <div className="lg:grid grid-cols-2 gap-4">
         {/* User Profile component h... */}
         <div>
           <JobSeekerProfileCard
-              key={user.id}
-              id={user.id}
-              userImage={user.userImage}
-              lastName={user.lastName}
-              firstName={user.firstName}
-              userAge={user.userAge}
-              userLocation={user.userLocation}
-              userRating={user.userRating}
-              numberOfReviews={user.numberOfReviews}
-              skillSet={user.skillSet}
-
-            />
+            key={user.id}
+            id={user.id}
+            userImage={user.userImage}
+            lastName={user.lastName}
+            firstName={user.firstName}
+            userAge={user.userAge}
+            userLocation={user.userLocation}
+            userRating={user.userRating}
+            numberOfReviews={user.numberOfReviews}
+            skillSet={user.skillSet}
+          />
         </div>
 
         {/* Skills cards h... */}
         <div style={{ marginTop: "32px" }}>
           <JobSeekerSkillsCard
-              key={user.id}
-              id={user.id}
-              skills={user.skillSet}
-              // description={user.description}
-            />
+            key={user.id}
+            id={user.id}
+            skills={user.skillSet}
+            // description={user.description}
+          />
         </div>
       </div>
 

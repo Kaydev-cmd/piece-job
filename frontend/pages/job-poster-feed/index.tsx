@@ -11,8 +11,9 @@ import { Job } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
-  const { jobFeed, editJob, deleteJob, setJobFeed ,requesting, fetchJobs} = useJobPost();
-  const {loadingScreen} = useAPIRequster()
+  const { jobFeed, editJob, deleteJob, setJobFeed, requesting, fetchJobs } =
+    useJobPost();
+  const { loadingScreen } = useAPIRequster();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [deletingJob, setDeletingJob] = useState<Job | null>(null);
 
@@ -30,11 +31,12 @@ const JobPosterFeedPage: React.FC<Job> = () => {
     setDeletingJob(null);
   };
 
-  const fetchedJobs = ()=>{
-    if (requesting){
-      return <p>{loadingScreen} Loading...</p>
+  const fetchedJobs = () => {
+    if (requesting) {
+      return <p>{loadingScreen} Loading...</p>;
     }
-    return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {jobFeed.length ? (
           jobFeed.map((job) => {
             const normalizedSkills =
@@ -74,13 +76,19 @@ const JobPosterFeedPage: React.FC<Job> = () => {
               />
             );
           })
-        ) : (<>
-          <p>No jobs found, try posting a Job..</p>
-          <Button title="refresh Jobs" variant="tertiary" onClick={fetchJobs}/>
-        </>
+        ) : (
+          <>
+            <p>No jobs found, try posting a Job..</p>
+            <Button
+              title="refresh Jobs"
+              variant="tertiary"
+              onClick={fetchJobs}
+            />
+          </>
         )}
       </div>
-  }
+    );
+  };
 
   return (
     <section

@@ -12,10 +12,10 @@ export interface ButtonProps {
   isActive?: boolean;
 }
 
-export interface Header_Link{
-    id:number,
-    link: string,
-    href: string,
+export interface Header_Link {
+  id: number;
+  link: string;
+  href: string;
 }
 
 export interface HeroStatsCardProps {
@@ -62,8 +62,9 @@ export interface BannerStatsProps {
   variant: string;
 }
 
-export interface LoggedInUser{
-  username: string,
+export interface LoggedInUser {
+  username: string;
+  userImage?: string;
   role: "jobSeeker" | "employer";
   employerType?: "individual" | "business";
 }
@@ -172,17 +173,16 @@ export interface JobReviewCardProps {
   // skills: { skill: string }[];
 }
 
-export interface BusinessPoster{
-    companyName: string,
-    id : number,
-    companyAddress?: string,
-    companyRegisterNumber?: string
-  }
-
+export interface BusinessPoster {
+  companyName: string;
+  id: number;
+  companyAddress?: string;
+  companyRegisterNumber?: string;
+}
 
 export interface JobPostData {
   id: number;
-  postedBy:BusinessPoster
+  postedBy: BusinessPoster;
   timePosted: string;
   rating: number;
   title: string;
@@ -205,8 +205,8 @@ export interface JobPostContextType {
   editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
   deleteJob: (id: number) => Promise<void>;
   setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
-  fetchJobs: ()=>void;
-  requesting : boolean ;
+  fetchJobs: () => void;
+  requesting: boolean;
 }
 
 export interface ChosenWorkerCardProps {
@@ -245,7 +245,7 @@ export interface JobSeekerProfileCardProps {
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
-  skillSet:SkillsProps[]; 
+  skillSet: SkillsProps[];
 }
 
 export interface JobSeekerSkillsCardProps {
@@ -254,8 +254,8 @@ export interface JobSeekerSkillsCardProps {
   description?: string;
 }
 
-export interface APIRequester{
-  loading: boolean
+export interface APIRequester {
+  loading: boolean;
 }
 
 export interface JobPosterProfileCardProps {

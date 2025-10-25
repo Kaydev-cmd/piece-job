@@ -1,6 +1,11 @@
-import { Applicant, Header_Link, JobPosterProfileCardProps, JobSeekerProfileCardProps } from "@/interfaces";
+import {
+  Applicant,
+  Header_Link,
+  JobPosterProfileCardProps,
+  JobSeekerProfileCardProps,
+} from "@/interfaces";
 
-export const HEADER_LINKS : Header_Link[] = [
+export const HEADER_LINKS: Header_Link[] = [
   {
     id: 1,
     link: "Home",
@@ -15,7 +20,38 @@ export const HEADER_LINKS : Header_Link[] = [
     id: 3,
     link: "Contact",
     href: "/contact",
-  }
+  },
+];
+
+export const JOB_SEEKER_DROPDOWN_LINKS = [
+  {
+    id: 1,
+    linkName: "View Jobs",
+    href: "/job-feed",
+  },
+  {
+    id: 2,
+    linkName: "View Wallet",
+    href: "/wallet",
+  },
+];
+
+export const JOB_POSTER_DROPDOWN_LINKS = [
+  {
+    id: 1,
+    linkName: "Post a Job",
+    href: "/post-job",
+  },
+  {
+    id: 2,
+    linkName: "View Jobs Posted",
+    href: "/job-poster-feed",
+  },
+  {
+    id: 3,
+    linkName: "View Jobs Applicants",
+    href: "/job-applicants",
+  },
 ];
 
 export const MOBILE_LINKS = [
@@ -414,37 +450,36 @@ export const PAYMENT_SUMMARY_DATA = [
   },
 ];
 
-export const JOB_SEEKER_PROFILE_DATA : JobSeekerProfileCardProps =
-  {
-    id: 1,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    lastName: "John Doe",
-    userAge: 22,
-    userLocation: "Johannesburg, Gauteng",
-    userRating: 4.8,
-    numberOfReviews: 24,
-    skillSet: [
-      {
-        id: 1,
-        skillName: "Driving",
-        priorityLevel: "low",
-      },
-      {
-        id: 2,
-        skillName: "Data Entry",
-        priorityLevel: "high",
-      },
-      {
-        id: 3,
-        skillName: "Gardening",
-        priorityLevel: "moderate",
-      },
-    ],
-    // description:
-    //   "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
-  };
+export const JOB_SEEKER_PROFILE_DATA: JobSeekerProfileCardProps = {
+  id: 1,
+  userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+  lastName: "John Doe",
+  userAge: 22,
+  userLocation: "Johannesburg, Gauteng",
+  userRating: 4.8,
+  numberOfReviews: 24,
+  skillSet: [
+    {
+      id: 1,
+      skillName: "Driving",
+      priorityLevel: "low",
+    },
+    {
+      id: 2,
+      skillName: "Data Entry",
+      priorityLevel: "high",
+    },
+    {
+      id: 3,
+      skillName: "Gardening",
+      priorityLevel: "moderate",
+    },
+  ],
+  // description:
+  //   "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+};
 
-export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
+export const JOB_POSTER_PROFILE_DATA: JobPosterProfileCardProps[] = [
   {
     id: 1,
     companyName: "Brian J.",
@@ -456,7 +491,8 @@ export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    biography: "Small landscaping business offering flexible work opportunities for motivated individuals.",
+    biography:
+      "Small landscaping business offering flexible work opportunities for motivated individuals.",
     // recentJobs: [
     //   {
     //     title: "Weekend Garden Maintenance",
@@ -492,7 +528,8 @@ export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    biography: "Small tech business offering flexible work opportunities for motivated individuals.",
+    biography:
+      "Small tech business offering flexible work opportunities for motivated individuals.",
     // recentJobs: [
     //   {
     //     title: "Weekend Garden Maintenance",
