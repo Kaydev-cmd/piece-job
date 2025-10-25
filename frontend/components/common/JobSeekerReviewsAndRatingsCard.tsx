@@ -18,7 +18,7 @@ const JobSeekerReviewsAndRatingsCard: React.FC<
               alt={userName}
               width={500}
               height={500}
-              className="w-full rounded-full"
+              className="w-1/2 rounded-full"
             />
           ) : (
             <div

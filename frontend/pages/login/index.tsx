@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { LoginProps } from "@/interfaces";
+import { LoginProps, LoggedInUser } from "@/interfaces";
 import axios from "axios";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/router";
@@ -9,11 +9,12 @@ import { useAuth } from "@/context/AuthContext";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const {login} = useAuth() ;
+  const { login, baseUrl, setLoggedInUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const url = "http://localhost:8080/login"
+  const url = baseUrl + "/login";
+
   const {
     register,
     handleSubmit,
@@ -30,33 +31,46 @@ const LoginPage: React.FC = () => {
     setLoading(true);
     setResolved(null);
     setError(null);
-    console.log("data: ",data)
+
+    console.log("data: ", data);
+
     try {
       // const response = await axios.post("/api/login/login", data);
       const response = await axios.post(url, data);
-      console.log("api res: ",response.data)
-      const resApi = response.data
+      console.log("api res: ", response.data);
+      const resApi = response.data;
       if (resApi.data) {
         setResolved("Login successful! Redirecting...");
         login(resApi.data.loggedInToken);
+
+        const loggedUser: LoggedInUser = {
+          role: resApi.data.role,
+          username: resApi.data.username,
+          employerType: resApi.data.employerType || null,
+        };
+
+        console.log("Api res: ", resApi.data, " LoggedUser: ", loggedUser);
+        setLoggedInUser(loggedUser);
+
         // axios.defaults.headers.common['Authorization'] = `Bearer ${resApi.data.loggedInToken}`
         // Redirect based on email or role
         setTimeout(() => {
-          if (resApi.data.role === "jobSeeker") {
+          if (loggedUser.role === "jobSeeker") {
             router.push("/job-feed");
-          } else if (resApi.data.role === "employer") {
+          } else if (loggedUser.role === "employer") {
             router.push("/job-poster-feed");
           } else {
             router.push("/");
           }
+
           reset();
         }, 1500);
       } else {
-      console.log("err res: ",resApi)
+        console.log("err res: ", resApi);
         setError("Invalid credentials. Please try again.");
       }
     } catch (err: unknown) {
-        console.log("caught err: ",err)
+      console.log("caught err: ", err);
 
       if (axios.isAxiosError(err) && err.response?.data?.message) {
         setError(err.response.data.message);

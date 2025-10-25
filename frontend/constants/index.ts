@@ -528,7 +528,7 @@ export const JOB_POSTER_PROFILE_DATA = [
 export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   {
     id: 1,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Thabo M.",
     description:
       "Very professional and completed the work on time. Highly recommend!",
@@ -536,28 +536,28 @@ export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   },
   {
     id: 2,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Naledi K.",
     description: "Great attention to detail, but arrived a bit late.",
     rating: 4,
   },
   {
     id: 3,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Sipho D.",
     description: "Did an excellent job and was very polite. Will hire again.",
     rating: 5,
   },
   {
     id: 4,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Aisha P.",
     description: "Work was okay, but communication could be better.",
     rating: 3,
   },
   {
     id: 5,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Lerato S.",
     description: "Outstanding service, went above and beyond my expectations.",
     rating: 5,

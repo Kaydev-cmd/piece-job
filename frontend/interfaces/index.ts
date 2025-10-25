@@ -322,3 +322,9 @@ export interface ApplicantCardProps {
   onAccept: (id: string) => void;
   onReject: (id: string) => void;
 }
+
+export interface LoggedInUser{
+  username: string,
+  role: "jobSeeker" | "employer";
+  employerType?: "individual" | "business";
+}

@@ -7,9 +7,13 @@ import { HiX } from "react-icons/hi";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Button from "../common/Button";
+import { useAuth } from "@/context/AuthContext";
+import { LoggedInUser } from "@/interfaces";
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const { loggedUser } = useAuth();
+
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -33,6 +37,38 @@ const Header: React.FC = () => {
     };
   }, [isMenuOpen]);
 
+  const whatToRender = (user: LoggedInUser) => {
+    console.log("The logged in user is: ", user);
+
+    if (user.role === "employer") {
+      return (
+        <Button
+          title="Post a Job"
+          variant="login"
+          onClick={() => router.push("/post-job")}
+        />
+      );
+    }
+
+    if (user.role === "jobSeeker") {
+      return (
+        <Button
+          title="Profile"
+          variant="login"
+          onClick={() => router.push("/job-seeker")}
+        />
+      );
+    }
+
+    return (
+      <Button
+        title="Login"
+        variant="login"
+        onClick={() => router.push("/login")}
+      />
+    );
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white">
       <div className="container flex justify-between items-center">
@@ -55,11 +91,15 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="hidden md:flex gap-4 items-center">
-          <Button
-            title="Login"
-            onClick={() => router.push("/login")}
-            variant="login"
-          />
+          {!loggedUser ? (
+            <Button
+              title="Login"
+              onClick={() => router.push("/login")}
+              variant="login"
+            />
+          ) : (
+            whatToRender(loggedUser)
+          )}
         </div>
 
         {/* Hamburger menu button */}
