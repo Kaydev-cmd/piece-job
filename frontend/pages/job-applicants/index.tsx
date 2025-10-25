@@ -22,12 +22,12 @@ const JobApplicants = () => {
   useEffect(()=>{
     const fetchJobApplicants = async () => {
     try{
-        const response = await axios.get(baseUrl+"/jobs/1",{
+        const response = await axios.get(baseUrl+"/jobApplicants/25",{
           headers:{Authorization: `Bearer ${loggedInToken}`}
         }) ;
         console.log("res: ",response)
         if (response.data){
-          setApplicants(response.data)
+          setApplicants(response.data.data)
         }
     }
     catch(err:any){
@@ -37,10 +37,10 @@ const JobApplicants = () => {
   fetchJobApplicants() ;
   },[])
 
-  const handleAccept = (id: string) => {
+  const handleAccept = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
-        applicant.id === parseInt(id)
+        applicant.id === id
           ? { ...applicant, status: "accepted" as const }
           : applicant
       )
@@ -49,7 +49,7 @@ const JobApplicants = () => {
   const handleReject = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
-        applicant.id === parseInt(id)
+        applicant.id === id
           ? { ...applicant, status: "rejected" as const }
           : applicant
       )
@@ -57,7 +57,7 @@ const JobApplicants = () => {
   };
   const filteredApplicants = applicants.filter((applicant) => {
     const matchesSearch =
-      applicant.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       applicant.skillSet.some((skill) =>
         skill.skillName.toLowerCase().includes(searchTerm.toLowerCase())
       );

@@ -12,7 +12,8 @@ const ApplicantCard = ({
 }: ApplicantCardProps) => {
   const {
     id,
-    userName,
+    lastName,
+    firstName,
     userImage,
     rating,
     reviewCount,
@@ -29,7 +30,7 @@ const ApplicantCard = ({
         <div className="flex items-center justify-center">
           <Image
             src={userImage || "/default-profile.png"}
-            alt={userName ? `${userName}'s profile picture` : "Profile picture"}
+            alt={lastName ? `${lastName}'s profile picture` : "Profile picture"}
             width={80}
             height={80}
             className="rounded-full object-cover w-1/4"
@@ -39,7 +40,7 @@ const ApplicantCard = ({
         <div className="flex items-start justify-around md:justify-between">
           <div className="flex flex-col items-center gap-2">
             <h3 className="text-2xl items-center font-bold text-[#111827]">
-              {userName}
+              {firstName} {lastName}
             </h3>
 
             <div className="flex flex-col gap-3 items-center md:flex-row md:items-center text-[#64748B]">
@@ -89,14 +90,14 @@ const ApplicantCard = ({
               <Button
                 title="Reject"
                 variant="cancel"
-                onClick={() => onReject( id.toString())}
+                onClick={() => onReject( id)}
                 className="flex-1"
               />
 
               <Button
                 title="Accept"
                 variant="default"
-                onClick={() => onAccept(id.toString())}
+                onClick={() => onAccept(id)}
                 className="flex-1"
               />
             </div>

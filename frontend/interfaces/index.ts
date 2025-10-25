@@ -1,3 +1,5 @@
+import { interpolate } from "motion";
+
 export interface LayoutProps {
   children: React.ReactNode;
 }
@@ -333,15 +335,21 @@ export interface Job {
   description?: string;
 }
 
+// export interface JobInApplicantContext extends Job{
+//   jobApplicants : Applicant[]
+// }
+
 export interface Applicant {
   id: number;
-  userName: string;
+  lastName: string;
+  firstName: string;
+  skillSet: SkillsProps[];
+
   userImage?: string;
   rating?: number;
   reviewCount?: number;
   location?: string;
   appliedDate?: string;
-  skillSet: SkillsProps[];
   experience?: number;
   hourlyRate?: number;
   status: "pending" | "accepted" | "rejected";
