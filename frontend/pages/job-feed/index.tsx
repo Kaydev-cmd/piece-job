@@ -114,7 +114,7 @@ const JobFeedPage = () => {
             <JobFeedCard
               key={job.id}
               id={job.id}
-              userName={job.userName || "Anonymous"} // fallback
+              postedBy={job.postedBy || "Anonymous"} // fallback
               timePosted={job.timePosted || "Just now"} // fallback
               rating={job.rating || 0} // fallback
               title={job.title}

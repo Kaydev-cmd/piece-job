@@ -5,12 +5,14 @@ import Button from "./Button";
 import JobPreview from "./JobPreview";
 import { useForm } from "react-hook-form";
 import { useJobPost } from "@/context/JobPostContext";
+import { useRouter } from "next/router";
 
 const RequirementsAndReviewForm: React.FC<StepProps> = ({
   pageTracker,
   onBack,
 }) => {
   const { draftJob, postJob } = useJobPost();
+  const router = useRouter();
 
   const { register, handleSubmit, reset } =
     useForm<RequirementsAndReviewFormProps>({
@@ -34,6 +36,7 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
       await postJob(finalData);
       setSuccess("Job posted successfully!");
       reset();
+      router.push("/job-poster-feed");
     } catch (err) {
       console.error("Error:", err);
       setError("Something went wrong. Please try again.");

@@ -79,7 +79,8 @@ export interface LoginProps {
 export interface JobFeedCardProps {
   id: number;
   image?: string;
-  userName: string;
+  postedBy: JobPosterProfileCardProps;
+  // userName: string;
   timePosted: string;
   rating: number;
   title: string;
@@ -161,9 +162,17 @@ export interface JobReviewCardProps {
   // skills: { skill: string }[];
 }
 
+export interface BusinessPoster {
+  companyName: string;
+  id: number;
+  companyAddress?: string;
+  companyRegisterNumber?: string;
+}
+
 export interface JobPostData {
   id: number;
   userName: string;
+  postedBy: BusinessPoster;
   timePosted: string;
   rating: number;
   title: string;
@@ -173,6 +182,7 @@ export interface JobPostData {
   duration: string;
   specialRequirements?: string;
   skills: SkillsProps[];
+  jobApplicants: [];
   onApply?: () => void;
 }
 
@@ -233,16 +243,18 @@ export interface JobSeekerSkillsCardProps {
 export interface JobPosterProfileCardProps {
   id: number;
   userImage?: string;
-  userName?: string;
+  companyName?: string;
   userAge?: number;
-  userLocation?: string;
+  companyAddress?: string;
   userRating?: number;
   numberOfReviews?: number;
   isVerified?: boolean;
   postedJobs?: number;
   activeJobs?: number;
   biography?: string;
-  businessName?: string;
+  lastName?: string;
+  firstName?: string;
+  jobsPosted?: JobPostData[];
 }
 
 export interface JobSeekerReviewsAndRatingsCardProps {
@@ -323,8 +335,8 @@ export interface ApplicantCardProps {
   onReject: (id: string) => void;
 }
 
-export interface LoggedInUser{
-  username: string,
+export interface LoggedInUser {
+  username: string;
   role: "jobSeeker" | "employer";
   employerType?: "individual" | "business";
 }
