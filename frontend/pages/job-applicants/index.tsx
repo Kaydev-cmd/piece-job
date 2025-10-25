@@ -14,7 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 
 const JobApplicants = () => {
   const router = useRouter();
-  const {loggedInToken} = useAuth()
+  const {baseUrl,loggedInToken} = useAuth()
   const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -22,7 +22,7 @@ const JobApplicants = () => {
   useEffect(()=>{
     const fetchJobApplicants = async () => {
     try{
-        const response = await axios.get("http://localhost:8080/jobs/1",{
+        const response = await axios.get(baseUrl+"/jobs/1",{
           headers:{Authorization: `Bearer ${loggedInToken}`}
         }) ;
         console.log("res: ",response)
@@ -46,7 +46,7 @@ const JobApplicants = () => {
       )
     );
   };
-  const handleReject = (id: string) => {
+  const handleReject = (id: number) => {
     setApplicants((prev) =>
       prev.map((applicant) =>
         applicant.id === parseInt(id)
@@ -122,7 +122,7 @@ const JobApplicants = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3" style={{marginTop: "8px"}}>
+          <div className="flex items-center gap-3" style={{ marginTop: "8px" }}>
             <div className="flex relative">
               <Search
                 size={16}

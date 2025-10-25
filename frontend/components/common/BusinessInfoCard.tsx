@@ -23,12 +23,14 @@ const BusinessInfoCard: React.FC<JobPosterProfileCardProps> = ({
       <div className="flex flex-col text-center items-center md:flex-row md:justify-center gap-10">
         <div className="flex flex-col items-center">
           {jobsPosted && (
+          {jobsPosted !== undefined && (
             <p className="text-xl font-bold">{jobsPosted.length}</p>
           )}
           <p className="font-bold">Posted Jobs</p>
         </div>
         <div className="flex flex-col items-center">
           <p className="font-bold">{activeJobs ? activeJobs : 0}</p>
+            <p className="text-xl font-bold">{activeJobs !== undefined ? activeJobs : 0}</p>
           <p className="font-bold">Active Jobs</p>
         </div>
       </div>

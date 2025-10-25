@@ -21,7 +21,7 @@ const JobSeekerSkillsCard: React.FC<JobSeekerSkillsCardProps> = ({
           <Pill
             key={`${skill.id}-${index}`}
             title={skill.skillName}
-            variant={skill.priorityLevel}
+            variant={skill.priorityLevel?skill.priorityLevel: "default"}
           />
         ))}
       </div>

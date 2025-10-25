@@ -8,9 +8,11 @@ import JobPosterFeedCard from "@/components/common/JobPosterFeedCard";
 import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
 import { Job } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
-  const { jobFeed, editJob, deleteJob, setJobFeed } = useJobPost();
+  const { jobFeed, editJob, deleteJob, setJobFeed ,requesting, fetchJobs} = useJobPost();
+  const {loadingScreen} = useAPIRequster()
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [deletingJob, setDeletingJob] = useState<Job | null>(null);
 
@@ -28,60 +30,11 @@ const JobPosterFeedPage: React.FC<Job> = () => {
     setDeletingJob(null);
   };
 
-  return (
-    <section
-      className="container"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
-    >
-      <div className="flex items-center justify-between">
-        <div
-          className="flex flex-col gap-2"
-          style={{ marginBottom: "16px", marginTop: "16px" }}
-        >
-          <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
-            <Link href="/job-poster-feed">Jobs Posted</Link>
-          </h1>
-          {jobFeed.length > 0 ? (
-            <p className="text-slate-600 font-semibold">
-              {jobFeed.length} job(s) posted
-            </p>
-          ) : (
-            <p className="text-slate-600 font-semibold">0 job(s) posted</p>
-          )}
-        </div>
-
-        {/* Filter */}
-        <Filter
-          onApplyFilters={(filters) => {
-            const { jobTitle = "", location = "", skills = [] } = filters;
-
-            setJobFeed((prevJobs) =>
-              prevJobs.filter((job) => {
-                const matchesTitle = job.title
-                  .toLowerCase()
-                  .includes(jobTitle.toLowerCase());
-                const matchesLocation = job.location
-                  .toLowerCase()
-                  .includes(location.toLowerCase());
-                const matchesSkills = skills.some((s) =>
-                  job.skills.some((skill) =>
-                    skill.skillName.toLowerCase().includes(s.toLowerCase())
-                  )
-                );
-                return matchesTitle && matchesLocation && matchesSkills;
-              })
-            );
-          }}
-        />
-      </div>
-
-      {/* Search box here.... */}
-      <div style={{ marginBottom: "16px" }}>
-        <SearchBar />
-      </div>
-
-      {/* Job Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+  const fetchedJobs = ()=>{
+    if (requesting){
+      return <p>{loadingScreen} Loading...</p>
+    }
+    return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {jobFeed.length ? (
           jobFeed.map((job) => {
             const normalizedSkills =
@@ -121,16 +74,75 @@ const JobPosterFeedPage: React.FC<Job> = () => {
               />
             );
           })
-        ) : (
-          <p>Loading...</p>
+        ) : (<>
+          <p>No jobs found, try posting a Job..</p>
+          <Button title="refresh Jobs" variant="tertiary" onClick={fetchJobs}/>
+        </>
         )}
       </div>
+  }
+
+  return (
+    <section
+      className="container"
+      style={{ paddingTop: "0", paddingBottom: "0" }}
+    >
+      <div className="flex items-center justify-between">
+        <div
+          className="flex flex-col gap-2"
+          style={{ marginBottom: "16px", marginTop: "16px" }}
+        >
+          <h1 className="text-blue-900 font-bold text-3xl cursor-pointer">
+            <Link href="/job-poster-feed">Jobs Posted</Link>
+          </h1>
+          {jobFeed.length > 0 ? (
+            <p className="text-slate-600 font-semibold">
+              {jobFeed.length} job(s) posted
+            </p>
+          ) : (
+            <p className="text-slate-600 font-semibold">0 job(s) posted</p>
+          )}
+        </div>
+
+        {/* Filter */}
+        <Filter
+          onApplyFilters={(filters) => {
+            const { title = "", location = "", skills = [] } = filters;
+
+            setJobFeed((prevJobs) =>
+              prevJobs.filter((job) => {
+                const matchesTitle = job.title
+                  .toLowerCase()
+                  .includes(title.toLowerCase());
+                const matchesLocation = job.location
+                  .toLowerCase()
+                  .includes(location.toLowerCase());
+                const matchesSkills = skills.some((s) =>
+                  job.skills.some((skill) =>
+                    skill.skillName.toLowerCase().includes(s.toLowerCase())
+                  )
+                );
+                return matchesTitle && matchesLocation && matchesSkills;
+              })
+            );
+          }}
+        />
+      </div>
+
+      {/* Search box here.... */}
+      <div style={{ marginBottom: "16px" }}>
+        <SearchBar />
+      </div>
+
+      {/* Job Feed */}
+      {fetchedJobs()}
 
       {/* Edit Modal */}
       {editingJob && (
         <EditJobModal
           job={{
             ...editingJob,
+            title: editingJob.jobTitle ?? "",
             description: editingJob.description ?? "",
             skills: editingJob.skills ?? [],
             payRate: Number(editingJob.payRate),

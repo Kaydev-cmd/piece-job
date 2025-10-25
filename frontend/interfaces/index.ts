@@ -12,6 +12,12 @@ export interface ButtonProps {
   isActive?: boolean;
 }
 
+export interface Header_Link{
+    id:number,
+    link: string,
+    href: string,
+}
+
 export interface HeroStatsCardProps {
   id: number;
   statNumber: string;
@@ -56,6 +62,11 @@ export interface BannerStatsProps {
   variant: string;
 }
 
+export interface LoggedInUser{
+  username: string,
+  role: "jobSeeker" | "employer";
+  employerType?: "individual" | "business";
+}
 export interface SignupFormValues {
   firstName: string;
   lastName: string;
@@ -80,7 +91,6 @@ export interface JobFeedCardProps {
   id: number;
   image?: string;
   postedBy: JobPosterProfileCardProps;
-  // userName: string;
   timePosted: string;
   rating: number;
   title: string;
@@ -162,17 +172,17 @@ export interface JobReviewCardProps {
   // skills: { skill: string }[];
 }
 
-export interface BusinessPoster {
-  companyName: string;
-  id: number;
-  companyAddress?: string;
-  companyRegisterNumber?: string;
-}
+export interface BusinessPoster{
+    companyName: string,
+    id : number,
+    companyAddress?: string,
+    companyRegisterNumber?: string
+  }
+
 
 export interface JobPostData {
   id: number;
-  userName: string;
-  postedBy: BusinessPoster;
+  postedBy:BusinessPoster
   timePosted: string;
   rating: number;
   title: string;
@@ -195,6 +205,8 @@ export interface JobPostContextType {
   editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
   deleteJob: (id: number) => Promise<void>;
   setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
+  fetchJobs: ()=>void;
+  requesting : boolean ;
 }
 
 export interface ChosenWorkerCardProps {
@@ -227,17 +239,23 @@ export interface SkillsProps {
 export interface JobSeekerProfileCardProps {
   id: number;
   userImage?: string;
-  userName?: string;
+  lastName?: string;
+  firstName?: string;
   userAge?: number;
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
+  skillSet:SkillsProps[]; 
 }
 
 export interface JobSeekerSkillsCardProps {
   id: number;
   skills: SkillsProps[];
   description?: string;
+}
+
+export interface APIRequester{
+  loading: boolean
 }
 
 export interface JobPosterProfileCardProps {
@@ -277,7 +295,7 @@ export interface JobSeekerRecentJobsCardProps {
 export interface EditJobModalProps {
   job: {
     id: number;
-    jobTitle: string;
+    title: string;
     description: string;
     location: string;
     payRate: number;
@@ -296,7 +314,7 @@ export interface DeleteJobModalProps {
 
 export interface JobFeedFilterProps {
   onApplyFilters: (filters: {
-    jobTitle?: string;
+    title?: string;
     location?: string;
     skills?: string[];
   }) => void;
@@ -331,8 +349,8 @@ export interface Applicant {
 
 export interface ApplicantCardProps {
   applicant: Applicant;
-  onAccept: (id: string) => void;
-  onReject: (id: string) => void;
+  onAccept: (id: number) => void;
+  onReject: (id: number) => void;
 }
 
 export interface LoggedInUser {

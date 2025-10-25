@@ -15,7 +15,7 @@ import { useAuth } from "@/context/AuthContext";
 import { JobPosterProfileCardProps } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
-const JobPosterProfilePage = () => {
+const JobPosterProfilePage  = () => {
   const router = useRouter();
   const { id } = router.query;
 

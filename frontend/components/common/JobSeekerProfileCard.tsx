@@ -6,7 +6,8 @@ import { FaStar } from "react-icons/fa";
 
 const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
   userImage,
-  userName,
+  lastName,
+  firstName,
   userAge,
   userLocation,
   userRating,
@@ -20,7 +21,7 @@ const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
         <div className="flex justify-center">
           <Image
             src={userImage ?? "/default-profile.png"}
-            alt={userName ?? "Profile image"}
+            alt={firstName ?? "Profile image"}
             width={500}
             height={500}
             className="w-1/2 rounded-full"
@@ -29,7 +30,7 @@ const JobSeekerProfileCard: React.FC<JobSeekerProfileCardProps> = ({
 
         {/* Other details here... */}
         <div className="text-center text-2xl flex flex-col gap-2">
-          <h1 className="text-4xl font-bold">{userName}</h1>
+          <h1 className="text-4xl font-bold">{firstName} {lastName}</h1>
           <p>Age: {userAge}</p>
           <p className="flex items-center gap-2">
             {/* Icon here... */}

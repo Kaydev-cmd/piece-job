@@ -44,7 +44,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
             {image ? (
               <Image
                 src={image}
-                alt={postedBy.companyName ? postedBy.companyName : ""}
+                alt={postedBy.companyName?postedBy.companyName:""}
                 width={200}
                 height={200}
                 className="w-full"

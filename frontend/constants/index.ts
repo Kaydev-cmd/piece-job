@@ -1,6 +1,6 @@
-import { Applicant } from "@/interfaces";
+import { Applicant, Header_Link, JobPosterProfileCardProps, JobSeekerProfileCardProps } from "@/interfaces";
 
-export const HEADER_LINKS = [
+export const HEADER_LINKS : Header_Link[] = [
   {
     id: 1,
     link: "Home",
@@ -15,12 +15,7 @@ export const HEADER_LINKS = [
     id: 3,
     link: "Contact",
     href: "/contact",
-  },
-  {
-    id: 4,
-    link: "Jobs",
-    href: "/job-feed",
-  },
+  }
 ];
 
 export const MOBILE_LINKS = [
@@ -419,16 +414,16 @@ export const PAYMENT_SUMMARY_DATA = [
   },
 ];
 
-export const JOB_SEEKER_PROFILE_DATA = [
+export const JOB_SEEKER_PROFILE_DATA : JobSeekerProfileCardProps =
   {
     id: 1,
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    userName: "John Doe",
+    lastName: "John Doe",
     userAge: 22,
     userLocation: "Johannesburg, Gauteng",
     userRating: 4.8,
     numberOfReviews: 24,
-    skills: [
+    skillSet: [
       {
         id: 1,
         skillName: "Driving",
@@ -445,83 +440,82 @@ export const JOB_SEEKER_PROFILE_DATA = [
         priorityLevel: "moderate",
       },
     ],
-    description:
-      "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
-  },
-];
+    // description:
+    //   "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+  };
 
-export const JOB_POSTER_PROFILE_DATA = [
+export const JOB_POSTER_PROFILE_DATA : JobPosterProfileCardProps[]= [
   {
     id: 1,
-    username: "Brian J.",
-    businessName: "Green Gardens Landscaping",
-    userlocation: "Cape Town, Western Cape",
+    companyName: "Brian J.",
+    // businessName: "Green Gardens Landscaping",
+    companyAddress: "Cape Town, Western Cape",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small landscaping business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography: "Small landscaping business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
   {
     id: 2,
-    username: "Simon K.",
-    businessName: "XYZ Incorporations",
-    userlocation: "Pretoria, Gauteng",
+    companyName: "Simon K.",
+    // businessName: "XYZ Incorporations",
+    companyAddress: "Pretoria, Gauteng",
     userImage: "",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small tech business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography: "Small tech business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
 ];
 
