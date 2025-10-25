@@ -327,7 +327,7 @@ export interface Job {
   userName?: string;
   timePosted?: string;
   rating?: number;
-  jobTitle: string;
+  title: string;
   payRate: string;
   duration: string;
   location: string;
@@ -335,9 +335,9 @@ export interface Job {
   description?: string;
 }
 
-// export interface JobInApplicantContext extends Job{
-//   jobApplicants : Applicant[]
-// }
+export interface JobInApplicantContext extends Job{
+  jobApplicants : Applicant[] | []
+}
 
 export interface Applicant {
   id: number;

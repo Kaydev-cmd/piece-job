@@ -8,14 +8,15 @@ import { mockApplicants } from "@/constants";
 
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { Applicant } from "@/interfaces";
+import { Applicant, JobInApplicantContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
+import Pill from "@/components/common/Pill";
 
 const JobApplicants = () => {
   const router = useRouter();
   const {baseUrl,loggedInToken} = useAuth()
-  const [applicants, setApplicants] = useState<Applicant[]>([]);
+  const [job, setApplicants] = useState<JobInApplicantContext>({} as JobInApplicantContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
 
@@ -38,24 +39,24 @@ const JobApplicants = () => {
   },[])
 
   const handleAccept = (id: number) => {
-    setApplicants((prev) =>
-      prev.map((applicant) =>
+    const accepted = {...job}
+    accepted.jobApplicants.map((applicant) =>
         applicant.id === id
           ? { ...applicant, status: "accepted" as const }
           : applicant
       )
-    );
+    setApplicants(accepted);
   };
   const handleReject = (id: number) => {
-    setApplicants((prev) =>
-      prev.map((applicant) =>
+    
+    const newJob = {...job}
+    newJob.jobApplicants = job.jobApplicants.map((applicant) =>
         applicant.id === id
           ? { ...applicant, status: "rejected" as const }
-          : applicant
-      )
-    );
+          : applicant) ; 
+    setApplicants(newJob);
   };
-  const filteredApplicants = applicants.filter((applicant) => {
+  const filteredApplicants = !job.jobApplicants? [] : job.jobApplicants.filter((applicant) => {
     const matchesSearch =
       applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       applicant.skillSet.some((skill) =>
@@ -65,8 +66,8 @@ const JobApplicants = () => {
       filterStatus === "all" || applicant.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
-  const pendingCount = applicants.filter((a) => a.status === "pending").length;
-  const acceptedCount = applicants.filter(
+  const pendingCount = !job.jobApplicants ? []: job.jobApplicants.filter((a) => a.status === "pending").length;
+  const acceptedCount = !job.jobApplicants ? [] : job.jobApplicants.filter(
     (a) => a.status === "accepted"
   ).length;
 
@@ -99,9 +100,21 @@ const JobApplicants = () => {
                 Applicants
               </span>
             </h1>
-            <p className="text-[#64748B]  font-medium">
-              Frontend Developer - React & TypeScript
-            </p>
+            <div className="flex flex-col items-center gap-4 mb-4">
+        <h3 className="text-xl font-semibold">
+              { job.title ? job.title : "Frontend Developer - React & TypeScript"}
+        </h3>
+        <p className="text-center">{job.description}</p>
+      </div>
+            <div
+                className="flex items-center justify-center flex-wrap gap-2"
+                style={{ marginTop: "8px" }}
+              >
+                {job.skills &&
+                  job.skills.map((skill, index) => (
+                    <Pill key={index} title={skill.skillName} variant="topRated" />
+                  ))}
+              </div>
           </div>
         </div>
 
