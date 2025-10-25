@@ -22,7 +22,7 @@ const JobApplicants = () => {
   useEffect(()=>{
     const fetchJobApplicants = async () => {
     try{
-        const response = await axios.get(baseUrl+"/jobApplicants/25",{
+        const response = await axios.get(baseUrl+"/jobApplicants/1",{
           headers:{Authorization: `Bearer ${loggedInToken}`}
         }) ;
         console.log("res: ",response)
