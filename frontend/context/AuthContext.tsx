@@ -30,28 +30,6 @@ export const AuthContextProvider : React.FC<{children:React.ReactNode}> =({child
     )
 } 
 
-  const baseUrl = "http://localhost:8080";
-
-  useEffect(() => {
-    console.log("AuthContext mount");
-  }, []);
-
-  return (
-    <AuthContext.Provider
-      value={{
-        loggedInToken,
-        login,
-        logout,
-        baseUrl,
-        loggedUser,
-        setLoggedInUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () =>{
+    return useContext(AuthContext) ;
+}
