@@ -16,7 +16,7 @@ import Back from "@/components/common/Back";
 const JobApplicants = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { baseUrl, loggedInToken, loggedUser } = useAuth();
+  const { baseUrl, loggedInToken } = useAuth();
   const [job, setApplicants] = useState<JobInApplicantContext>(
     {} as JobInApplicantContext
   );
