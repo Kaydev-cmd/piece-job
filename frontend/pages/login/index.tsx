@@ -6,6 +6,7 @@ import axios from "axios";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/AuthContext";
+import Back from "@/components/common/Back";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();

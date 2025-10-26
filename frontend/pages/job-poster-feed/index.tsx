@@ -9,6 +9,7 @@ import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
 import { Job } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
   const { jobFeed, editJob, deleteJob, setJobFeed, requesting, fetchJobs } =
@@ -62,14 +63,14 @@ const JobPosterFeedPage: React.FC<Job> = () => {
                 onEdit={() =>
                   setEditingJob({
                     ...job,
-                    jobTitle: job.title ?? job.title,
+                    title: job.title ?? job.title,
                     payRate: job.payRate.toString(),
                   })
                 }
                 onDelete={() =>
                   setDeletingJob({
                     ...job,
-                    jobTitle: job.title ?? job.title,
+                    title: job.title ?? job.title,
                     payRate: job.payRate.toString(),
                   })
                 }
@@ -93,8 +94,16 @@ const JobPosterFeedPage: React.FC<Job> = () => {
   return (
     <section
       className="container"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
+      style={{ paddingTop: "32px", paddingBottom: "0" }}
     >
+      <div
+        className="flex justify-center md:justify-start"
+        style={{ marginBottom: "12px" }}
+      >
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="flex items-center justify-between">
         <div
           className="flex flex-col gap-2"
@@ -150,7 +159,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
         <EditJobModal
           job={{
             ...editingJob,
-            title: editingJob.jobTitle ?? "",
+            title: editingJob.title ?? "",
             description: editingJob.description ?? "",
             skills: editingJob.skills ?? [],
             payRate: Number(editingJob.payRate),
@@ -163,7 +172,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       {/* Delete Modal */}
       {deletingJob && (
         <DeleteJobModal
-          title={deletingJob.jobTitle}
+          title={deletingJob.title}
           onClose={() => setDeletingJob(null)}
           onConfirm={() => handleConfirmDelete(deletingJob.id)}
         />

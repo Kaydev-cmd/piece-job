@@ -4,72 +4,78 @@ import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
 
 import ApplicantCard from "@/components/common/ApplicantCard";
-import { mockApplicants } from "@/constants";
+// import { mockApplicants } from "@/constants";
 
-import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { Applicant, JobInApplicantContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";
+import Back from "@/components/common/Back";
 
 const JobApplicants = () => {
   const router = useRouter();
-  const {baseUrl,loggedInToken} = useAuth()
-  const [job, setApplicants] = useState<JobInApplicantContext>({} as JobInApplicantContext);
+  const { id } = router.query;
+  const { baseUrl, loggedInToken, loggedUser } = useAuth();
+  const [job, setApplicants] = useState<JobInApplicantContext>(
+    {} as JobInApplicantContext
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchJobApplicants = async () => {
-    try{
-        const response = await axios.get(baseUrl+"/jobApplicants/1",{
-          headers:{Authorization: `Bearer ${loggedInToken}`}
-        }) ;
-        console.log("res: ",response)
-        if (response.data){
-          setApplicants(response.data.data)
+      try {
+        const response = await axios.get(baseUrl + `/jobApplicants/${id}`, {
+          headers: { Authorization: `Bearer ${loggedInToken}` },
+        });
+        console.log("res: ", response);
+        if (response.data) {
+          setApplicants(response.data.data);
         }
-    }
-    catch(err:any){
-      console.log("error occ: ",err)
-    }
-  }
-  fetchJobApplicants() ;
-  },[])
+      } catch (err: any) {
+        console.log("error occ: ", err);
+      }
+    };
+    fetchJobApplicants();
+  }, []);
 
   const handleAccept = (id: number) => {
-    const accepted = {...job}
+    const accepted = { ...job };
     accepted.jobApplicants.map((applicant) =>
-        applicant.id === id
-          ? { ...applicant, status: "accepted" as const }
-          : applicant
-      )
+      applicant.id === id
+        ? { ...applicant, status: "accepted" as const }
+        : applicant
+    );
     setApplicants(accepted);
   };
   const handleReject = (id: number) => {
-    
-    const newJob = {...job}
+    const newJob = { ...job };
     newJob.jobApplicants = job.jobApplicants.map((applicant) =>
-        applicant.id === id
-          ? { ...applicant, status: "rejected" as const }
-          : applicant) ; 
+      applicant.id === id
+        ? { ...applicant, status: "rejected" as const }
+        : applicant
+    );
     setApplicants(newJob);
   };
-  const filteredApplicants = !job.jobApplicants? [] : job.jobApplicants.filter((applicant) => {
-    const matchesSearch =
-      applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      applicant.skillSet.some((skill) =>
-        skill.skillName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    const matchesStatus =
-      filterStatus === "all" || applicant.status === filterStatus;
-    return matchesSearch && matchesStatus;
-  });
-  const pendingCount = !job.jobApplicants ? []: job.jobApplicants.filter((a) => a.status === "pending").length;
-  const acceptedCount = !job.jobApplicants ? [] : job.jobApplicants.filter(
-    (a) => a.status === "accepted"
-  ).length;
+  const filteredApplicants = !job.jobApplicants
+    ? []
+    : job.jobApplicants.filter((applicant) => {
+        const matchesSearch =
+          applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          applicant.skillSet.some((skill) =>
+            skill.skillName.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        const matchesStatus =
+          filterStatus === "all" || applicant.status === filterStatus;
+        return matchesSearch && matchesStatus;
+      });
+  const pendingCount = !job.jobApplicants
+    ? []
+    : job.jobApplicants.filter((a) => a.status === "pending").length;
+  const acceptedCount = !job.jobApplicants
+    ? []
+    : job.jobApplicants.filter((a) => a.status === "accepted").length;
 
   return (
     <motion.div
@@ -79,20 +85,18 @@ const JobApplicants = () => {
     >
       <section
         className="container"
-        style={{ paddingTop: "16px", paddingBottom: "0" }}
+        style={{ paddingTop: "32px", paddingBottom: "0" }}
       >
+        <div
+          className="flex justify-center lg:justify-start"
+          style={{ marginBottom: "18px" }}
+        >
+          {/* Back */}
+          <Back />
+        </div>
+
         {/* Header */}
         <div className="flex flex-col items-center">
-          <button
-            className="flex items-center gap-2 text-blue-500"
-            style={{ padding: "24px" }}
-            onClick={() => router.push("/")}
-          >
-            {/* Icon here... */}
-            <FaArrowLeft size={12} />
-            Back to Home
-          </button>
-
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-4xl font-bold text-[#111827]">
               Job{" "}
@@ -101,20 +105,26 @@ const JobApplicants = () => {
               </span>
             </h1>
             <div className="flex flex-col items-center gap-4 mb-4">
-        <h3 className="text-xl font-semibold">
-              { job.title ? job.title : "Frontend Developer - React & TypeScript"}
-        </h3>
-        <p className="text-center">{job.description}</p>
-      </div>
+              <h3 className="text-xl font-semibold">
+                {job.title
+                  ? job.title
+                  : "Frontend Developer - React & TypeScript"}
+              </h3>
+              <p className="text-center">{job.description}</p>
+            </div>
             <div
-                className="flex items-center justify-center flex-wrap gap-2"
-                style={{ marginTop: "8px" }}
-              >
-                {job.skills &&
-                  job.skills.map((skill, index) => (
-                    <Pill key={index} title={skill.skillName} variant="topRated" />
-                  ))}
-              </div>
+              className="flex items-center justify-center flex-wrap gap-2"
+              style={{ marginTop: "8px" }}
+            >
+              {job.skills &&
+                job.skills.map((skill, index) => (
+                  <Pill
+                    key={index}
+                    title={skill.skillName}
+                    variant="topRated"
+                  />
+                ))}
+            </div>
           </div>
         </div>
 

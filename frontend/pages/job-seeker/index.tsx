@@ -14,6 +14,7 @@ import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { JobSeekerProfileCardProps } from "@/interfaces";
+import Back from "@/components/common/Back";
 
 const JobSeekerProfilePage = () => {
   const { baseUrl, loggedInToken, loggedUser } = useAuth();
@@ -56,7 +57,15 @@ const JobSeekerProfilePage = () => {
   var user = seeker;
   if (loading) return loadingScreen;
   return (
-    <section className="container" style={{ paddingBottom: "0" }}>
+    <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
+      <div
+        className="flex justify-center md:justify-start"
+        style={{ marginBottom: "32px" }}
+      >
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="lg:grid grid-cols-2 gap-4">
         {/* User Profile component h... */}
         <div>

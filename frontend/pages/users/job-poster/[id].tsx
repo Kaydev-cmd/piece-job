@@ -14,8 +14,9 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { JobPosterProfileCardProps } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
 
-const JobPosterProfilePage  = () => {
+const JobPosterProfilePage = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -67,6 +68,11 @@ const JobPosterProfilePage  = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <section className="container" style={{ paddingBottom: "0" }}>
+        <div style={{marginBottom: "32px"}}>
+          {/* Back */}
+          <Back />
+        </div>
+
         <div className="lg:grid grid-cols-1 gap-4">
           {/* User Profile component here... */}
           <div className="grid grid-cols-1  lg:grid-cols-2  gap-4">

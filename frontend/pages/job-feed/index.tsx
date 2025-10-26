@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { ApplicationFormValues } from "@/interfaces";
 import { useJobPost } from "@/context/JobPostContext";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
 
 const JobFeedPage = () => {
   const { jobFeed, setJobFeed, requesting } = useJobPost();
@@ -90,8 +91,16 @@ const JobFeedPage = () => {
   return (
     <section
       className="container"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
+      style={{ paddingTop: "32px", paddingBottom: "0" }}
     >
+      <div
+        className="flex justify-center md:justify-start"
+        style={{ marginBottom: "12px" }}
+      >
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="flex items-center justify-between">
         <div
           className="flex flex-col gap-2"

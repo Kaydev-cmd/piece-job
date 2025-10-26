@@ -7,6 +7,7 @@ import InstantPaymentsCard from "@/components/common/InstantPaymentsCard";
 import PaymentAndTimelineForm from "@/components/common/PaymentAndTimelineForm";
 import RequirementsAndReviewForm from "@/components/common/RequirementsAndReviewForm";
 import { JobPostProvider } from "@/context/JobPostContext";
+import Back from "@/components/common/Back";
 
 const PostJobPage = () => {
   const router = useRouter();
@@ -29,19 +30,14 @@ const PostJobPage = () => {
   return (
     <section
       className="container flex flex-col"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
+      style={{ paddingTop: "32px", paddingBottom: "0" }}
     >
-      {/* Back to Home here... */}
-      <div className="flex justify-center">
-        <button
-          className="flex items-center gap-2 text-blue-500"
-          style={{ padding: "24px" }}
-          onClick={() => router.push("/")}
-        >
-          {/* Icon here... */}
-          <FaArrowLeft size={12} />
-          Back to Home
-        </button>
+      <div
+        className="flex justify-center lg:justify-start"
+        style={{ marginBottom: "18px" }}
+      >
+        {/* Back */}
+        <Back />
       </div>
 
       {/* Heading here... */}

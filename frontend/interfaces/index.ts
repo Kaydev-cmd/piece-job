@@ -1,5 +1,3 @@
-import { interpolate } from "motion";
-
 export interface LayoutProps {
   children: React.ReactNode;
 }
@@ -65,9 +63,10 @@ export interface BannerStatsProps {
 }
 
 export interface LoggedInUser {
+  id?: number;
   username: string;
   userImage?: string;
-  role: "jobSeeker" | "employer";
+  role: "jobSeeker" | "employer" | null;
   employerType?: "individual" | "business";
 }
 export interface SignupFormValues {
@@ -335,8 +334,8 @@ export interface Job {
   description?: string;
 }
 
-export interface JobInApplicantContext extends Job{
-  jobApplicants : Applicant[] | []
+export interface JobInApplicantContext extends Job {
+  jobApplicants: Applicant[] | [];
 }
 
 export interface Applicant {
@@ -363,6 +362,6 @@ export interface ApplicantCardProps {
 
 export interface LoggedInUser {
   username: string;
-  role: "jobSeeker" | "employer";
+  role: "jobSeeker" | "employer" | null;
   employerType?: "individual" | "business";
 }

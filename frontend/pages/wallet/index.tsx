@@ -10,13 +10,19 @@ import { FaWallet } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import SmartSave from "@/components/common/SmartSave";
 import WalletSummary from "@/components/common/WalletSummary";
+import Back from "@/components/common/Back";
 
 const WalletPage = () => {
   return (
     <section
       className="container flex flex-col gap-8"
-      style={{ paddingBottom: "0" }}
+      style={{ paddingBottom: "0", paddingTop: "32px" }}
     >
+      <div className="flex justify-center lg:justify-start">
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="flex items-center gap-4">
         {/* Icon here... */}
         <div
