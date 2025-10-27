@@ -19,8 +19,7 @@ const Signup = () => {
       lastName: "",
       email: "",
       phoneNumber: "",
-      password: "",
-      confirmPassword: "",
+
       termsAndConditions: "",
       role: "jobSeeker",
       employerType: undefined,
@@ -35,7 +34,7 @@ const Signup = () => {
     setLoading(true);
     setError(null);
     setSuccess(null);
-    console.log("data: ",data)
+    console.log("data: ", data);
     try {
       await axios.post("/api/signup/signup", data, { withCredentials: true });
       setSuccess("Account created successfully!");
@@ -174,43 +173,6 @@ const Signup = () => {
                 />
                 <p className="text-center text-red-500">
                   {errors.phoneNumber?.message}
-                </p>
-              </div>
-
-              {/* Password */}
-              <div className="flex flex-col gap-1">
-                <label htmlFor="password" className="font-semibold">
-                  Password:
-                </label>
-                <input
-                  type="password"
-                  placeholder="Create a strong password"
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters",
-                    },
-                  })}
-                />
-                <p className="text-center text-red-500">
-                  {errors.password?.message}
-                </p>
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="confirmPassword" className="font-semibold">
-                  Confirm Password:
-                </label>
-                <input
-                  type="password"
-                  placeholder="Re-enter your password"
-                  {...register("confirmPassword", {
-                    validate: (value) =>
-                      value === watch("password") || "Passwords do not match",
-                  })}
-                />
-                <p className="text-center text-red-500">
-                  {errors.confirmPassword?.message}
                 </p>
               </div>
 

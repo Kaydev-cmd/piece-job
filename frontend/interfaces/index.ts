@@ -74,14 +74,19 @@ export interface SignupFormValues {
   lastName: string;
   email: string;
   phoneNumber: string;
-  password: string;
-  confirmPassword: string;
+  // password: string;
+  // confirmPassword: string;
   termsAndConditions: string;
   role: "jobSeeker" | "employer";
   employerType?: "individual" | "business";
   companyName?: string;
   companyRegistration?: string;
   companyAddress?: string;
+}
+export interface RegisterFormValues {
+  userName: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export interface LoginProps {
