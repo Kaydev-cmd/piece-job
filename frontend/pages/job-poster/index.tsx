@@ -1,59 +1,45 @@
 import React, { useEffect, useState } from "react";
-import JobPosterProfileCard from "@/components/common/JobPosterProfileCard";
-import BusinessInfoCard from "@/components/common/BusinessInfoCard";
-import { JOB_SEEKER_REVIEWS_AND_RATINGS_DATA } from "@/constants";
-import { FaStar } from "react-icons/fa";
-import { SlSpeech } from "react-icons/sl";
-import { IoMdTrendingUp } from "react-icons/io";
-import { motion } from "framer-motion";
-import Pill from "@/components/common/Pill";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { useAuth } from "@/context/AuthContext";
 import { JobPosterProfileCardProps } from "@/interfaces";
-import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import JobPosterProfileCard from "@/components/common/JobPosterProfileCard";
 import Back from "@/components/common/Back";
+import BusinessInfoCard from "@/components/common/BusinessInfoCard";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import { JOB_SEEKER_REVIEWS_AND_RATINGS_DATA } from "@/constants";
+import { motion } from "motion/react";
+import { FaStar } from "react-icons/fa6";
+import { IoMdTrendingUp } from "react-icons/io";
+import { SlSpeech } from "react-icons/sl";
+import Pill from "@/components/common/Pill";
 
 const JobPosterProfilePage = () => {
-  const { baseUrl, loggedInToken } = useAuth();
+  const { baseUrl, loggedInToken, loggedUser } = useAuth();
   const { loading, setLoading, loadingScreen } = useAPIRequster();
   const [user, setUser] = useState({} as JobPosterProfileCardProps);
 
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {
-    if (!id) return;
-    fetchBusiness();
-  }, [id, loggedInToken]);
-
-  // Find the business by id
-  const fetchBusiness = async () => {
+  const fetchEmployerProfile = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const apiRes = await axios.get(`${baseUrl}/business/${id}`, {
+      const response = await axios.get(`${baseUrl}/business/user`, {
         headers: {
           Authorization: "Bearer " + loggedInToken,
         },
       });
-      console.log("res: ", apiRes);
-      setUser(apiRes.data.data);
+      console.log("res: ", response);
+      setUser(response.data.data);
     } catch (error: unknown) {
-      console.log("error occured: ", error);
+      console.error("error occured: ", error);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) {
-    return loadingScreen;
-  } else if (!user.id) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">User not found</h1>
-      </div>
-    );
-  }
+  useEffect(() => {
+    fetchEmployerProfile();
+  }, [loggedInToken]);
+
+  if (loading) return loadingScreen;
 
   return (
     <motion.div
@@ -130,7 +116,7 @@ const JobPosterProfilePage = () => {
                         </p>
                       </div>
                       <div className="flex justify-center">
-                        <Pill title={"status"} variant={"active"} />
+                        <Pill title="status" variant="active" />
                       </div>
                     </div>
 

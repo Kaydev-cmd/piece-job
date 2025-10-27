@@ -181,7 +181,7 @@ const JobApplicants = () => {
               className="flex flex-col text-center relative items-center"
               style={{ marginBottom: "34px" }}
             >
-              <div className="flex flex-col relative left-[300] text-center md:self-end items-center">
+              <div className="flex flex-col relative text-center md:self-end items-center lg:left-[300]">
                 <Users className="w-16 h-16 text-[#64748B]  mx-auto " />
                 <h3 className="text-lg font-medium  text-[#111827] ">
                   No applicants found

@@ -37,14 +37,11 @@ const JobSeekerProfilePage = () => {
 
     setLoading(true);
     try {
-      const apiRes = await axios.get(
-        `${baseUrl}/seeker-profile/${loggedUser.username}`,
-        {
-          headers: {
-            Authorization: "Bearer " + loggedInToken,
-          },
-        }
-      );
+      const apiRes = await axios.get(`${baseUrl}/seeker/user`, {
+        headers: {
+          Authorization: "Bearer " + loggedInToken,
+        },
+      });
       console.log("res: ", apiRes);
       setLoading(false);
       setSeeker(apiRes.data.data);
@@ -57,13 +54,16 @@ const JobSeekerProfilePage = () => {
   useEffect(() => {
     fetchSeekerProfile();
   }, [loggedInToken]);
-  
+
   const user = seeker;
-  
+
   if (loading) return loadingScreen;
 
   return (
-    <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
+    <section
+      className="container"
+      style={{ paddingBottom: "0", paddingTop: "32px" }}
+    >
       <div
         className="flex justify-center md:justify-start"
         style={{ marginBottom: "32px" }}

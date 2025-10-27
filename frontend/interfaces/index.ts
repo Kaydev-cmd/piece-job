@@ -176,7 +176,6 @@ export interface JobReviewCardProps {
   location: string;
   pay: number;
   duration: string;
-  // skills: { skill: string }[];
 }
 
 export interface BusinessPoster {
