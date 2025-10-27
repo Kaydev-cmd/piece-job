@@ -22,7 +22,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   onApply,
 }) => {
   return (
-    <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
+    <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {/* Image, name and rating here... */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       <p className="text-slate-600">{description}</p>
 
       {/* CTA */}
-      <Button title="Apply Now" variant="subscribe" onClick={onApply} />
+      <Button title="Apply Now" variant="primary" onClick={onApply} />
     </div>
   );
 };

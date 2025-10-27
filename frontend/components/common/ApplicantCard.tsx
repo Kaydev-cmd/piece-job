@@ -4,6 +4,9 @@ import { Star, MapPin, Clock, CheckCircle, XCircle } from "lucide-react";
 import Pill from "./Pill";
 import Button from "./Button";
 import { ApplicantCardProps } from "@/interfaces";
+import { LuUserRound } from "react-icons/lu";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ApplicantCard = ({
   applicant,
@@ -21,25 +24,40 @@ const ApplicantCard = ({
     appliedDate,
     skillSet,
     experience,
-    status,
+    // status,
   } = applicant;
+
+  const router = useRouter();
 
   return (
     <div className="card flex gap-4 md:flex-row items-center justify-around bg-gray-300/30 shadow-md hover:shadow-lg transition-shadow rounded-xl">
       <div className=" flex flex-col gap-2">
-        <div className="flex items-center justify-center">
-          <Image
-            src={userImage || "/default-profile.png"}
-            alt={lastName ? `${lastName}'s profile picture` : "Profile picture"}
-            width={80}
-            height={80}
-            className="rounded-full object-cover w-1/4"
-          />
-        </div>
+        <Link href={`/users/job-seeker/${encodeURIComponent(id)}`}>
+          <div className="flex items-center justify-center">
+            {userImage ? (
+              <Image
+                src={userImage}
+                alt={
+                  lastName ? `${lastName}'s profile picture` : "Profile picture"
+                }
+                width={80}
+                height={80}
+                className="rounded-full object-cover w-1/4"
+              />
+            ) : (
+              <LuUserRound size={60} />
+            )}
+          </div>
+        </Link>
 
         <div className="flex items-start justify-around md:justify-between">
           <div className="flex flex-col items-center gap-2">
-            <h3 className="text-2xl items-center font-bold text-[#111827]">
+            <h3
+              className="text-2xl items-center font-bold text-[#111827] cursor-pointer"
+              onClick={() =>
+                router.push(`/users/job-seeker/${encodeURIComponent(id)}`)
+              }
+            >
               {firstName} {lastName}
             </h3>
 
@@ -74,7 +92,11 @@ const ApplicantCard = ({
               >
                 {skillSet &&
                   skillSet.map((skill, index) => (
-                    <Pill key={index} title={skill.skillName} variant="topRated" />
+                    <Pill
+                      key={index}
+                      title={skill.skillName}
+                      variant="topRated"
+                    />
                   ))}
               </div>
             </div>
@@ -82,15 +104,15 @@ const ApplicantCard = ({
         </div>
 
         <div
-          className="flex items-center justify-center md:w-full"
+          className="flex gap-4 items-center justify-center"
           style={{ marginTop: "16px" }}
         >
-          {status === "pending" && (
+          {/* {status === "pending" && (
             <div className="flex flex-row-reverse md:flex-row-reverse gap-3 w-full">
               <Button
                 title="Reject"
                 variant="cancel"
-                onClick={() => onReject( id)}
+                onClick={() => onReject(id)}
                 className="flex-1"
               />
 
@@ -121,7 +143,20 @@ const ApplicantCard = ({
               <XCircle size={16} />
               Rejected
             </div>
-          )}
+          )} */}
+          <Button
+            title="Reject"
+            variant="cancel"
+            onClick={() => onReject(id)}
+            className="flex-1"
+          />
+
+          <Button
+            title="Accept"
+            variant="default"
+            onClick={() => onAccept(id)}
+            className="flex-1"
+          />
         </div>
       </div>
     </div>

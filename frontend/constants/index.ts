@@ -46,11 +46,6 @@ export const JOB_POSTER_DROPDOWN_LINKS = [
     linkName: "View Posted Jobs",
     href: "/job-poster-feed",
   },
-  {
-    id: 3,
-    linkName: "View Jobs Applicants",
-    href: "/job-applicants",
-  },
 ];
 
 export const MOBILE_LINKS: Header_Link[] = [

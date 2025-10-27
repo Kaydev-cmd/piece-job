@@ -343,7 +343,6 @@ export interface Applicant {
   lastName: string;
   firstName: string;
   skillSet: SkillsProps[];
-
   userImage?: string;
   rating?: number;
   reviewCount?: number;
@@ -358,10 +357,4 @@ export interface ApplicantCardProps {
   applicant: Applicant;
   onAccept: (id: number) => void;
   onReject: (id: number) => void;
-}
-
-export interface LoggedInUser {
-  username: string;
-  role: "jobSeeker" | "employer" | null;
-  employerType?: "individual" | "business";
 }

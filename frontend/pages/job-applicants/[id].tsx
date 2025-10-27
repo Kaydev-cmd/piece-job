@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
-
 import ApplicantCard from "@/components/common/ApplicantCard";
-// import { mockApplicants } from "@/constants";
-
 import { useRouter } from "next/router";
 import { JobInApplicantContext } from "@/interfaces";
 import axios from "axios";
@@ -49,6 +46,7 @@ const JobApplicants = () => {
     );
     setApplicants(accepted);
   };
+
   const handleReject = (id: number) => {
     const newJob = { ...job };
     newJob.jobApplicants = job.jobApplicants.map((applicant) =>
@@ -58,6 +56,7 @@ const JobApplicants = () => {
     );
     setApplicants(newJob);
   };
+
   const filteredApplicants = !job.jobApplicants
     ? []
     : job.jobApplicants.filter((applicant) => {
@@ -70,9 +69,11 @@ const JobApplicants = () => {
           filterStatus === "all" || applicant.status === filterStatus;
         return matchesSearch && matchesStatus;
       });
+
   const pendingCount = !job.jobApplicants
     ? []
     : job.jobApplicants.filter((a) => a.status === "pending").length;
+
   const acceptedCount = !job.jobApplicants
     ? []
     : job.jobApplicants.filter((a) => a.status === "accepted").length;
@@ -106,9 +107,7 @@ const JobApplicants = () => {
             </h1>
             <div className="flex flex-col items-center gap-4 mb-4">
               <h3 className="text-xl font-semibold">
-                {job.title
-                  ? job.title
-                  : "Frontend Developer - React & TypeScript"}
+                {job.title ? job.title : "Loading..."}
               </h3>
               <p className="text-center">{job.description}</p>
             </div>
@@ -178,7 +177,7 @@ const JobApplicants = () => {
               className="flex flex-col text-center relative items-center"
               style={{ marginBottom: "34px" }}
             >
-              <div className="flex flex-col relative text-center md:self-end items-center">
+              <div className="flex flex-col relative left-[300] text-center md:self-end items-center">
                 <Users className="w-16 h-16 text-[#64748B]  mx-auto " />
                 <h3 className="text-lg font-medium  text-[#111827] ">
                   No applicants found

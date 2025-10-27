@@ -35,7 +35,7 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
               className="rounded-full object-cover"
             />
           ) : (
-            <LuUserRound size={100} />
+            <LuUserRound size={60} />
           )}
         </div>
         {/* User Details */}
