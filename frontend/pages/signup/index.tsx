@@ -4,6 +4,8 @@ import Button from "@/components/common/Button";
 import { useForm } from "react-hook-form";
 import { SignupFormValues } from "@/interfaces";
 import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const {
@@ -25,7 +27,8 @@ const Signup = () => {
       employerType: undefined,
     },
   });
-
+  const router = useRouter();
+  const {loggedInToken,baseUrl} =useAuth()
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -36,14 +39,18 @@ const Signup = () => {
     setSuccess(null);
     console.log("data: ", data);
     try {
-      await axios.post("/api/signup/signup", data, { withCredentials: true });
-      setSuccess("Account created successfully!");
+      const simple = data.role === "employer" ? "/newprofile" : "/seeker/newprofile"
+      const res = await axios.post(baseUrl+simple, data,{
+        headers:{
+          Authorization:"Bearer "+loggedInToken
+        }
+      });
 
       // If role is job seeker, redirect to job feed
       if (data.role === "jobSeeker") {
-        window.location.href = "/job-feed";
+        router.push("/job-feed");
       } else {
-        window.location.href = "/job-poster-feed";
+        router.push("/job-poster-feed");
       }
 
       reset();

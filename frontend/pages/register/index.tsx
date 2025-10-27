@@ -25,7 +25,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const { baseUrl, loggedInToken } = useAuth();
+  const { baseUrl, loggedInToken, setLoggedInUser } = useAuth();
 
   const onSubmit = async (data: RegisterFormValues) => {
     setLoading(true);
@@ -37,7 +37,7 @@ const Register = () => {
         headers: { Authorization: `Bearer ${loggedInToken}` },
       });
       console.log(response);
-
+      setLoggedInUser(response.data.data)
       setSuccess("User created successfully!");
 
       setTimeout(() => {

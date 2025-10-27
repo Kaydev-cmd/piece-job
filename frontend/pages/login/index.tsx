@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
           } else if (loggedUser.role === "employer") {
             router.push("/job-poster-feed");
           } else {
-            router.push("/");
+            router.push("/signup");
           }
 
           reset();
@@ -245,13 +245,13 @@ const LoginPage: React.FC = () => {
             <Button
               title="I'm a Job Seeker"
               variant="subscribe"
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/register")}
               className="text-xs"
             />
 
             <Button
               title="I'm an Employer"
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/register")}
               variant="subscribe"
               className="text-xs"
             />
