@@ -5,12 +5,14 @@ import Button from "./Button";
 import JobPreview from "./JobPreview";
 import { useForm } from "react-hook-form";
 import { useJobPost } from "@/context/JobPostContext";
+import { useRouter } from "next/router";
 
 const RequirementsAndReviewForm: React.FC<StepProps> = ({
   pageTracker,
   onBack,
 }) => {
   const { draftJob, postJob } = useJobPost();
+  const router = useRouter();
 
   const { register, handleSubmit, reset } =
     useForm<RequirementsAndReviewFormProps>({
@@ -34,6 +36,7 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
       await postJob(finalData);
       setSuccess("Job posted successfully!");
       reset();
+      router.push("/job-poster-feed");
     } catch (err) {
       console.error("Error:", err);
       setError("Something went wrong. Please try again.");
@@ -80,12 +83,12 @@ const RequirementsAndReviewForm: React.FC<StepProps> = ({
         {draftJob && (
           <JobPreview
             id={draftJob.id ?? 0}
-            jobTitle={draftJob.jobTitle ?? ""}
+            title={draftJob.title ?? ""}
             description={draftJob.description ?? ""}
             location={draftJob.location ?? ""}
             pay={draftJob.payRate ?? 0}
             duration={draftJob.duration ?? ""}
-            skills={(draftJob.skills ?? []).map((skill) => ({ skill: skill }))} // convert to { skill: string }[]
+            // skills={(draftJob.skills ?? []).map((skill) => ({ skill: skill }))} // convert to { skill: string }[]
           />
         )}
 

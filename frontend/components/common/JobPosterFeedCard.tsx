@@ -6,6 +6,8 @@ import { FaStar, FaRegClock } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import Pill from "./Pill";
 import { IoMdSettings } from "react-icons/io";
+import Button from "./Button";
+import { useRouter } from "next/router";
 
 interface Props extends JobFeedCardProps {
   onEdit: (jobId: number) => void;
@@ -15,10 +17,10 @@ interface Props extends JobFeedCardProps {
 const JobPosterFeedCard: React.FC<Props> = ({
   id,
   image,
-  userName,
+  postedBy,
   timePosted,
   rating,
-  jobTitle,
+  title,
   payRate,
   duration,
   location,
@@ -27,26 +29,18 @@ const JobPosterFeedCard: React.FC<Props> = ({
   onEdit,
   onDelete,
 }) => {
-  const normalizedSkills: string[] = Array.isArray(skills)
-    ? skills
-    : skills
-    ? (skills as unknown as string)
-        .split(",")
-        .map((skill) => skill.trim())
-        .filter(Boolean)
-    : [];
-
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   return (
-    <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
+    <div className="flex flex-col justify-between gap-4 card border border-gray-300 rounded-xl shadow-md transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {/* Image, name and rating here... */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           {image ? (
             <Image
               src={image}
-              alt={userName}
+              alt={postedBy.companyName ? postedBy.companyName : ""}
               width={200}
               height={200}
               className="w-full"
@@ -60,7 +54,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
             </div>
           )}
           <div className="flex flex-col gap-1">
-            <h1 className="font-semibold">{userName}</h1>
+            <h1 className="font-semibold">{postedBy.companyName}</h1>
             <p className="flex items-center gap-1 text-slate-600 font-semibold">
               <FaStar size={16} color="#FFD700" /> {rating}
             </p>
@@ -83,7 +77,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
               style={{ padding: "8px" }}
               onClick={() => setMenuOpen((prev) => !prev)}
             >
-              <IoMdSettings size={20} />
+              <IoMdSettings size={20} className="cursor-pointer" />
             </div>
 
             {menuOpen && (
@@ -110,7 +104,7 @@ const JobPosterFeedCard: React.FC<Props> = ({
       </div>
 
       {/* Job Title */}
-      <h2 className="font-bold text-2xl">{jobTitle}</h2>
+      <h2 className="font-bold text-2xl">{title}</h2>
 
       {/* Price and duration */}
       <div
@@ -132,13 +126,19 @@ const JobPosterFeedCard: React.FC<Props> = ({
 
       {/* Skills */}
       <div className="flex flex-wrap items-center gap-2">
-        {normalizedSkills.map((skill, index) => (
-          <Pill key={index} title={skill} variant="default" />
+        {skills.map((skill, index) => (
+          <Pill key={index} title={skill.skillName} variant="default" />
         ))}
       </div>
 
       {/* Description */}
       <p className="text-slate-600">{description}</p>
+
+      <Button
+        title="See Applicants"
+        variant="primary"
+        onClick={() => router.push(`/job-applicants/${encodeURIComponent(id)}`)}
+      />
     </div>
   );
 };

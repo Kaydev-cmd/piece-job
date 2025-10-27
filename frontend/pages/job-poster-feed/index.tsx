@@ -8,9 +8,13 @@ import JobPosterFeedCard from "@/components/common/JobPosterFeedCard";
 import EditJobModal from "@/components/common/EditJobModal";
 import DeleteJobModal from "@/components/common/DeleteJobModal";
 import { Job } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
-  const { jobFeed, editJob, deleteJob, setJobFeed } = useJobPost();
+  const { jobFeed, editJob, deleteJob, setJobFeed, requesting, fetchJobs } =
+    useJobPost();
+  const { loadingScreen } = useAPIRequster();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [deletingJob, setDeletingJob] = useState<Job | null>(null);
 
@@ -28,11 +32,73 @@ const JobPosterFeedPage: React.FC<Job> = () => {
     setDeletingJob(null);
   };
 
+  const fetchedJobs = () => {
+    if (requesting) {
+      return <p>{loadingScreen} Loading...</p>;
+    }
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {jobFeed.length ? (
+          jobFeed.map((job) => {
+            return (
+              <JobPosterFeedCard
+                key={job.id}
+                id={job.id}
+                postedBy={job.postedBy || "Anonymous"} // fallback
+                timePosted={job.timePosted || "Just now"} // fallback
+                rating={job.rating || 0} // fallback
+                title={job.title}
+                payRate={job.payRate}
+                duration={job.duration}
+                location={job.location}
+                skills={job.skills}
+                description={job.description}
+                onEdit={() =>
+                  setEditingJob({
+                    ...job,
+                    title: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+                onDelete={() =>
+                  setDeletingJob({
+                    ...job,
+                    title: job.title ?? job.title,
+                    payRate: job.payRate.toString(),
+                  })
+                }
+              />
+            );
+          })
+        ) : (
+          <>
+            <p className="text-center">No jobs found, try posting a Job..</p>
+            <div className="flex justify-center">
+              <Button
+                title="Refresh Jobs"
+                variant="subscribe"
+                onClick={fetchJobs}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section
       className="container"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
+      style={{ paddingTop: "32px", paddingBottom: "0" }}
     >
+      <div
+        className="flex justify-center md:justify-start"
+        style={{ marginBottom: "12px" }}
+      >
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="flex items-center justify-between">
         <div
           className="flex flex-col gap-2"
@@ -53,19 +119,19 @@ const JobPosterFeedPage: React.FC<Job> = () => {
         {/* Filter */}
         <Filter
           onApplyFilters={(filters) => {
-            const { jobTitle = "", location = "", skills = [] } = filters;
+            const { title = "", location = "", skills = [] } = filters;
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
-                const matchesTitle = job.jobTitle
+                const matchesTitle = job.title
                   .toLowerCase()
-                  .includes(jobTitle.toLowerCase());
+                  .includes(title.toLowerCase());
                 const matchesLocation = job.location
                   .toLowerCase()
                   .includes(location.toLowerCase());
                 const matchesSkills = skills.some((s) =>
                   job.skills.some((skill) =>
-                    skill.toLowerCase().includes(s.toLowerCase())
+                    skill.skillName.toLowerCase().includes(s.toLowerCase())
                   )
                 );
                 return matchesTitle && matchesLocation && matchesSkills;
@@ -81,42 +147,14 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       </div>
 
       {/* Job Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {jobFeed.length ? (
-          jobFeed.map((job) => (
-            <JobPosterFeedCard
-              key={job.id}
-              id={job.id}
-              userName={job.userName || "Anonymous"} // fallback
-              timePosted={job.timePosted || "Just now"} // fallback
-              rating={job.rating || 0} // fallback
-              jobTitle={job.jobTitle}
-              payRate={job.payRate}
-              duration={job.duration}
-              location={job.location}
-              skills={job.skills || []}
-              description={job.description}
-              onEdit={() =>
-                setEditingJob({
-                  ...job,
-                  payRate: job.payRate.toString(),
-                })
-              }
-              onDelete={() =>
-                setDeletingJob({ ...job, payRate: job.payRate.toString() })
-              }
-            />
-          ))
-        ) : (
-          <p>No jobs posted yet.</p>
-        )}
-      </div>
+      {fetchedJobs()}
 
       {/* Edit Modal */}
       {editingJob && (
         <EditJobModal
           job={{
             ...editingJob,
+            title: editingJob.title ?? "",
             description: editingJob.description ?? "",
             skills: editingJob.skills ?? [],
             payRate: Number(editingJob.payRate),
@@ -129,7 +167,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       {/* Delete Modal */}
       {deletingJob && (
         <DeleteJobModal
-          jobTitle={deletingJob.jobTitle}
+          title={deletingJob.title}
           onClose={() => setDeletingJob(null)}
           onConfirm={() => handleConfirmDelete(deletingJob.id)}
         />

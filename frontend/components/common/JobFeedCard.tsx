@@ -10,10 +10,10 @@ import Link from "next/link";
 
 const JobFeedCard: React.FC<JobFeedCardProps> = ({
   image,
-  userName,
+  postedBy,
   timePosted,
   rating,
-  jobTitle,
+  title,
   payRate,
   duration,
   location,
@@ -21,28 +21,19 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   description,
   onApply,
 }) => {
-  const normalizedSkills: string[] = Array.isArray(skills)
-    ? skills
-    : skills
-    ? (skills as unknown as string)
-        .split(",")
-        .map((skill) => skill.trim())
-        .filter(Boolean)
-    : [];
-
   return (
-    <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
+    <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {/* Image, name and rating here... */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           <Link
-            href={`/users/job-poster/${encodeURIComponent(userName)}`}
+            href={`/users/job-poster/${encodeURIComponent(postedBy.id)}`}
             className="flex items-center gap-3"
           >
             {image ? (
               <Image
                 src={image}
-                alt={userName}
+                alt={postedBy.companyName ? postedBy.companyName : ""}
                 width={200}
                 height={200}
                 className="w-full"
@@ -56,7 +47,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
               </div>
             )}
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold">{userName}</h1>
+              <h1 className="font-semibold">{postedBy.companyName}</h1>
               <p className="flex items-center gap-1 text-slate-600 font-semibold">
                 <FaStar size={16} color="#FFD700" /> {rating}
               </p>
@@ -74,7 +65,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       </div>
 
       {/* Job Title */}
-      <h2 className="font-bold text-2xl">{jobTitle}</h2>
+      <h2 className="font-bold text-2xl">{title}</h2>
 
       {/* Price and duration */}
       <div
@@ -96,8 +87,8 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
 
       {/* Skills */}
       <div className="flex flex-wrap items-center gap-2">
-        {normalizedSkills.map((skill, index) => (
-          <Pill key={index} title={skill} variant="default" />
+        {skills.map((skill, index) => (
+          <Pill key={index} title={skill.skillName} variant="default" />
         ))}
       </div>
 
@@ -105,7 +96,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
       <p className="text-slate-600">{description}</p>
 
       {/* CTA */}
-      <Button title="Apply Now" variant="subscribe" onClick={onApply} />
+      <Button title="Apply Now" variant="primary" onClick={onApply} />
     </div>
   );
 };

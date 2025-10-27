@@ -6,42 +6,58 @@ import Filter from "@/components/common/JobFeedFilter";
 import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ApplicationFormValues } from "@/interfaces";
+import { ApplicationFormValues, JobPostData } from "@/interfaces";
 import { useJobPost } from "@/context/JobPostContext";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
+import { useAuth } from "@/context/AuthContext";
 
 const JobFeedPage = () => {
-  const { jobFeed, setJobFeed } = useJobPost();
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ApplicationFormValues>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-      location: "",
-      resume: "",
-    },
-  });
+  const { jobFeed, setJobFeed, requesting } = useJobPost();
+  const { loadingScreen } = useAPIRequster();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<ApplicationFormValues>({
+  //   defaultValues: {
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     phoneNumber: "",
+  //     location: "",
+  //     resume: "",
+  //   },
+  // });
 
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { baseUrl, loggedInToken } = useAuth();
+  const [selectedJob, setSelectedJob] = useState<JobPostData | null>(null);
 
-  const onSubmit = async (data: ApplicationFormValues) => {
+  const onSubmit = async (data: JobPostData) => {
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      await axios.post("/api/application/application", data);
+      console.log("Job has nothing: ", loggedInToken);
+
+      const response = await axios.post(
+        `${baseUrl}/seeker/apply?jobId=${data.id}`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + loggedInToken,
+          },
+        }
+      );
+      console.log("Response: ", response.data);
       setSuccess("Application sent successfully!");
-      reset();
+      // reset();
     } catch (err) {
       console.error("Error:", err);
       setError("Something went wrong. Please try again.");
@@ -55,11 +71,53 @@ const JobFeedPage = () => {
       setShowForm(false);
     }, 3000);
   };
+
+  const returnJobFeed = () => {
+    if (requesting) {
+      console.log("loading");
+      return <p>{loadingScreen}</p>;
+    } else
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {jobFeed.length ? (
+            jobFeed.map((job) => (
+              <JobFeedCard
+                key={job.id}
+                id={job.id}
+                postedBy={job.postedBy || "Anonymous"} // fallback
+                timePosted={job.timePosted || "Just now"} // fallback
+                rating={job.rating || 0} // fallback
+                title={job.title}
+                payRate={job.payRate}
+                duration={job.duration}
+                location={job.location}
+                skills={job.skills || []}
+                description={job.description}
+                onApply={() => {
+                  setSelectedJob(job);
+                  setShowForm(true);
+                }}
+              />
+            ))
+          ) : (
+            <p>Could not fetch jobs. Please log in.</p>
+          )}
+        </div>
+      );
+  };
   return (
     <section
       className="container"
-      style={{ paddingTop: "0", paddingBottom: "0" }}
+      style={{ paddingTop: "32px", paddingBottom: "0" }}
     >
+      <div
+        className="flex justify-center md:justify-start"
+        style={{ marginBottom: "12px" }}
+      >
+        {/* Back */}
+        <Back />
+      </div>
+
       <div className="flex items-center justify-between">
         <div
           className="flex flex-col gap-2"
@@ -80,19 +138,19 @@ const JobFeedPage = () => {
         {/* Filter */}
         <Filter
           onApplyFilters={(filters) => {
-            const { jobTitle = "", location = "", skills = [] } = filters;
+            const { title = "", location = "", skills = [] } = filters;
 
             setJobFeed((prevJobs) =>
               prevJobs.filter((job) => {
-                const matchesTitle = job.jobTitle
+                const matchesTitle = job.title
                   .toLowerCase()
-                  .includes(jobTitle.toLowerCase());
+                  .includes(title.toLowerCase());
                 const matchesLocation = job.location
                   .toLowerCase()
                   .includes(location.toLowerCase());
                 const matchesSkills = skills.some((s) =>
                   job.skills.some((skill) =>
-                    skill.toLowerCase().includes(s.toLowerCase())
+                    skill.skillName.toLowerCase().includes(s.toLowerCase())
                   )
                 );
                 return matchesTitle && matchesLocation && matchesSkills;
@@ -108,28 +166,7 @@ const JobFeedPage = () => {
       </div>
 
       {/* Job Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {jobFeed.length ? (
-          jobFeed.map((job) => (
-            <JobFeedCard
-              key={job.id}
-              id={job.id}
-              userName={job.userName || "Anonymous"} // fallback
-              timePosted={job.timePosted || "Just now"} // fallback
-              rating={job.rating || 0} // fallback
-              jobTitle={job.jobTitle}
-              payRate={job.payRate}
-              duration={job.duration}
-              location={job.location}
-              skills={job.skills || []}
-              description={job.description}
-              onApply={() => setShowForm(true)}
-            />
-          ))
-        ) : (
-          <p>No jobs posted yet.</p>
-        )}
-      </div>
+      {returnJobFeed()}
 
       {/* Modal Form */}
       {showForm && (
@@ -147,118 +184,15 @@ const JobFeedPage = () => {
               </h2>
               {/* Form goes here... */}
               <form
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (selectedJob) {
+                    onSubmit(selectedJob);
+                  }
+                }}
                 className="flex flex-col gap-4"
               >
                 {/* First and Last names */}
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-1">
-                    <label htmlFor="firstName" className="font-semibold">
-                      First Name:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="John"
-                      {...register("firstName", {
-                        required: "First name is required",
-                      })}
-                    />
-                    <p className="text-center text-red-500">
-                      {errors.firstName?.message}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label htmlFor="lastName" className="font-semibold">
-                      Last Name:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Doe"
-                      {...register("lastName", {
-                        required: "Last name is required",
-                      })}
-                    />
-                    <p className="text-center text-red-500">
-                      {errors.lastName?.message}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="email" className="font-semibold">
-                    Email:
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: "Enter a valid email",
-                      },
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.email?.message}
-                  </p>
-                </div>
-
-                {/* Location */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="location" className="font-semibold">
-                    Location:
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Pretoria"
-                    {...register("location", {
-                      required: "Location is required",
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.location?.message}
-                  </p>
-                </div>
-
-                {/* Phone Number */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="phoneNumber" className="font-semibold">
-                    Phone Number:
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="+27 XX XXX XXXX"
-                    {...register("phoneNumber", {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^(?:\+27|0)\d{9}$/,
-                        message: "Enter a valid phone number",
-                      },
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.phoneNumber?.message}
-                  </p>
-                </div>
-
-                {/* Resume Upload */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="resume" className="font-semibold">
-                    Upload Resume:
-                  </label>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    {...register("resume", {
-                      required: "Resume is required",
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.resume?.message}
-                  </p>
-                </div>
 
                 <div className="flex flex-col gap-4">
                   <Button

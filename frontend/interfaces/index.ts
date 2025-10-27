@@ -12,6 +12,12 @@ export interface ButtonProps {
   isActive?: boolean;
 }
 
+export interface Header_Link {
+  id: number;
+  link: string;
+  href: string;
+}
+
 export interface HeroStatsCardProps {
   id: number;
   statNumber: string;
@@ -56,6 +62,13 @@ export interface BannerStatsProps {
   variant: string;
 }
 
+export interface LoggedInUser {
+  id?: number;
+  username: string;
+  userImage?: string;
+  role: "jobSeeker" | "employer" | null;
+  employerType?: "individual" | "business";
+}
 export interface SignupFormValues {
   firstName: string;
   lastName: string;
@@ -72,21 +85,21 @@ export interface SignupFormValues {
 }
 
 export interface LoginProps {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface JobFeedCardProps {
   id: number;
   image?: string;
-  userName: string;
+  postedBy: JobPosterProfileCardProps;
   timePosted: string;
   rating: number;
-  jobTitle: string;
+  title: string;
   payRate: number;
   duration: string;
   location: string;
-  skills: string[];
+  skills: SkillsProps[];
   description: string;
   onApply?: () => void;
 }
@@ -136,10 +149,10 @@ export interface StepProps {
 }
 
 export interface JobDetailsFormProps {
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
-  skills: { skill: string }[];
+  skills: SkillsProps[];
 }
 
 export interface PaymentAndTimelineFormProps {
@@ -153,26 +166,34 @@ export interface RequirementsAndReviewFormProps {
 
 export interface JobReviewCardProps {
   id: number;
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
   pay: number;
   duration: string;
-  skills: { skill: string }[];
+  // skills: { skill: string }[];
+}
+
+export interface BusinessPoster {
+  companyName: string;
+  id: number;
+  companyAddress?: string;
+  companyRegisterNumber?: string;
 }
 
 export interface JobPostData {
   id: number;
-  userName: string;
+  postedBy: BusinessPoster;
   timePosted: string;
   rating: number;
-  jobTitle: string;
+  title: string;
   description: string;
   location: string;
   payRate: number;
   duration: string;
   specialRequirements?: string;
-  skills: string[];
+  skills: SkillsProps[];
+  jobApplicants: [];
   onApply?: () => void;
 }
 
@@ -185,6 +206,8 @@ export interface JobPostContextType {
   editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
   deleteJob: (id: number) => Promise<void>;
   setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
+  fetchJobs: () => void;
+  requesting: boolean;
 }
 
 export interface ChosenWorkerCardProps {
@@ -208,41 +231,49 @@ export interface PaymentMethodFormProps {
   phoneNumber: string;
 }
 
-export interface RequiredSkillProps {
-  id: number;
+export interface SkillsProps {
+  id?: number;
   skillName: string;
-  priorityLevel: string;
+  priorityLevel?: string;
 }
 
 export interface JobSeekerProfileCardProps {
   id: number;
   userImage?: string;
-  userName?: string;
+  lastName?: string;
+  firstName?: string;
   userAge?: number;
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
+  skillSet: SkillsProps[];
 }
 
 export interface JobSeekerSkillsCardProps {
   id: number;
-  skills: RequiredSkillProps[];
+  skills: SkillsProps[];
   description?: string;
+}
+
+export interface APIRequester {
+  loading: boolean;
 }
 
 export interface JobPosterProfileCardProps {
   id: number;
   userImage?: string;
-  userName?: string;
+  companyName?: string;
   userAge?: number;
-  userLocation?: string;
+  companyAddress?: string;
   userRating?: number;
   numberOfReviews?: number;
   isVerified?: boolean;
   postedJobs?: number;
   activeJobs?: number;
   biography?: string;
-  businessName?: string;
+  lastName?: string;
+  firstName?: string;
+  jobsPosted?: JobPostData[];
 }
 
 export interface JobSeekerReviewsAndRatingsCardProps {
@@ -265,12 +296,12 @@ export interface JobSeekerRecentJobsCardProps {
 export interface EditJobModalProps {
   job: {
     id: number;
-    jobTitle: string;
+    title: string;
     description: string;
     location: string;
     payRate: number;
     duration: string;
-    skills: string[];
+    skills: SkillsProps[];
   };
   onClose: () => void;
   onSave: (data: any) => void;
@@ -279,12 +310,12 @@ export interface EditJobModalProps {
 export interface DeleteJobModalProps {
   onClose: () => void;
   onConfirm: () => void;
-  jobTitle?: string;
+  title?: string;
 }
 
 export interface JobFeedFilterProps {
   onApplyFilters: (filters: {
-    jobTitle?: string;
+    title?: string;
     location?: string;
     skills?: string[];
   }) => void;
@@ -295,24 +326,29 @@ export interface Job {
   userName?: string;
   timePosted?: string;
   rating?: number;
-  jobTitle: string;
+  title: string;
   payRate: string;
   duration: string;
   location: string;
-  skills?: string[];
+  skills?: SkillsProps[];
   description?: string;
 }
 
-interface Applicant {
+export interface JobInApplicantContext extends Job {
+  jobApplicants: Applicant[] | [];
+}
+
+export interface Applicant {
   id: number;
-  userName?: string;
+  lastName: string;
+  firstName: string;
+  skillSet: SkillsProps[];
   userImage?: string;
   rating?: number;
   reviewCount?: number;
   location?: string;
   appliedDate?: string;
-  skills?: string[] | undefined;
-  experience?: string;
+  experience?: number;
   hourlyRate?: number;
   status: "pending" | "accepted" | "rejected";
 }

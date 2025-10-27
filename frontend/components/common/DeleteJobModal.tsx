@@ -5,7 +5,7 @@ import Button from "./Button";
 const DeleteJobModal: React.FC<DeleteJobModalProps> = ({
   onClose,
   onConfirm,
-  jobTitle,
+  title,
 }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -15,8 +15,8 @@ const DeleteJobModal: React.FC<DeleteJobModalProps> = ({
       >
         <h2 className="text-2xl font-bold">Delete Job</h2>
         <p>
-          Are you sure you want to delete <strong>{jobTitle}</strong>? This
-          action cannot be undone.
+          Are you sure you want to delete <strong>{title}</strong>? This action
+          cannot be undone.
         </p>
 
         <div className="flex justify-center gap-4">

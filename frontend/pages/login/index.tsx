@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { LoginProps } from "@/interfaces";
+import { LoginProps, LoggedInUser } from "@/interfaces";
 import axios from "axios";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/router";
+import { useAuth } from "@/context/AuthContext";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
+  const { login, baseUrl, setLoggedInUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [resolved, setResolved] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const url = baseUrl + "/login";
 
   const {
     register,
@@ -19,7 +22,7 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<LoginProps>({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -28,26 +31,46 @@ const LoginPage: React.FC = () => {
     setLoading(true);
     setResolved(null);
     setError(null);
+
+    console.log("data: ", data);
+
     try {
-      const response = await axios.post("/api/login/login", data);
-      if (response.data.success) {
+      const response = await axios.post(url, data);
+      console.log("api res: ", response.data);
+      const resApi = response.data;
+      if (resApi.data) {
         setResolved("Login successful! Redirecting...");
+        login(resApi.data.loggedInToken);
+
+        const loggedUser: LoggedInUser = {
+          role: resApi.data.role,
+          userImage: resApi.data.userImage,
+          username: resApi.data.username,
+          employerType: resApi.data.employerType || null,
+        };
+
+        console.log("Api res: ", resApi.data, " LoggedUser: ", loggedUser);
+        setLoggedInUser(loggedUser);
 
         // Redirect based on email or role
         setTimeout(() => {
-          if (response.data.user.role === "jobSeeker") {
+          if (loggedUser.role === "jobSeeker") {
             router.push("/job-feed");
-          } else if (response.data.user.role === "employer") {
+          } else if (loggedUser.role === "employer") {
             router.push("/job-poster-feed");
           } else {
             router.push("/");
           }
+
           reset();
         }, 1500);
       } else {
+        console.log("err res: ", resApi);
         setError("Invalid credentials. Please try again.");
       }
     } catch (err: unknown) {
+      console.log("caught err: ", err);
+
       if (axios.isAxiosError(err) && err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
@@ -111,19 +134,19 @@ const LoginPage: React.FC = () => {
                 Email or Phone:
               </label>
               <input
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Enter a valid email",
-                  },
+                {...register("username", {
+                  required: "Username or Email is required",
+                  // pattern: {
+                  //   value: /^\S+@\S+$/i,
+                  //   message: "Enter a valid email",
+                  // },
                 })}
-                type="email"
+                type="text"
                 placeholder="Enter your email or phone number"
                 className="h-12 w-full"
               />
               <p className="text-center text-red-500">
-                {errors.email?.message}
+                {errors.username?.message}
               </p>
             </div>
             <div
@@ -134,10 +157,10 @@ const LoginPage: React.FC = () => {
               <input
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
+                  // minLength: {
+                  //   value: 6,
+                  //   message: "Password must be at least 6 characters long",
+                  // },
                 })}
                 type="password"
                 placeholder="Enter your password"

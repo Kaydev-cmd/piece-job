@@ -1,69 +1,66 @@
 import React, { useEffect, useState } from "react";
-import JobSeekerProfileCard from "@/components/common/JobSeekerProfileCard";
-import {
-  JOB_SEEEKER_RECENT_JOBS_DATA,
-  JOB_SEEKER_PROFILE_DATA,
-  JOB_SEEKER_REVIEWS_AND_RATINGS_DATA,
-} from "@/constants";
-import JobSeekerSkillsCard from "@/components/common/JobSeekerSkillsCard";
-import JobSeekerReviewsAndRatingsCard from "@/components/common/JobSeekerReviewsAndRatingsCard";
-import { SlSpeech } from "react-icons/sl";
-import { IoMdTrendingUp } from "react-icons/io";
-import JobSeekerRecentJobsCard from "@/components/common/JobSeekerRecentJobsCard";
-import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { JobSeekerProfileCardProps } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
+import JobSeekerReviewsAndRatingsCard from "@/components/common/JobSeekerReviewsAndRatingsCard";
+import JobSeekerProfileCard from "@/components/common/JobSeekerProfileCard";
+import JobSeekerRecentJobsCard from "@/components/common/JobSeekerRecentJobsCard";
+import JobSeekerSkillsCard from "@/components/common/JobSeekerSkillsCard";
+import {
+  JOB_SEEEKER_RECENT_JOBS_DATA,
+  JOB_SEEKER_REVIEWS_AND_RATINGS_DATA,
+} from "@/constants";
+import { IoMdTrendingUp } from "react-icons/io";
+import { SlSpeech } from "react-icons/sl";
 
 const JobSeekerProfilePage = () => {
-  const { baseUrl, loggedInToken, loggedUser } = useAuth();
-  const [seeker, setSeeker] = useState<JobSeekerProfileCardProps>(
-    JOB_SEEKER_PROFILE_DATA
-  );
+  const { baseUrl, loggedInToken } = useAuth();
   const { loading, setLoading, loadingScreen } = useAPIRequster();
+  const [user, setUser] = useState({} as JobSeekerProfileCardProps);
+  const router = useRouter();
+  const { id } = router.query;
 
-  const fetchSeekerProfile = async () => {
-    if (loggedUser.role == null || loggedUser.employerType == null) {
-      console.error("logged user has null role or null employerType");
-      return;
-    }
-    if (
-      loggedUser.role === "employer" &&
-      loggedUser.employerType === "business"
-    ) {
-      return; //business-employer's do not have a seeker profile.
-    }
+  useEffect(() => {
+    if (!id) return;
+    fetchSeeker();
+  }, [id, loggedInToken]);
 
-    setLoading(true);
+  // Find the seeker by id
+  const fetchSeeker = async () => {
     try {
-      const apiRes = await axios.get(
-        `${baseUrl}/seeker-profile/${loggedUser.username}`,
-        {
-          headers: {
-            Authorization: "Bearer " + loggedInToken,
-          },
-        }
-      );
+      setLoading(true);
+      const apiRes = await axios.get(`${baseUrl}/seeker/${id}`, {
+        headers: {
+          Authorization: "Bearer " + loggedInToken,
+        },
+      });
       console.log("res: ", apiRes);
-      setLoading(false);
-      setSeeker(apiRes.data.data);
+      setUser(apiRes.data.data);
     } catch (error: unknown) {
       console.log("error occured: ", error);
+    } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchSeekerProfile();
-  }, [loggedInToken]);
-  
-  const user = seeker;
-  
-  if (loading) return loadingScreen;
+  if (loading) {
+    return loadingScreen;
+  } else if (!user.id) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-2xl font-bold">User not found</h1>
+      </div>
+    );
+  }
 
   return (
-    <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
+    <section
+      className="container"
+      style={{ paddingBottom: "0", paddingTop: "32px" }}
+    >
       <div
         className="flex justify-center md:justify-start"
         style={{ marginBottom: "32px" }}
@@ -95,7 +92,6 @@ const JobSeekerProfilePage = () => {
             key={user.id}
             id={user.id}
             skills={user.skillSet}
-            // description={user.description}
           />
         </div>
       </div>

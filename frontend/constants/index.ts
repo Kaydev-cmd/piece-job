@@ -1,4 +1,10 @@
-export const HEADER_LINKS = [
+import {
+  Header_Link,
+  JobPosterProfileCardProps,
+  JobSeekerProfileCardProps,
+} from "@/interfaces";
+
+export const HEADER_LINKS: Header_Link[] = [
   {
     id: 1,
     link: "Home",
@@ -13,15 +19,36 @@ export const HEADER_LINKS = [
     id: 3,
     link: "Contact",
     href: "/contact",
-  },
-  {
-    id: 4,
-    link: "Jobs",
-    href: "/job-feed",
   },
 ];
 
-export const MOBILE_LINKS = [
+export const JOB_SEEKER_DROPDOWN_LINKS = [
+  {
+    id: 1,
+    linkName: "View Jobs",
+    href: "/job-feed",
+  },
+  {
+    id: 2,
+    linkName: "View Wallet",
+    href: "/wallet",
+  },
+];
+
+export const JOB_POSTER_DROPDOWN_LINKS = [
+  {
+    id: 1,
+    linkName: "Post a Job",
+    href: "/post-job",
+  },
+  {
+    id: 2,
+    linkName: "View Posted Jobs",
+    href: "/job-poster-feed",
+  },
+];
+
+export const MOBILE_LINKS: Header_Link[] = [
   {
     id: 1,
     link: "Home",
@@ -36,21 +63,6 @@ export const MOBILE_LINKS = [
     id: 3,
     link: "Contact",
     href: "/contact",
-  },
-  {
-    id: 4,
-    link: "Jobs",
-    href: "/job-feed",
-  },
-  {
-    id: 5,
-    link: "Login",
-    href: "/login",
-  },
-  {
-    id: 6,
-    link: "Signup",
-    href: "/signup",
   },
 ];
 
@@ -417,116 +429,116 @@ export const PAYMENT_SUMMARY_DATA = [
   },
 ];
 
-export const JOB_SEEKER_PROFILE_DATA = [
-  {
-    id: 1,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    userName: "John Doe",
-    userAge: 22,
-    userLocation: "Johannesburg, Gauteng",
-    userRating: 4.8,
-    numberOfReviews: 24,
-    skills: [
-      {
-        id: 1,
-        skillName: "Driving",
-        priorityLevel: "low",
-      },
-      {
-        id: 2,
-        skillName: "Data Entry",
-        priorityLevel: "high",
-      },
-      {
-        id: 3,
-        skillName: "Gardening",
-        priorityLevel: "moderate",
-      },
-    ],
-    description:
-      "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
-  },
-];
+export const JOB_SEEKER_PROFILE_DATA: JobSeekerProfileCardProps = {
+  id: 1,
+  userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+  lastName: "John Doe",
+  userAge: 22,
+  userLocation: "Johannesburg, Gauteng",
+  userRating: 4.8,
+  numberOfReviews: 24,
+  skillSet: [
+    {
+      id: 1,
+      skillName: "Driving",
+      priorityLevel: "low",
+    },
+    {
+      id: 2,
+      skillName: "Data Entry",
+      priorityLevel: "high",
+    },
+    {
+      id: 3,
+      skillName: "Gardening",
+      priorityLevel: "moderate",
+    },
+  ],
+  // description:
+  //   "Hardworking student looking for part-time opportunities. Experienced in delivery, tutoring, and general assistance.",
+};
 
-export const JOB_POSTER_PROFILE_DATA = [
+export const JOB_POSTER_PROFILE_DATA: JobPosterProfileCardProps[] = [
   {
     id: 1,
-    username: "Brian J.",
-    businessName: "Green Gardens Landscaping",
-    userlocation: "Cape Town, Western Cape",
+    companyName: "Brian J.",
+    // businessName: "Green Gardens Landscaping",
+    companyAddress: "Cape Town, Western Cape",
     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small landscaping business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography:
+      "Small landscaping business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
   {
     id: 2,
-    username: "Simon K.",
-    businessName: "XYZ Incorporations",
-    userlocation: "Pretoria, Gauteng",
+    companyName: "Simon K.",
+    // businessName: "XYZ Incorporations",
+    companyAddress: "Pretoria, Gauteng",
     userImage: "",
     userRating: 4.9,
     numberOfReviews: 45,
     isVerified: true,
     postedJobs: 23,
     activeJobs: 3,
-    bio: "Small tech business offering flexible work opportunities for motivated individuals.",
-    recentJobs: [
-      {
-        title: "Weekend Garden Maintenance",
-        applicants: 8,
-        status: "active",
-        budget: 500,
-        date: "2024-01-18",
-      },
-      {
-        title: "Lawn Mowing Service",
-        applicants: 12,
-        status: "progress",
-        budget: 300,
-        date: "2024-01-16",
-      },
-      {
-        title: "Plant Installation",
-        applicants: 6,
-        status: "completed",
-        budget: 800,
-        date: "2024-01-14",
-      },
-    ],
+    biography:
+      "Small tech business offering flexible work opportunities for motivated individuals.",
+    // recentJobs: [
+    //   {
+    //     title: "Weekend Garden Maintenance",
+    //     applicants: 8,
+    //     status: "active",
+    //     budget: 500,
+    //     date: "2024-01-18",
+    //   },
+    //   {
+    //     title: "Lawn Mowing Service",
+    //     applicants: 12,
+    //     status: "progress",
+    //     budget: 300,
+    //     date: "2024-01-16",
+    //   },
+    //   {
+    //     title: "Plant Installation",
+    //     applicants: 6,
+    //     status: "completed",
+    //     budget: 800,
+    //     date: "2024-01-14",
+    //   },
+    // ],
   },
 ];
 
 export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   {
     id: 1,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Thabo M.",
     description:
       "Very professional and completed the work on time. Highly recommend!",
@@ -534,28 +546,28 @@ export const JOB_SEEKER_REVIEWS_AND_RATINGS_DATA = [
   },
   {
     id: 2,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Naledi K.",
     description: "Great attention to detail, but arrived a bit late.",
     rating: 4,
   },
   {
     id: 3,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Sipho D.",
     description: "Did an excellent job and was very polite. Will hire again.",
     rating: 5,
   },
   {
     id: 4,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Aisha P.",
     description: "Work was okay, but communication could be better.",
     rating: 3,
   },
   {
     id: 5,
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+    userImage: "",
     userName: "Lerato S.",
     description: "Outstanding service, went above and beyond my expectations.",
     rating: 5,
@@ -617,70 +629,95 @@ export const JOB_SEEEKER_RECENT_JOBS_DATA = [
   },
 ];
 
-export const mockApplicants = [
-  {
-    id: 1,
-    userName: "Sarah Chen",
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    rating: 4.9,
-    reviewCount: 124,
-    location: "San Francisco, CA",
-    appliedDate: "2 hours ago",
-    skills: ["React", "TypeScript", "Node.js", "MongoDB"],
-    experience: "5+ years experience",
-    hourlyRate: 85,
-    status: "pending" as const,
-  },
-  {
-    id: 2,
-    userName: "Marcus Johnson",
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    rating: 4.7,
-    reviewCount: 89,
-    location: "Austin, TX",
-    appliedDate: "4 hours ago",
-    skills: ["Python", "Django", "PostgreSQL", "AWS"],
-    experience: "3+ years experience",
-    hourlyRate: 75,
-    status: "pending" as const,
-  },
-  {
-    id: 3,
-    userName: "Emily Rodriguez",
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    rating: 4.8,
-    reviewCount: 156,
-    location: "New York, NY",
-    appliedDate: "6 hours ago",
-    skills: ["Vue.js", "Laravel", "MySQL", "Docker"],
-    experience: "4+ years experience",
-    hourlyRate: 80,
-    status: "accepted" as const,
-  },
-  {
-    id: 4,
-    userName: "David Kim",
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    rating: 4.6,
-    reviewCount: 67,
-    location: "Seattle, WA",
-    appliedDate: "1 day ago",
-    skills: ["Angular", "C#", ".NET", "Azure"],
-    experience: "6+ years experience",
-    hourlyRate: 90,
-    status: "pending" as const,
-  },
-  {
-    id: 5,
-    userName: "Lisa Thompson",
-    userImage: "/assets/job_seeker_profile/john_doe.jpeg",
-    rating: 4.5,
-    reviewCount: 43,
-    location: "Chicago, IL",
-    appliedDate: "1 day ago",
-    skills: ["React Native", "Swift", "Kotlin", "Firebase"],
-    experience: "2+ years experience",
-    hourlyRate: 70,
-    status: "rejected" as const,
-  },
-];
+// export const mockApplicants: Applicant[] = [
+//   {
+//     id: 1,
+//     userName: "Sarah Chen",
+//     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+//     rating: 4.9,
+//     reviewCount: 124,
+//     location: "San Francisco, CA",
+//     appliedDate: "2 hours ago",
+//     skillSet: [
+//       { skillName: "React" },
+//       { skillName: "TypeScript" },
+//       { skillName: "Node.js" },
+//       { skillName: "MongoDB" },
+//     ],
+//     experience: 5,
+//     hourlyRate: 85,
+//     status: "pending" as const,
+//   },
+//   {
+//     id: 2,
+//     userName: "Marcus Johnson",
+//     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+//     rating: 4.7,
+//     reviewCount: 89,
+//     location: "Austin, TX",
+//     appliedDate: "4 hours ago",
+//     skillSet: [
+//       { skillName: "Python" },
+//       { skillName: "Django" },
+//       { skillName: "PostgreSQL" },
+//       { skillName: "AWS" },
+//     ],
+//     experience: 3,
+//     hourlyRate: 75,
+//     status: "pending" as const,
+//   },
+//   {
+//     id: 3,
+//     userName: "Emily Rodriguez",
+//     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+//     rating: 4.8,
+//     reviewCount: 156,
+//     location: "New York, NY",
+//     appliedDate: "6 hours ago",
+//     skillSet: [
+//       { skillName: "Vue.js" },
+//       { skillName: "Laravel" },
+//       { skillName: "MySQL" },
+//       { skillName: "Docker" },
+//     ],
+//     experience: 4,
+//     hourlyRate: 80,
+//     status: "accepted" as const,
+//   },
+//   {
+//     id: 4,
+//     userName: "David Kim",
+//     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+//     rating: 4.6,
+//     reviewCount: 67,
+//     location: "Seattle, WA",
+//     appliedDate: "1 day ago",
+//     skillSet: [
+//       { skillName: "Angular" },
+//       { skillName: "C#" },
+//       { skillName: ".NET" },
+//       { skillName: "Azure" },
+//     ],
+//     experience: 6,
+//     hourlyRate: 90,
+//     status: "pending" as const,
+//   },
+//   {
+//     id: 5,
+//     userName: "Lisa Thompson",
+//     userImage: "/assets/job_seeker_profile/john_doe.jpeg",
+//     rating: 4.5,
+//     reviewCount: 43,
+//     location: "Chicago, IL",
+//     appliedDate: "1 day ago",
+//     skillSet: [
+//       { skillName: "React Native" },
+//       { skillName: "Swift" },
+//       { skillName: "Kotlin" },
+//       { skillName: "Firebase" },
+//     ],
+//     experience: 2,
+//     hourlyRate: 70,
+//     status: "rejected" as const,
+//   },
+// ];

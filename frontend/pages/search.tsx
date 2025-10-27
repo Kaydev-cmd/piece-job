@@ -107,10 +107,10 @@ const SearchPage = () => {
             <JobFeedCard
               key={job.id}
               id={job.id}
-              userName={job.userName}
+              postedBy={job.postedBy}
               timePosted={job.timePosted}
               rating={job.rating}
-              jobTitle={job.jobTitle}
+              title={job.title}
               payRate={job.payRate}
               duration={job.duration}
               location={job.location}

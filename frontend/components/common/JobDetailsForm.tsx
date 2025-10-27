@@ -19,7 +19,7 @@ const JobDetailsForm: React.FC<StepProps> = ({
     formState: { errors },
   } = useForm<JobDetailsFormProps>({
     defaultValues: {
-      jobTitle: "",
+      title: "",
       description: "",
       location: "",
       skills: [],
@@ -32,10 +32,11 @@ const JobDetailsForm: React.FC<StepProps> = ({
   });
 
   const onSubmit = async (data: JobDetailsFormProps) => {
-    // transform { skill: string }[] into string[]
     const normalizedData = {
       ...data,
-      skills: data.skills.map((skill) => skill.skill),
+      skills: data.skills.map((skill) =>
+        typeof skill === "string" ? { skillName: skill } : skill
+      ),
     };
 
     updateJobData(normalizedData);
@@ -63,11 +64,11 @@ const JobDetailsForm: React.FC<StepProps> = ({
           <input
             type="text"
             placeholder="e.g., Clean my garden, Math tutoring needed"
-            {...register("jobTitle", {
+            {...register("title", {
               required: "Job Title is required",
             })}
           />
-          <p className="text-center text-red-500">{errors.jobTitle?.message}</p>
+          <p className="text-center text-red-500">{errors.title?.message}</p>
         </div>
 
         {/* Description here...*/}
@@ -104,7 +105,12 @@ const JobDetailsForm: React.FC<StepProps> = ({
         <div className="flex flex-col gap-2">
           <label>Skills</label>
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-            <input type="text" placeholder="Enter a skill" id="newSkill" className="lg:flex-1"/>
+            <input
+              type="text"
+              placeholder="Enter a skill"
+              id="newSkill"
+              className="lg:flex-1"
+            />
             <Button
               type="button"
               title="Add Skill"
@@ -114,7 +120,7 @@ const JobDetailsForm: React.FC<StepProps> = ({
                   "newSkill"
                 ) as HTMLInputElement;
                 if (input && input.value.trim() !== "") {
-                  append({ skill: input.value.trim() });
+                  append({ skillName: input.value.trim() });
                   input.value = "";
                 }
               }}
@@ -130,7 +136,7 @@ const JobDetailsForm: React.FC<StepProps> = ({
               className=" bg-blue-500 text-white rounded-full flex items-center gap-1"
               style={{ padding: "8px" }}
             >
-              {field.skill}
+              {field.skillName}
               <button
                 type="button"
                 className="ml-1 text-sm"

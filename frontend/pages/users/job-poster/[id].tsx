@@ -1,28 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import JobPosterProfileCard from "@/components/common/JobPosterProfileCard";
-import { JOB_POSTER_PROFILE_DATA } from "@/constants";
 import BusinessInfoCard from "@/components/common/BusinessInfoCard";
 import { JOB_SEEKER_REVIEWS_AND_RATINGS_DATA } from "@/constants";
 import { FaStar } from "react-icons/fa";
 import { SlSpeech } from "react-icons/sl";
-import Button from "@/components/common/Button";
 import { IoMdTrendingUp } from "react-icons/io";
 import { motion } from "framer-motion";
 import Pill from "@/components/common/Pill";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
+import { JobPosterProfileCardProps } from "@/interfaces";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import Back from "@/components/common/Back";
 
 const JobPosterProfilePage = () => {
+  const { baseUrl, loggedInToken } = useAuth();
+  const { loading, setLoading, loadingScreen } = useAPIRequster();
+  const [user, setUser] = useState({} as JobPosterProfileCardProps);
+
+  useEffect(() => {
+    fetchBusiness();
+  }, [loggedInToken]);
+
   const router = useRouter();
-  const { username } = router.query;
+  const { id } = router.query;
 
-  if (!username) return null;
+  if (!id) return null;
 
-  // Find the user by username
-  const user = JOB_POSTER_PROFILE_DATA.find(
-    (user) => user.username.toLowerCase() === (username as string).toLowerCase()
-  );
+  // Find the business by id
+  const fetchBusiness = async () => {
+    try {
+      setLoading(true);
+      const apiRes = await axios.get(`${baseUrl}/business/${id}`, {
+        headers: {
+          Authorization: "Bearer " + loggedInToken,
+        },
+      });
+      console.log("res: ", apiRes);
+      setUser(apiRes.data.data);
+    } catch (error: unknown) {
+      console.log("error occured: ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (!user) {
+  if (loading) {
+    return loadingScreen;
+  } else if (!user.id) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <h1 className="text-2xl font-bold">User not found</h1>
@@ -36,7 +62,15 @@ const JobPosterProfilePage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <section className="container" style={{ paddingBottom: "0" }}>
+      <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
+        <div
+          className="flex justify-center md:justify-start"
+          style={{ marginBottom: "32px" }}
+        >
+          {/* Back */}
+          <Back />
+        </div>
+
         <div className="lg:grid grid-cols-1 gap-4">
           {/* User Profile component here... */}
           <div className="grid grid-cols-1  lg:grid-cols-2  gap-4">
@@ -45,8 +79,9 @@ const JobPosterProfilePage = () => {
               key={user.id}
               id={user.id}
               userImage={user.userImage}
-              userName={user.username}
-              userLocation={user.userlocation}
+              lastName={user.lastName}
+              firstName={user.firstName}
+              companyAddress={user.companyAddress}
               userRating={user.userRating}
               numberOfReviews={user.numberOfReviews}
             />
@@ -55,9 +90,9 @@ const JobPosterProfilePage = () => {
               <BusinessInfoCard
                 key={user.id}
                 id={user.id}
-                businessName={user.businessName}
-                biography={user.bio}
-                postedJobs={user.postedJobs}
+                companyName={user.companyName}
+                biography={user.biography}
+                jobsPosted={user.jobsPosted}
                 activeJobs={user.activeJobs}
               />
             </div>
@@ -76,7 +111,7 @@ const JobPosterProfilePage = () => {
                 style={{ padding: "16px" }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-4"
               >
-                {user.recentJobs.map((job, index) => (
+                {user.jobsPosted?.map((job, index) => (
                   <div
                     key={index}
                     style={{ padding: "16px" }}
@@ -86,12 +121,14 @@ const JobPosterProfilePage = () => {
                       <div className="flex flex-col gap-2">
                         <h2 className="text-2xl font-bold">{job.title}</h2>
                         <p className="text-gray-900 font-semibold">
-                          {job.applicants} applicants
+                          {job.jobApplicants.length} applicants
                         </p>
-                        <p className="text-sm text-slate-600">{job.date}</p>
+                        <p className="text-sm text-slate-600">
+                          {job.timePosted}
+                        </p>
                       </div>
                       <div className="flex justify-center">
-                        <Pill title={job.status} variant={job.status} />
+                        <Pill title={"status"} variant={"active"} />
                       </div>
                     </div>
 
@@ -100,7 +137,7 @@ const JobPosterProfilePage = () => {
                       style={{ marginTop: "8px" }}
                     >
                       <span className="font-semibold">Budget</span> : R
-                      {job.budget}
+                      {job.payRate}
                     </div>
                   </div>
                 ))}
@@ -118,7 +155,7 @@ const JobPosterProfilePage = () => {
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {JOB_SEEKER_REVIEWS_AND_RATINGS_DATA.filter(
-                (review) => review.userName === user.username
+                (review) => review.userName === user.companyName
               ).map((review) => (
                 <div
                   key={review.id}
@@ -135,9 +172,6 @@ const JobPosterProfilePage = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            <div className="flex justify-center">
-              <Button title="View More Reviews" variant="seeMore" />
             </div>
           </div>
         </div>
