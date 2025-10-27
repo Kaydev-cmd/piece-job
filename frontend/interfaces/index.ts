@@ -84,7 +84,7 @@ export interface SignupFormValues {
   companyAddress?: string;
 }
 export interface RegisterFormValues {
-  userName: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }
@@ -242,16 +242,21 @@ export interface SkillsProps {
   priorityLevel?: string;
 }
 
-export interface JobSeekerProfileCardProps {
+export interface baseSeeker{
   id: number;
+  lastName: string;
+  firstName: string;
+  skillSet: SkillsProps[];
   userImage?: string;
-  lastName?: string;
-  firstName?: string;
+
+}
+
+export interface JobSeekerProfileCardProps extends baseSeeker{
+  userImage?: string;
   userAge?: number;
   userLocation?: string;
   userRating?: number;
   numberOfReviews?: number;
-  skillSet: SkillsProps[];
 }
 
 export interface JobSeekerSkillsCardProps {
@@ -339,27 +344,27 @@ export interface Job {
   description?: string;
 }
 
-export interface JobInApplicantContext extends Job {
-  jobApplicants: Applicant[] | [];
+export interface JobInApplicationContext{ 
+  job: Job,  
+  jobApplications: Application[] | [];
 }
 
-export interface Applicant {
-  id: number;
-  lastName: string;
-  firstName: string;
-  skillSet: SkillsProps[];
-  userImage?: string;
-  rating?: number;
-  reviewCount?: number;
-  location?: string;
-  appliedDate?: string;
-  experience?: number;
-  hourlyRate?: number;
+export interface Application {
+  jobApplicant: baseSeeker
+  id:number ;
   status: "pending" | "accepted" | "rejected";
+  applicationDate : Date;
+  // userImage?: string;
+  // rating?: number;
+  // reviewCount?: number;
+  // location?: string;
+  // appliedDate?: string;
+  // experience?: number;
+  // hourlyRate?: number;
 }
 
-export interface ApplicantCardProps {
-  applicant: Applicant;
+export interface ApplicationCardProps {
+  application: Application;
   onAccept: (id: number) => void;
   onReject: (id: number) => void;
 }

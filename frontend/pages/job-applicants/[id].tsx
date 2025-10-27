@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
 import ApplicantCard from "@/components/common/ApplicantCard";
 import { useRouter } from "next/router";
-import { JobInApplicantContext } from "@/interfaces";
+import { Application, JobInApplicationContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";
@@ -14,8 +14,8 @@ const JobApplicants = () => {
   const router = useRouter();
   const { id } = router.query;
   const { baseUrl, loggedInToken } = useAuth();
-  const [job, setApplicants] = useState<JobInApplicantContext>(
-    {} as JobInApplicantContext
+  const [jobInApplicantContext, setJobInApplicantContext] = useState<JobInApplicationContext>(
+    {job:{}} as JobInApplicationContext
   );
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus] = useState("all");
@@ -28,7 +28,7 @@ const JobApplicants = () => {
         });
         console.log("res: ", response);
         if (response.data) {
-          setApplicants(response.data.data);
+          setJobInApplicantContext(response.data.data);
         }
       } catch (err: unknown) {
         console.log("error occ: ", err);
@@ -38,45 +38,44 @@ const JobApplicants = () => {
   }, [loggedInToken, baseUrl, id]);
 
   const handleAccept = (id: number) => {
-    const accepted = { ...job };
-    accepted.jobApplicants.map((applicant) =>
+    const accepted = { ...jobInApplicantContext };
+    accepted.jobApplications.map((applicant) =>
       applicant.id === id
         ? { ...applicant, status: "accepted" as const }
         : applicant
     );
-    setApplicants(accepted);
+    setJobInApplicantContext(accepted);
   };
 
   const handleReject = (id: number) => {
-    const newJob = { ...job };
-    newJob.jobApplicants = job.jobApplicants.map((applicant) =>
+    const newJob = { ...jobInApplicantContext };
+    newJob.jobApplications = jobInApplicantContext
+    .jobApplications.map((applicant) =>
       applicant.id === id
         ? { ...applicant, status: "rejected" as const }
         : applicant
     );
-    setApplicants(newJob);
+    setJobInApplicantContext(newJob);
   };
-
-  const filteredApplicants = !job.jobApplicants
+  const filteredApplicants = !jobInApplicantContext.jobApplications
     ? []
-    : job.jobApplicants.filter((applicant) => {
+    : jobInApplicantContext.jobApplications.filter((application) => {
+        const applicant = application.jobApplicant 
         const matchesSearch =
           applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           applicant.skillSet.some((skill) =>
             skill.skillName.toLowerCase().includes(searchTerm.toLowerCase())
           );
         const matchesStatus =
-          filterStatus === "all" || applicant.status === filterStatus;
+          filterStatus === "all" || application.status === filterStatus;
         return matchesSearch && matchesStatus;
       });
-
-  const pendingCount = !job.jobApplicants
+  const pendingCount = !jobInApplicantContext.jobApplications
     ? []
-    : job.jobApplicants.filter((a) => a.status === "pending").length;
-
-  const acceptedCount = !job.jobApplicants
+    : jobInApplicantContext.jobApplications.filter((a) => a.status === "pending").length;
+  const acceptedCount = !jobInApplicantContext.jobApplications
     ? []
-    : job.jobApplicants.filter((a) => a.status === "accepted").length;
+    : jobInApplicantContext.jobApplications.filter((a) => a.status === "accepted").length;
 
   return (
     <motion.div
@@ -107,16 +106,19 @@ const JobApplicants = () => {
             </h1>
             <div className="flex flex-col items-center gap-4 mb-4">
               <h3 className="text-xl font-semibold">
-                {job.title ? job.title : "Loading..."}
+                {jobInApplicantContext.job.title
+                  ? jobInApplicantContext.job.title
+                  : "Frontend Developer - React & TypeScript"}
               </h3>
-              <p className="text-center">{job.description}</p>
+              <p className="text-center">{jobInApplicantContext.job.description ? 
+              jobInApplicantContext.job.description : "Description"}</p>
             </div>
             <div
               className="flex items-center justify-center flex-wrap gap-2"
               style={{ marginTop: "8px" }}
             >
-              {job.skills &&
-                job.skills.map((skill, index) => (
+              {jobInApplicantContext.job.skills &&
+                jobInApplicantContext.job.skills.map((skill, index) => (
                   <Pill
                     key={index}
                     title={skill.skillName}
@@ -164,12 +166,14 @@ const JobApplicants = () => {
         {/* Applicant List */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredApplicants.length > 0 ? (
-            filteredApplicants.map((applicant) => (
+            filteredApplicants.map((application) => (
               <ApplicantCard
-                key={applicant.id}
-                applicant={applicant}
-                onAccept={handleAccept}
-                onReject={handleReject}
+                key={application.id}
+                application={application}
+                // onAccept={handleAccept}
+                onAccept={()=>{}}
+                // onReject={handleReject}
+                onReject={()=>{}}
               />
             ))
           ) : (

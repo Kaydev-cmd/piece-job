@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { RegisterFormValues } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Register = () => {
   const {
@@ -15,12 +16,12 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterFormValues>({
     defaultValues: {
-      userName: "",
+      username: "",
       password: "",
       confirmPassword: "",
     },
   });
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -40,7 +41,7 @@ const Register = () => {
       setSuccess("User created successfully!");
 
       setTimeout(() => {
-        window.location.href = "/signup";
+        router.push("/signup");
       }, 2000);
 
       reset();
@@ -100,18 +101,18 @@ const Register = () => {
               {/* First and Last names */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
-                  <label htmlFor="userName" className="font-semibold">
+                  <label htmlFor="username" className="font-semibold">
                     User Name:
                   </label>
                   <input
                     type="text"
                     placeholder="John"
-                    {...register("userName", {
+                    {...register("username", {
                       required: "User Name is required",
                     })}
                   />
                   <p className="text-center text-red-500">
-                    {errors.userName?.message}
+                    {errors.username?.message}
                   </p>
                 </div>
               </div>
