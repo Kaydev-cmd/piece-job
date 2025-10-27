@@ -10,6 +10,7 @@ import { ApplicationFormValues } from "@/interfaces";
 import { useJobPost } from "@/context/JobPostContext";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
+import { useAuth } from "@/context/AuthContext";
 
 const JobFeedPage = () => {
   const { jobFeed, setJobFeed, requesting } = useJobPost();
@@ -34,6 +35,7 @@ const JobFeedPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { baseUrl, loggedInToken } = useAuth();
 
   const onSubmit = async (data: ApplicationFormValues) => {
     setLoading(true);
@@ -41,7 +43,17 @@ const JobFeedPage = () => {
     setSuccess(null);
 
     try {
-      await axios.post("/api/application/application", data);
+      console.log("Job has nothing: ", loggedInToken);
+      const response = await axios.post(
+        `${baseUrl}/seeker/apply?jobId=24`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + loggedInToken,
+          },
+        }
+      );
+      console.log("Response: ", response.data);
       setSuccess("Application sent successfully!");
       reset();
     } catch (err) {
@@ -171,114 +183,6 @@ const JobFeedPage = () => {
                 className="flex flex-col gap-4"
               >
                 {/* First and Last names */}
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-1">
-                    <label htmlFor="firstName" className="font-semibold">
-                      First Name:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="John"
-                      {...register("firstName", {
-                        required: "First name is required",
-                      })}
-                    />
-                    <p className="text-center text-red-500">
-                      {errors.firstName?.message}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label htmlFor="lastName" className="font-semibold">
-                      Last Name:
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Doe"
-                      {...register("lastName", {
-                        required: "Last name is required",
-                      })}
-                    />
-                    <p className="text-center text-red-500">
-                      {errors.lastName?.message}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="email" className="font-semibold">
-                    Email:
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: "Enter a valid email",
-                      },
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.email?.message}
-                  </p>
-                </div>
-
-                {/* Location */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="location" className="font-semibold">
-                    Location:
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Pretoria"
-                    {...register("location", {
-                      required: "Location is required",
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.location?.message}
-                  </p>
-                </div>
-
-                {/* Phone Number */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="phoneNumber" className="font-semibold">
-                    Phone Number:
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="+27 XX XXX XXXX"
-                    {...register("phoneNumber", {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^(?:\+27|0)\d{9}$/,
-                        message: "Enter a valid phone number",
-                      },
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.phoneNumber?.message}
-                  </p>
-                </div>
-
-                {/* Resume Upload */}
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="resume" className="font-semibold">
-                    Upload Resume:
-                  </label>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    {...register("resume", {
-                      required: "Resume is required",
-                    })}
-                  />
-                  <p className="text-center text-red-500">
-                    {errors.resume?.message}
-                  </p>
-                </div>
 
                 <div className="flex flex-col gap-4">
                   <Button

@@ -28,18 +28,18 @@ const JobPosterFeedCard: React.FC<Props> = ({
   onEdit,
   onDelete,
 }) => {
-  const normalizedSkills: string[] = Array.isArray(skills)
-    ? (skills as any[])
-        .map((skill) =>
-          typeof skill === "string" ? skill : skill?.name ?? skill?.title ?? ""
-        )
-        .filter(Boolean)
-    : skills
-    ? (skills as unknown as string)
-        .split(",")
-        .map((skill) => skill.trim())
-        .filter(Boolean)
-    : [];
+  // const normalizedSkills: string[] = Array.isArray(skills)
+  //   ? (skills as any[])
+  //       .map((skill) =>
+  //         typeof skill === "string" ? skill : skill?.name ?? skill?.title ?? ""
+  //       )
+  //       .filter(Boolean)
+  //   : skills
+  //   ? (skills as unknown as string)
+  //       .split(",")
+  //       .map((skill) => skill.trim())
+  //       .filter(Boolean)
+  //   : [];
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -141,8 +141,8 @@ const JobPosterFeedCard: React.FC<Props> = ({
 
         {/* Skills */}
         <div className="flex flex-wrap items-center gap-2">
-          {normalizedSkills.map((skill, index) => (
-            <Pill key={index} title={skill} variant="default" />
+          {skills.map((skill, index) => (
+            <Pill key={index} title={skill.skillName} variant="default" />
           ))}
         </div>
 

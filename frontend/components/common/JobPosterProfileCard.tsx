@@ -3,8 +3,6 @@ import Image from "next/image";
 import React from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
-import { FiSettings } from "react-icons/fi";
-import Link from "next/link";
 import { LuUserRound } from "react-icons/lu";
 
 const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({

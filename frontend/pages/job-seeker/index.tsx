@@ -51,11 +51,14 @@ const JobSeekerProfilePage = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchSeekerProfile();
-  }, []);
-  var user = seeker;
+  }, [loggedInToken]);
+  
+  const user = seeker;
   if (loading) return loadingScreen;
+
   return (
     <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
       <div

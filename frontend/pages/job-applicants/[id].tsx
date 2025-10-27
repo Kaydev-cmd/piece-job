@@ -7,7 +7,7 @@ import ApplicantCard from "@/components/common/ApplicantCard";
 // import { mockApplicants } from "@/constants";
 
 import { useRouter } from "next/router";
-import { Applicant, JobInApplicantContext } from "@/interfaces";
+import { JobInApplicantContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";
@@ -21,7 +21,7 @@ const JobApplicants = () => {
     {} as JobInApplicantContext
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("all");
+  const [filterStatus] = useState("all");
 
   useEffect(() => {
     const fetchJobApplicants = async () => {
@@ -33,12 +33,12 @@ const JobApplicants = () => {
         if (response.data) {
           setApplicants(response.data.data);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.log("error occ: ", err);
       }
     };
     fetchJobApplicants();
-  }, []);
+  }, [loggedInToken, baseUrl, id]);
 
   const handleAccept = (id: number) => {
     const accepted = { ...job };

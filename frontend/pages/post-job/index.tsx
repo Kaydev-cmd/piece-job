@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-import { useRouter } from "next/router";
 import JobDetailsForm from "@/components/common/JobDetailsForm";
 import TipsForSuccess from "@/components/common/TipsForSuccess";
 import InstantPaymentsCard from "@/components/common/InstantPaymentsCard";
@@ -10,7 +8,6 @@ import { JobPostProvider } from "@/context/JobPostContext";
 import Back from "@/components/common/Back";
 
 const PostJobPage = () => {
-  const router = useRouter();
   const [pageTracker, setPageTracker] = useState(1);
 
   const totalSteps = 3;

@@ -21,17 +21,6 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
   description,
   onApply,
 }) => {
-  const normalizedSkills: string[] = Array.isArray(skills)
-    ? skills.map((skill: any) =>
-        typeof skill === "string" ? skill : skill.skillName
-      )
-    : skills
-    ? (skills as unknown as string)
-        .split(",")
-        .map((skill) => skill.trim())
-        .filter(Boolean)
-    : [];
-
   return (
     <div className="card border border-gray-300 rounded-xl shadow-md flex flex-col justify-between gap-4 cursor-pointer transition-all duration-300  hover:border-[#1D4ED8]/40 hover:bg-[#1D4ED8]/5 hover:-translate-y-1">
       {/* Image, name and rating here... */}
@@ -44,7 +33,7 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
             {image ? (
               <Image
                 src={image}
-                alt={postedBy.companyName?postedBy.companyName:""}
+                alt={postedBy.companyName ? postedBy.companyName : ""}
                 width={200}
                 height={200}
                 className="w-full"
@@ -98,8 +87,8 @@ const JobFeedCard: React.FC<JobFeedCardProps> = ({
 
       {/* Skills */}
       <div className="flex flex-wrap items-center gap-2">
-        {normalizedSkills.map((skill, index) => (
-          <Pill key={index} title={skill} variant="default" />
+        {skills.map((skill, index) => (
+          <Pill key={index} title={skill.skillName} variant="default" />
         ))}
       </div>
 

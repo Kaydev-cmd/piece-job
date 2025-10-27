@@ -1,5 +1,4 @@
 import {
-  Applicant,
   Header_Link,
   JobPosterProfileCardProps,
   JobSeekerProfileCardProps,
@@ -70,7 +69,6 @@ export const MOBILE_LINKS: Header_Link[] = [
     link: "Contact",
     href: "/contact",
   },
-
 ];
 
 export const FOR_JOB_SEEKERS_LINKS = [

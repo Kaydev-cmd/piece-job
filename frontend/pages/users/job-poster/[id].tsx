@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import JobPosterProfileCard from "@/components/common/JobPosterProfileCard";
-import { JOB_POSTER_PROFILE_DATA } from "@/constants";
 import BusinessInfoCard from "@/components/common/BusinessInfoCard";
 import { JOB_SEEKER_REVIEWS_AND_RATINGS_DATA } from "@/constants";
 import { FaStar } from "react-icons/fa";
 import { SlSpeech } from "react-icons/sl";
-import Button from "@/components/common/Button";
 import { IoMdTrendingUp } from "react-icons/io";
 import { motion } from "framer-motion";
 import Pill from "@/components/common/Pill";
@@ -17,17 +15,23 @@ import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
 
 const JobPosterProfilePage = () => {
+  const { baseUrl, loggedInToken } = useAuth();
+  const { loading, setLoading, loadingScreen } = useAPIRequster();
+  const [user, setUser] = useState({} as JobPosterProfileCardProps);
+  
+  useEffect(() => {
+    fetchBusiness();
+  }, [loggedInToken]);
+
   const router = useRouter();
   const { id } = router.query;
 
   if (!id) return null;
 
-  // Find the user by username
-  const { baseUrl, loggedInToken } = useAuth();
-  const { loading, setLoading, loadingScreen } = useAPIRequster();
+  // Find the business by id
   const fetchBusiness = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const apiRes = await axios.get(`${baseUrl}/business/${id}`, {
         headers: {
           Authorization: "Bearer " + loggedInToken,
@@ -35,22 +39,13 @@ const JobPosterProfilePage = () => {
       });
       console.log("res: ", apiRes);
       setUser(apiRes.data.data);
-      setLoading(false);
     } catch (error: unknown) {
       console.log("error occured: ", error);
+    } finally {
       setLoading(false);
     }
   };
-  const [user, setUser] = useState({} as JobPosterProfileCardProps);
-  // = JOB_POSTER_PROFILE_DATA.find(
-  //   (user) => user.username.toLowerCase() === (username as string).toLowerCase()
-  // );
-  useEffect(() => {
-    // const run = ()=>{
-    fetchBusiness();
-    // }
-    // run();
-  }, []);
+
   if (loading) {
     return loadingScreen;
   } else if (!user.id) {
@@ -68,7 +63,7 @@ const JobPosterProfilePage = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <section className="container" style={{ paddingBottom: "0" }}>
-        <div style={{marginBottom: "32px"}}>
+        <div style={{ marginBottom: "32px" }}>
           {/* Back */}
           <Back />
         </div>

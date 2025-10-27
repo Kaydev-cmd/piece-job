@@ -40,12 +40,12 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {jobFeed.length ? (
           jobFeed.map((job) => {
-            const normalizedSkills =
-              Array.isArray(job.skills) && job.skills.length > 0
-                ? job.skills.map((skill: any) =>
-                    typeof skill === "string" ? skill : skill.skillName
-                  )
-                : [];
+            // const normalizedSkills =
+            //   Array.isArray(job.skills) && job.skills.length > 0
+            //     ? job.skills.map((skill: SkillsProps) =>
+            //         typeof skill === "string" ? skill : skill.skillName
+            //       )
+            //     : [];
 
             return (
               <JobPosterFeedCard
@@ -58,7 +58,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
                 payRate={job.payRate}
                 duration={job.duration}
                 location={job.location}
-                skills={normalizedSkills}
+                skills={job.skills}
                 description={job.description}
                 onEdit={() =>
                   setEditingJob({

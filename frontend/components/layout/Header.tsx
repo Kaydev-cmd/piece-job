@@ -8,7 +8,7 @@ import { MOBILE_LINKS } from "@/constants";
 import { motion, AnimatePresence } from "motion/react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { HiX } from "react-icons/hi";
-import { useState, useRef, useEffect, use } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Button from "../common/Button";
 import { useAuth } from "@/context/AuthContext";
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
 
   const getHeaderLinks: () => Header_Link[] = () => {
     if (loggedUser.role !== null) {
-      var header_link: Header_Link = {
+      const header_link: Header_Link = {
         id: 4,
         link: "Jobs",
         href: "/job-feed",

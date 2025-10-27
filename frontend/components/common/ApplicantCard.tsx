@@ -65,7 +65,7 @@ const ApplicantCard = ({
                   <span className="text-[#64748B]">Applied {appliedDate}</span>
                 </div>
                 <span className="text-xl text-slate-500">•</span>
-                <span className="text-[#64748B]">{experience}"+ years experience"</span>
+                <span className="text-[#64748B]">{experience} years</span>
               </div>
 
               <div

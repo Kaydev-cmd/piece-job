@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 
