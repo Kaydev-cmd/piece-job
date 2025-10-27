@@ -20,11 +20,11 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
       className="card flex flex-col justify-center items-center gap-4 bg-gray-300/30 rounded-xl"
     >
       {/* Profile Image here... */}
-      <div className="md:flex flex-col gap-6 items-center">
+      <div className="md:flex flex-col items-center">
         <div className="flex justify-center">
           {userImage ? (
             <Image
-              src={userImage || "/default-profile.png"}
+              src={userImage}
               alt={
                 companyName
                   ? `${companyName}'s profile picture`
@@ -39,7 +39,7 @@ const JobPosterProfileCard: React.FC<JobPosterProfileCardProps> = ({
           )}
         </div>
         {/* User Details */}
-        <div className="flex flex-col text-center gap-2">
+        <div className="flex flex-col text-center gap-4" style={{marginTop: "16px"}}>
           <h1 className="text-4xl font-bold">
             {firstName} {lastName}
           </h1>

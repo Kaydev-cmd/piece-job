@@ -80,7 +80,7 @@ const Header: React.FC = () => {
                 <>
                   <IoIosArrowUp size={20} className="hover:text-blue-500" />
                   {/* Navigation Links */}
-                  <div className="absolute top-8 left-[-80] shadow-md rounded-md min-w-[200px] text-center">
+                  <div className="absolute top-8 shadow-md rounded-md min-w-[200px] text-center lg:left-[-100]">
                     {loggedUser.role === "jobSeeker" ? (
                       <div
                         className="bg-white flex flex-col gap-4"

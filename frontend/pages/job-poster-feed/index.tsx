@@ -40,13 +40,6 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {jobFeed.length ? (
           jobFeed.map((job) => {
-            // const normalizedSkills =
-            //   Array.isArray(job.skills) && job.skills.length > 0
-            //     ? job.skills.map((skill: SkillsProps) =>
-            //         typeof skill === "string" ? skill : skill.skillName
-            //       )
-            //     : [];
-
             return (
               <JobPosterFeedCard
                 key={job.id}
@@ -79,12 +72,14 @@ const JobPosterFeedPage: React.FC<Job> = () => {
           })
         ) : (
           <>
-            <p>No jobs found, try posting a Job..</p>
-            <Button
-              title="refresh Jobs"
-              variant="tertiary"
-              onClick={fetchJobs}
-            />
+            <p className="text-center">No jobs found, try posting a Job..</p>
+            <div className="flex justify-center">
+              <Button
+                title="Refresh Jobs"
+                variant="subscribe"
+                onClick={fetchJobs}
+              />
+            </div>
           </>
         )}
       </div>

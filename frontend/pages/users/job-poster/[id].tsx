@@ -18,7 +18,7 @@ const JobPosterProfilePage = () => {
   const { baseUrl, loggedInToken } = useAuth();
   const { loading, setLoading, loadingScreen } = useAPIRequster();
   const [user, setUser] = useState({} as JobPosterProfileCardProps);
-  
+
   useEffect(() => {
     fetchBusiness();
   }, [loggedInToken]);
@@ -62,8 +62,11 @@ const JobPosterProfilePage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <section className="container" style={{ paddingBottom: "0" }}>
-        <div style={{ marginBottom: "32px" }}>
+      <section className="container" style={{ paddingBottom: "0", paddingTop: "32px" }}>
+        <div
+          className="flex justify-center md:justify-start"
+          style={{ marginBottom: "32px" }}
+        >
           {/* Back */}
           <Back />
         </div>

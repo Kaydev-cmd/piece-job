@@ -73,6 +73,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       });
       const createdJob = res.data;
+      console.log("Posted job: ", createdJob);
       setLoading(false);
       setJobFeed((prev) => [...prev, createdJob]);
     } catch (err) {

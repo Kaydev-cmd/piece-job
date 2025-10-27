@@ -35,7 +35,6 @@ const LoginPage: React.FC = () => {
     console.log("data: ", data);
 
     try {
-      // const response = await axios.post("/api/login/login", data);
       const response = await axios.post(url, data);
       console.log("api res: ", response.data);
       const resApi = response.data;
@@ -53,7 +52,6 @@ const LoginPage: React.FC = () => {
         console.log("Api res: ", resApi.data, " LoggedUser: ", loggedUser);
         setLoggedInUser(loggedUser);
 
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${resApi.data.loggedInToken}`
         // Redirect based on email or role
         setTimeout(() => {
           if (loggedUser.role === "jobSeeker") {

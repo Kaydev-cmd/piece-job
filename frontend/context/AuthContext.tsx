@@ -25,7 +25,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = (newToken: string) => {
     console.log("new token: ", newToken, "old token:", loggedInToken);
-    console.log("userId: ", loggedUser.id);
     setLoggedInToken(newToken);
   };
 
@@ -45,8 +44,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     router.push("/");
   };
 
-  const baseUrl = "http://localhost:8080";
-  // const baseUrl ="https://piece-job-back-end.onrender.com";
+  // const baseUrl = "http://localhost:8080";
+  const baseUrl = "https://piece-job-back-end.onrender.com";
+  // const baseUrl = "http://piece-job-backend.vercel.app/";
 
   return (
     <AuthContext.Provider

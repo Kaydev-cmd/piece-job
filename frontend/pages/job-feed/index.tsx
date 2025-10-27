@@ -6,7 +6,7 @@ import Filter from "@/components/common/JobFeedFilter";
 import Link from "next/link";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ApplicationFormValues } from "@/interfaces";
+import { ApplicationFormValues, JobPostData } from "@/interfaces";
 import { useJobPost } from "@/context/JobPostContext";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
@@ -15,37 +15,39 @@ import { useAuth } from "@/context/AuthContext";
 const JobFeedPage = () => {
   const { jobFeed, setJobFeed, requesting } = useJobPost();
   const { loadingScreen } = useAPIRequster();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ApplicationFormValues>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-      location: "",
-      resume: "",
-    },
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<ApplicationFormValues>({
+  //   defaultValues: {
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     phoneNumber: "",
+  //     location: "",
+  //     resume: "",
+  //   },
+  // });
 
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const { baseUrl, loggedInToken } = useAuth();
+  const [selectedJob, setSelectedJob] = useState<JobPostData | null>(null);
 
-  const onSubmit = async (data: ApplicationFormValues) => {
+  const onSubmit = async (data: JobPostData) => {
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
       console.log("Job has nothing: ", loggedInToken);
+
       const response = await axios.post(
-        `${baseUrl}/seeker/apply?jobId=24`,
+        `${baseUrl}/seeker/apply?jobId=${data.id}`,
         {},
         {
           headers: {
@@ -55,7 +57,7 @@ const JobFeedPage = () => {
       );
       console.log("Response: ", response.data);
       setSuccess("Application sent successfully!");
-      reset();
+      // reset();
     } catch (err) {
       console.error("Error:", err);
       setError("Something went wrong. Please try again.");
@@ -91,11 +93,14 @@ const JobFeedPage = () => {
                 location={job.location}
                 skills={job.skills || []}
                 description={job.description}
-                onApply={() => setShowForm(true)}
+                onApply={() => {
+                  setSelectedJob(job);
+                  setShowForm(true);
+                }}
               />
             ))
           ) : (
-            <p>Could not fetch jobs</p>
+            <p>Could not fetch jobs. Please log in.</p>
           )}
         </div>
       );
@@ -179,7 +184,12 @@ const JobFeedPage = () => {
               </h2>
               {/* Form goes here... */}
               <form
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (selectedJob) {
+                    onSubmit(selectedJob);
+                  }
+                }}
                 className="flex flex-col gap-4"
               >
                 {/* First and Last names */}
