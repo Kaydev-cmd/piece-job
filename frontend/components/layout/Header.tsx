@@ -183,7 +183,7 @@ const Header: React.FC = () => {
               href={`${
                 loggedUser.role === "jobSeeker"
                   ? "/job-seeker"
-                  : `/users/job-poster/${loggedUser.username}`
+                  : `/job-poster`
               }`}
               className="flex items-center gap-4"
             >

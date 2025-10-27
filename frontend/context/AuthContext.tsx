@@ -46,7 +46,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // const baseUrl = "http://localhost:8080";
   const baseUrl = "https://piece-job-back-end.onrender.com";
-  // const baseUrl = "http://piece-job-backend.vercel.app/";
 
   return (
     <AuthContext.Provider
