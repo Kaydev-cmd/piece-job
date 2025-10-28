@@ -55,7 +55,7 @@ const ApplicantCard = ({
                 <div className="flex gap-1 items-center">
                   <Clock size={16} className="text-[#64748B]" />
                   <span className="text-[#64748B]">Applied {application.applicationDate? 
-                  application.applicationDate.toDateString(): "Date"}</span>
+                  application.applicationDate: "Date"}</span>
                 </div>
                 <span className="text-xl text-slate-500">•</span>
                 <span className="text-[#64748B]">{0}"+ years experience"</span>

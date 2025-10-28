@@ -2,30 +2,33 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 import { useForm } from "react-hook-form";
-import { RegisterFormValues } from "@/interfaces";
+import { RegisterFormValues, SignupFormValues } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
-const Register = () => {
+const Signup = () => {
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormValues>({
     defaultValues: {
       username: "",
       password: "",
       confirmPassword: "",
+      termsAndConditions: "",
+
     },
   });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const { baseUrl, loggedInToken, setLoggedInUser } = useAuth();
+  const { baseUrl, loggedInToken,setLoggedInUser,login} = useAuth();
 
   const onSubmit = async (data: RegisterFormValues) => {
     setLoading(true);
@@ -33,11 +36,12 @@ const Register = () => {
     setSuccess(null);
     console.log("data:", data);
     try {
-      const response = await axios.post(`${baseUrl}/register`, data, {
+       const response = await axios.post(`${baseUrl}/register`, data, {
         headers: { Authorization: `Bearer ${loggedInToken}` },
       });
-      console.log(response);
+      console.log("res: ",response,loggedInToken);
       setLoggedInUser(response.data.data)
+      login(response.data.data.loggedInToken) ;
       setSuccess("User created successfully!");
 
       setTimeout(() => {
@@ -98,6 +102,7 @@ const Register = () => {
               style={{ marginTop: "16px" }}
               onSubmit={handleSubmit(onSubmit)}
             >
+              
               {/* First and Last names */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
@@ -153,12 +158,93 @@ const Register = () => {
                   {errors.confirmPassword?.message}
                 </p>
               </div>
+
+              {/* Joining as */}
+              <div className="flex flex-col gap-4">
+                <label htmlFor="joiningAs" className="font-semibold">
+                  I&apos;m joining as:
+                </label>
+                <div className="flex justify-around">
+                  <Button
+                    title="Job Seeker"
+                    variant="jobSeeker"
+                    type="button"
+                    onClick={() => {
+                      setValue("role", "jobSeeker");
+                      setValue("employerType", undefined);
+                    }}
+                    isActive={watch("role") === "jobSeeker"}
+                  />
+                  <Button
+                    title="Employer"
+                    variant="employer"
+                    type="button"
+                    onClick={() => setValue("role", "employer")}
+                    isActive={watch("role") === "employer"}
+                  />
+                </div>
+              </div>
+
+              {watch("role") === "employer" && (
+                <div className="flex flex-col gap-2">
+                  <label className="font-semibold">Employer type:</label>
+                  <div className="flex justify-around">
+                    <Button
+                      title="Individual"
+                      variant="jobSeeker"
+                      type="button"
+                      onClick={() => setValue("employerType", "individual")}
+                      isActive={watch("employerType") === "individual"}
+                    />
+                    <Button
+                      title="Business"
+                      variant="employer"
+                      type="button"
+                      onClick={() => setValue("employerType", "business")}
+                      isActive={watch("employerType") === "business"}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Terms and Conditions */}
+              <div className="flex flex-col items-center gap-2">
+                <label
+                  htmlFor="termsAndConditions"
+                  className="flex items-center text-sm cursor-pointer gap-4"
+                  style={{ marginTop: "16px" }}
+                >
+                  <input
+                    type="radio"
+                    id="termsAndConditions"
+                    title="termsAndConditions"
+                    {...register("termsAndConditions", {
+                      required: "You must accept the terms",
+                    })}
+                  />
+                  <div>
+                    I agree to the{" "}
+                    <Link href="#" className="text-blue-700">
+                      Terms of Service{" "}
+                    </Link>
+                    and{" "}
+                    <Link href="#" className="text-blue-700">
+                      Privacy Policy
+                    </Link>
+                  </div>
+                </label>
+                <p className="text-center text-red-500">
+                  {errors.termsAndConditions?.message}
+                </p>
+              </div>
+
+              {/* CTA */}
               <div
                 className="flex flex-col items-center gap-4"
                 style={{ marginTop: "16px" }}
               >
                 <Button
-                  title={loading ? "Creating user" : "Create User"}
+                  title={loading ? "Creating account" : "Create account"}
                   type="submit"
                   variant="subscribe"
                   disabled={loading}
@@ -197,4 +283,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signup;

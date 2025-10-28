@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 import { useForm } from "react-hook-form";
-import { SignupFormValues } from "@/interfaces";
+import {  SignupFormValues } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
-const Signup = () => {
-  const {
+const Register = () => {
+   const {
     register,
     handleSubmit,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useForm<SignupFormValues>({
     defaultValues: {
@@ -22,13 +21,10 @@ const Signup = () => {
       email: "",
       phoneNumber: "",
 
-      termsAndConditions: "",
-      role: "jobSeeker",
-      employerType: undefined,
     },
   });
   const router = useRouter();
-  const {loggedInToken,baseUrl} =useAuth()
+  const {loggedInToken,baseUrl,loggedUser} =useAuth()
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -39,7 +35,7 @@ const Signup = () => {
     setSuccess(null);
     console.log("data: ", data);
     try {
-      const simple = data.role === "employer" ? "/newprofile" : "/seeker/newprofile"
+     const simple = loggedUser.role === "employer" ? "/newprofile" : "/seeker/newprofile"
       const res = await axios.post(baseUrl+simple, data,{
         headers:{
           Authorization:"Bearer "+loggedInToken
@@ -47,7 +43,7 @@ const Signup = () => {
       });
 
       // If role is job seeker, redirect to job feed
-      if (data.role === "jobSeeker") {
+      if (loggedUser.role === "jobSeeker") {
         router.push("/job-feed");
       } else {
         router.push("/job-poster-feed");
@@ -107,6 +103,7 @@ const Signup = () => {
               style={{ marginTop: "16px" }}
               onSubmit={handleSubmit(onSubmit)}
             >
+              
               {/* First and Last names */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
@@ -184,8 +181,8 @@ const Signup = () => {
               </div>
 
               {/* Business Employer Extra Fields */}
-              {watch("role") === "employer" &&
-                watch("employerType") === "business" && (
+              {loggedUser.role === "employer" &&
+                loggedUser.employerType === "business" && (
                   <div className="flex flex-col gap-4 mt-4">
                     <div className="flex flex-col gap-1">
                       <label htmlFor="companyName" className="font-semibold">
@@ -244,93 +241,12 @@ const Signup = () => {
                     </div>
                   </div>
                 )}
-
-              {/* Joining as */}
-              <div className="flex flex-col gap-4">
-                <label htmlFor="joiningAs" className="font-semibold">
-                  I&apos;m joining as:
-                </label>
-                <div className="flex justify-around">
-                  <Button
-                    title="Job Seeker"
-                    variant="jobSeeker"
-                    type="button"
-                    onClick={() => {
-                      setValue("role", "jobSeeker");
-                      setValue("employerType", undefined);
-                    }}
-                    isActive={watch("role") === "jobSeeker"}
-                  />
-                  <Button
-                    title="Employer"
-                    variant="employer"
-                    type="button"
-                    onClick={() => setValue("role", "employer")}
-                    isActive={watch("role") === "employer"}
-                  />
-                </div>
-              </div>
-
-              {watch("role") === "employer" && (
-                <div className="flex flex-col gap-2">
-                  <label className="font-semibold">Employer type:</label>
-                  <div className="flex justify-around">
-                    <Button
-                      title="Individual"
-                      variant="jobSeeker"
-                      type="button"
-                      onClick={() => setValue("employerType", "individual")}
-                      isActive={watch("employerType") === "individual"}
-                    />
-                    <Button
-                      title="Business"
-                      variant="employer"
-                      type="button"
-                      onClick={() => setValue("employerType", "business")}
-                      isActive={watch("employerType") === "business"}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Terms and Conditions */}
-              <div className="flex flex-col items-center gap-2">
-                <label
-                  htmlFor="termsAndConditions"
-                  className="flex items-center text-sm cursor-pointer gap-4"
-                  style={{ marginTop: "16px" }}
-                >
-                  <input
-                    type="radio"
-                    id="termsAndConditions"
-                    title="termsAndConditions"
-                    {...register("termsAndConditions", {
-                      required: "You must accept the terms",
-                    })}
-                  />
-                  <div>
-                    I agree to the{" "}
-                    <Link href="#" className="text-blue-700">
-                      Terms of Service{" "}
-                    </Link>
-                    and{" "}
-                    <Link href="#" className="text-blue-700">
-                      Privacy Policy
-                    </Link>
-                  </div>
-                </label>
-                <p className="text-center text-red-500">
-                  {errors.termsAndConditions?.message}
-                </p>
-              </div>
-
-              {/* CTA */}
               <div
                 className="flex flex-col items-center gap-4"
                 style={{ marginTop: "16px" }}
               >
                 <Button
-                  title={loading ? "Creating account" : "Create account"}
+                  title={loading ? "Creating user" : "Create User"}
                   type="submit"
                   variant="subscribe"
                   disabled={loading}
@@ -369,4 +285,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Register;

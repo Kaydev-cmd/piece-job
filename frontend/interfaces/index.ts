@@ -62,12 +62,10 @@ export interface BannerStatsProps {
   variant: string;
 }
 
-export interface LoggedInUser {
+export interface LoggedInUser extends LoginProps {
   id?: number;
   username: string;
   userImage?: string;
-  role: "jobSeeker" | "employer" | null;
-  employerType?: "individual" | "business";
 }
 export interface SignupFormValues {
   firstName: string;
@@ -76,22 +74,20 @@ export interface SignupFormValues {
   phoneNumber: string;
   // password: string;
   // confirmPassword: string;
-  termsAndConditions: string;
-  role: "jobSeeker" | "employer";
-  employerType?: "individual" | "business";
   companyName?: string;
   companyRegistration?: string;
   companyAddress?: string;
 }
-export interface RegisterFormValues {
-  username: string;
-  password: string;
+export interface RegisterFormValues extends LoginProps{
+  termsAndConditions: string;
   confirmPassword: string;
 }
 
 export interface LoginProps {
   username: string;
-  password: string;
+  password?: string;
+  role: "jobSeeker" | "employer" | null;
+  employerType?: "individual" | "business";
 }
 
 export interface JobFeedCardProps {
@@ -352,7 +348,7 @@ export interface Application {
   jobApplicant: baseSeeker
   id:number ;
   status: "pending" | "accepted" | "rejected";
-  applicationDate : Date;
+  applicationDate : string;
   // userImage?: string;
   // rating?: number;
   // reviewCount?: number;
