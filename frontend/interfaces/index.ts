@@ -193,7 +193,12 @@ export interface JobPostData {
   duration: string;
   specialRequirements?: string;
   skills: SkillsProps[];
-  jobApplicants: [];
+  jobApplications: [];
+  expectedEndDate: string | null;
+  releaseDate: string | null;
+  specialRequirement: string | null;
+
+
   onApply?: () => void;
 }
 
@@ -232,7 +237,7 @@ export interface PaymentMethodFormProps {
 }
 
 export interface SkillsProps {
-  id?: number;
+  id: number;
   skillName: string;
   priorityLevel?: string;
 }

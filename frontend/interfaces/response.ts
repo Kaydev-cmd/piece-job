@@ -1,5 +1,43 @@
-import { Application, baseSeeker, JobPostData, SkillsProps } from ".";
+export interface Skill {
+    id: number;
+    skillName: string;
+}
 
+export interface JobApplication {
+    id: number;
+    applicationDate: string;
+    status: string;
+    // These should ideally be the full objects after normalization
+    jobPosted: number | PieceJobData;
+    jobApplicant: number | JobApplicant;
+}
+
+export interface PieceJobData {
+    id: number;
+    title: string;
+    description: string;
+    location: string | null;
+    payRate: number;
+    releaseDate: string | null;
+    expectedEndDate: string | null;
+    specialRequirement: string | null;
+    // Mix of Skill object and Skill ID
+    skills: (number | Skill)[];
+    // Mix of JobApplication object and JobApplication ID
+    jobApplications: (number | JobApplication)[];
+}
+
+export interface JobApplicant {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    skillSet: Skill[];
+    jobsApplied: JobApplication[];
+    jobsCompleted: JobApplication[];
+}
+
+// interface for the root object you receive
 export interface RawEmployerResponse {
     id: number;
     firstName: string;
@@ -9,19 +47,12 @@ export interface RawEmployerResponse {
     companyAddress: string;
     companyRegisterNumber: string;
     // Mix of Skill object and Skill ID
-    skillsRequired: (number | SkillsProps)[];
+    skillsRequired: (number | Skill)[];
     // Mix of Job object, Job ID, and Job object with nested data
-    jobsPosted: (number | PieceJob_PosterView)[];
+    jobsPosted: (number | PieceJobData)[];
 }
-export interface PieceJob_PosterView extends JobPostData{
-    // Mix of Skill object and Skill ID
-    // Mix of JobApplication object and JobApplication ID
-    jobApplications: (number | JobApplication)[];
-}
-interface JobApplication extends Application{
-    jobPosted: number | PieceJob_PosterView;
-    // jobApplicant: number | JobApplicant;
-}
+
+// interface for the cleaned, normalized data structure
 export interface NormalizedEmployerResponse {
     id: number;
     firstName: string;
@@ -30,6 +61,6 @@ export interface NormalizedEmployerResponse {
     companyName: string;
     companyAddress: string;
     companyRegisterNumber: string;
-    skillsRequired: SkillsProps[];
-    jobsPosted: PieceJob_PosterView[]; 
+    skillsRequired: Skill[];
+    jobsPosted: PieceJobData[]; // Now guaranteed to be Job objects
 }

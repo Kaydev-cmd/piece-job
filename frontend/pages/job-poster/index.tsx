@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Application, baseSeeker, Job, JobPosterProfileCardProps, SkillsProps } from "@/interfaces";
+import { Application, baseSeeker, Job, JobPostData, JobPosterProfileCardProps, SkillsProps } from "@/interfaces";
 import JobPosterProfileCard from "@/components/common/JobPosterProfileCard";
 import Back from "@/components/common/Back";
 import BusinessInfoCard from "@/components/common/BusinessInfoCard";
@@ -28,7 +28,7 @@ const JobPosterProfilePage = () => {
         },
       });
       console.log("res: ", response);
-      setUser(response.data.data);
+      setUser( normalizeToJobPosterProfile( response.data.data));
     } catch (error: unknown) {
       console.error("error occured: ", error);
     } finally {
@@ -39,149 +39,162 @@ const JobPosterProfilePage = () => {
   useEffect(() => {
     fetchEmployerProfile();
   }, [loggedInToken]);
-  
-function normalizeData(rawData: RawEmployerResponse): NormalizedEmployerResponse {
-    // 1. Create lookup maps
-    const jobMap: Map<number, PieceJobData> = new Map();
-    const skillMap: Map<number, Skill> = new Map();
-    const applicantMap: Map<number, JobApplicant> = new Map();
-    const applicationMap: Map<number, JobApplication> = new Map();
+// Define utility interfaces for the normalization process
+interface JobAppRaw {
+    id: number;
+    applicationDate: string;
+    status: string;
+    jobPosted: number | JobPostData;
+    jobApplicant: number | JobApplicant;
+}
 
-    // Helper to extract objects from a mixed array
+// Function to normalize the raw API response
+function normalizeToJobPosterProfile(rawData: any): JobPosterProfileCardProps {
+    
+    // 1. Create Lookup Maps (JobPostData, Skill, Application, JobApplicant)
+    const jobMap: Map<number, JobPostData> = new Map();
+    const skillMap: Map<number, SkillsProps> = new Map();
+    const applicationMap: Map<number, JobAppRaw> = new Map();
+    const applicantMap: Map<number, JobApplicant> = new Map();
+
+    // Helper to add objects to a map and return the array of objects
     const extractObjects = <T extends { id: number }>(items: (number | T)[], map: Map<number, T>): T[] => {
         const objects: T[] = [];
         for (const item of items) {
-            if (typeof item === 'object' && item !== null) {
-                map.set(item.id, item);
-                objects.push(item);
+            if (typeof item === 'object' && item !== null && 'id' in item) {
+                map.set(item.id, item as T);
+                objects.push(item as T);
             }
         }
         return objects;
     };
 
-    // Extract Skills (from top level and nested in jobsPosted)
-    extractObjects(rawData.skillsRequired, skillMap);
+    // --- First Pass: Populate Maps with all known complete objects ---
 
-    // Extract Jobs and Applicants/Applications from the jobsPosted array
-    const rawJobs = extractObjects(rawData.jobsPosted, jobMap);
+    // Extract all skills from the top-level 'skillsRequired'
+    extractObjects(rawData.skillsRequired || [], skillMap);
 
-    // Process nested structures within Jobs
+    // Extract all jobs from the top-level 'jobsPosted'
+    const rawJobs = extractObjects(rawData.jobsPosted || [], jobMap) as (JobPostData & { jobApplications?: JobAppRaw[] })[];
+
+    // Iterate through jobs to find all nested data (Applications, Applicants, Skills)
     for (const job of rawJobs) {
-        // Extract Skills from job.skills
-        extractObjects(job.skills, skillMap);
+        // Extract Skills from this job
+        extractObjects(job.skills || [], skillMap);
 
-        // Extract Applications from job.jobApplications
-        const rawApplications = extractObjects(job.jobApplications, applicationMap);
-
-        // Extract Applicants and nested Applications from each Application
-        for (const application of rawApplications) {
-            if (typeof application.jobApplicant === 'object' && application.jobApplicant !== null) {
-                const applicant = application.jobApplicant as JobApplicant;
+        // Extract Applications
+        const rawApplications = extractObjects(job.jobApplications || [], applicationMap) as (JobAppRaw & { jobApplicant: JobApplicant })[];
+        
+        // Extract Applicants and their nested data
+        for (const app of rawApplications) {
+            // Check if jobApplicant is a full object (it is in the first job)
+            if (typeof app.jobApplicant === 'object' && app.jobApplicant !== null && 'id' in app.jobApplicant) {
+                const applicant = app.jobApplicant;
                 applicantMap.set(applicant.id, applicant);
-                
-                // Extract skills from applicant.skillSet
-                extractObjects(applicant.skillSet, skillMap);
-                
-                // Extract nested applications and jobs from applicant.jobsApplied
-                for (const appliedJobApp of applicant.jobsApplied) {
-                     if (typeof appliedJobApp === 'object' && appliedJobApp !== null) {
-                         applicationMap.set(appliedJobApp.id, appliedJobApp);
-                         
-                         // Extract the job posted within the application
-                         if (typeof appliedJobApp.jobPosted === 'object' && appliedJobApp.jobPosted !== null) {
-                            jobMap.set(appliedJobApp.jobPosted.id, appliedJobApp.jobPosted);
-                            // Also extract skills from the job
-                            extractObjects(appliedJobApp.jobPosted.skills, skillMap);
-                        }
-                     }
-                }
+
+                // Extract Applicant's SkillSet
+                extractObjects(applicant.skillSet || [], skillMap);
+
+                // Extract nested JobApplications from the applicant's profile
+                extractObjects(applicant.jobsApplied || [], applicationMap);
             }
         }
     }
 
-    // --- 2. Iterate and Replace IDs with Objects ---
+    // --- 2. Resolution Helper: Replace IDs with Objects ---
 
-    // Function to resolve an array of mixed IDs/Objects
+    // Function to resolve an array of mixed IDs/Objects (e.g., jobsPosted, skills)
     const resolveArray = <T extends { id: number }>(mixedArray: (number | T)[], map: Map<number, T>): T[] => {
-        return mixedArray.map(item => {
-            if (typeof item === 'number') {
-                const resolvedItem = map.get(item);
-                if (resolvedItem) return resolvedItem;
-                // If ID is not found, you might return undefined, throw an error, or log a warning
-                console.warn(`Missing item with ID: ${item}`);
-                return undefined;
-            }
-            return item;
-        }).filter((item): item is T => item !== undefined); // Remove any unresolved IDs
+        return (mixedArray || [])
+            .map(item => {
+                if (typeof item === 'number') {
+                    const resolvedItem = map.get(item);
+                    // Return the object if found, or undefined to be filtered out
+                    return resolvedItem;
+                }
+                return item; // It's already an object
+            })
+            .filter((item): item is T => item !== undefined); // Remove unresolved IDs
+    };
+
+    // --- 3. Normalization Functions for Nested Types (Recursive Resolution) ---
+
+    // Normalizes a single JobPostData item's nested arrays
+    const normalizeJobPost = (job: JobPostData): JobPostData => {
+        const normalizedJob = { ...job };
+        
+        // Resolve skills to full objects
+        (normalizedJob as any).skills = resolveArray(normalizedJob.skills as (number | SkillsProps)[], skillMap) as SkillsProps[];
+        
+        // NOTE: JobPostData does not include jobApplications, but if it did, 
+        // they would be resolved here. We'll use the 'Application' interface
+        // if we needed to resolve them fully inside the job.
+        
+        return normalizedJob;
     };
     
-    // Normalize Applications and recursively apply to nested objects
-    const normalizeApplication = (app: JobApplication): JobApplication => {
-        const normalizedApp = { ...app };
+    // Normalizes an Application item (resolving its nested jobApplicant and jobPosted)
+    const normalizeApplication = (app: JobAppRaw): Application => {
+        const normalizedApp: any = { ...app };
         
-        // Resolve jobPosted ID
-        if (typeof normalizedApp.jobPosted === 'number') {
-            const resolvedJob = jobMap.get(normalizedApp.jobPosted);
-            if (resolvedJob) normalizedApp.jobPosted = resolvedJob;
-        } else if (normalizedApp.jobPosted) {
-             // If it's an object, make sure its nested arrays are resolved
-             normalizedApp.jobPosted = normalizeJob(normalizedApp.jobPosted as PieceJobData);
-        }
-
-        // Resolve jobApplicant ID
+        // Resolve jobApplicant ID to full object
         if (typeof normalizedApp.jobApplicant === 'number') {
             const resolvedApplicant = applicantMap.get(normalizedApp.jobApplicant);
-            if (resolvedApplicant) normalizedApp.jobApplicant = normalizeApplicant(resolvedApplicant);
+            normalizedApp.jobApplicant = resolvedApplicant;
         } else if (normalizedApp.jobApplicant) {
-            normalizedApp.jobApplicant = normalizeApplicant(normalizedApp.jobApplicant as JobApplicant);
+            // The full object is present, but ensure its skills are resolved
+            (normalizedApp.jobApplicant as JobApplicant).skillSet = resolveArray(
+                (normalizedApp.jobApplicant as JobApplicant).skillSet as (number | SkillsProps)[],
+                skillMap
+            );
         }
-        
-        return normalizedApp;
-    };
 
-    // Normalize Jobs (resolving nested skills and applications)
-    const normalizeJob = (job: PieceJobData): PieceJobData => {
-        const normalizedJob = { ...job } as any; // Use 'any' temporarily to handle the mixed type being overwritten
-        
-        normalizedJob.skills = resolveArray(job.skills, skillMap);
-        
-        // Resolve applications and their nested data
-        normalizedJob.jobApplications = resolveArray(job.jobApplications, applicationMap)
-                                       .map(normalizeApplication);
-                                       
-        return normalizedJob as PieceJobData;
+        // Resolve jobPosted (though the target Application interface doesn't strictly need it, 
+        // we'll clean it up to prevent the 'number' type)
+        if (typeof normalizedApp.jobPosted === 'number') {
+             const resolvedJob = jobMap.get(normalizedApp.jobPosted);
+             // Replace with job title/location if needed, or remove, or keep the ID
+             // For safety, we keep the ID or the object
+             normalizedApp.jobPosted = resolvedJob ? normalizeJobPost(resolvedJob) : normalizedApp.jobPosted;
+        } else if (normalizedApp.jobPosted) {
+             normalizedApp.jobPosted = normalizeJobPost(normalizedApp.jobPosted as JobPostData);
+        }
+
+        return normalizedApp as Application;
     };
     
-    // Normalize Applicants (resolving nested skills and applications)
-    const normalizeApplicant = (applicant: JobApplicant): JobApplicant => {
-        const normalizedApplicant = { ...applicant };
+    // --- 4. Final Construction of JobPosterProfileCardProps ---
+
+    // a. Resolve the top-level 'jobsPosted' array
+    const resolvedJobs = resolveArray(rawData.jobsPosted || [], jobMap);
+    
+    // b. Normalize each resolved job (resolving its nested skills)
+    const finalJobsPosted: JobPostData[] = resolvedJobs.map(normalizeJobPost);
+    
+    // c. Build the final object, mapping raw fields to target interface fields
+    const normalizedProfile: JobPosterProfileCardProps = {
+        id: rawData.id,
+        firstName: rawData.firstName,
+        lastName: rawData.lastName,
+        companyName: rawData.companyName,
+        companyAddress: rawData.companyAddress,
         
-        normalizedApplicant.skillSet = resolveArray(applicant.skillSet, skillMap);
+        // Populate the normalized array
+        jobsPosted: finalJobsPosted,
         
-        normalizedApplicant.jobsApplied = applicant.jobsApplied
-                                          .map(app => (typeof app === 'number') ? applicationMap.get(app) : app)
-                                          .filter((app): app is JobApplication => app !== undefined)
-                                          .map(normalizeApplication);
-
-        normalizedApplicant.jobsCompleted = applicant.jobsCompleted
-                                            .map(app => (typeof app === 'number') ? applicationMap.get(app) : app)
-                                            .filter((app): app is JobApplication => app !== undefined)
-                                            .map(normalizeApplication);
-                                            
-        return normalizedApplicant;
-    }
-
-
-    // Apply normalization to the top-level arrays
-    const normalizedJobsPosted = resolveArray(rawData.jobsPosted, jobMap).map(normalizeJob);
-    const normalizedSkillsRequired = resolveArray(rawData.skillsRequired, skillMap);
-
-    // Construct the final, normalized response
-    return {
-        ...rawData,
-        skillsRequired: normalizedSkillsRequired,
-        jobsPosted: normalizedJobsPosted
-    } as NormalizedEmployerResponse;
+        // Optional fields inferred/calculated from data (or left undefined/null)
+        postedJobs: finalJobsPosted.length,
+        activeJobs: finalJobsPosted.length, // Assuming all posted are active
+        
+        // Other fields not present in the raw JSON are omitted or default (undefined)
+        userImage: undefined, 
+        userRating: undefined, 
+        numberOfReviews: undefined,
+        isVerified: undefined,
+        biography: undefined,
+    };
+    
+    return normalizedProfile;
 }
 
 // Example usage in your React/TypeScript component:
