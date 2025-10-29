@@ -10,10 +10,11 @@ import DeleteJobModal from "@/components/common/DeleteJobModal";
 import { Job } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
+import useJobAPIRequester from "@/components/api-reuse/JobAPIRequester";
 
 const JobPosterFeedPage: React.FC<Job> = () => {
-  const { jobFeed, editJob, deleteJob, setJobFeed, requesting, fetchJobs } =
-    useJobPost();
+  const { jobFeed, setJobFeed } = useJobPost();
+  const { editJob, deleteJob,  loading, fetchJobs } = useJobAPIRequester()
   const { loadingScreen } = useAPIRequster();
   const [editingJob, setEditingJob] = useState<Job | null>(null);
   const [deletingJob, setDeletingJob] = useState<Job | null>(null);
@@ -33,7 +34,7 @@ const JobPosterFeedPage: React.FC<Job> = () => {
   };
 
   const fetchedJobs = () => {
-    if (requesting) {
+    if (loading) {
       return <p>{loadingScreen} Loading...</p>;
     }
     return (

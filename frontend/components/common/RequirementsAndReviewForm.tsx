@@ -4,14 +4,16 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import Button from "./Button";
 import JobPreview from "./JobPreview";
 import { useForm } from "react-hook-form";
-import { useJobPost } from "@/context/JobPostContext";
+import { JobPostProvider, useJobPost } from "@/context/JobPostContext";
 import { useRouter } from "next/router";
+import JobAPIRequester from "../api-reuse/JobAPIRequester";
 
 const RequirementsAndReviewForm: React.FC<StepProps> = ({
   pageTracker,
   onBack,
 }) => {
-  const { draftJob, postJob } = useJobPost();
+  const { postJob } = JobAPIRequester();
+  const { draftJob } = useJobPost();
   const router = useRouter();
 
   const { register, handleSubmit, reset } =

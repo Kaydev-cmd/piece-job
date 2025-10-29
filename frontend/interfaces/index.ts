@@ -200,14 +200,14 @@ export interface JobPostData {
 export interface JobPostContextType {
   draftJob: Partial<JobPostData>;
   jobFeed: JobPostData[];
-  postJob: (data?: Partial<JobPostData>) => Promise<void>;
   updateJobData: (data: Partial<JobPostData>) => void;
   resetJobData: () => void;
-  editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
-  deleteJob: (id: number) => Promise<void>;
   setJobFeed: React.Dispatch<React.SetStateAction<JobPostData[]>>;
-  fetchJobs: () => void;
-  requesting: boolean;
+  // postJob: (data?: Partial<JobPostData>) => Promise<void>;
+  // editJob: (id: number, updatedFields: Partial<JobPostData>) => Promise<void>;
+  // deleteJob: (id: number) => Promise<void>;
+  // fetchJobs: () => void;
+  // requesting: boolean;
 }
 
 export interface ChosenWorkerCardProps {
