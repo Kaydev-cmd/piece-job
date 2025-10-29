@@ -13,6 +13,7 @@ import { useAuth } from "@/context/AuthContext";
 import { JobPosterProfileCardProps } from "@/interfaces";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
+import { normalizeToJobPosterProfile } from "@/components/api-reuse/Extractor";
 
 const JobPosterProfilePage = () => {
   const { baseUrl, loggedInToken } = useAuth();
@@ -37,7 +38,7 @@ const JobPosterProfilePage = () => {
         },
       });
       console.log("res: ", apiRes);
-      setUser(apiRes.data.data);
+      setUser( normalizeToJobPosterProfile( apiRes.data.data));
     } catch (error: unknown) {
       console.log("error occured: ", error);
     } finally {
@@ -123,7 +124,7 @@ const JobPosterProfilePage = () => {
                       <div className="flex flex-col gap-2">
                         <h2 className="text-2xl font-bold">{job.title}</h2>
                         <p className="text-gray-900 font-semibold">
-                          {job.jobApplicants.length} applicants
+                          {job.jobApplications.length} applicants
                         </p>
                         <p className="text-sm text-slate-600">
                           {job.timePosted}
