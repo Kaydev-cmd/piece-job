@@ -9,6 +9,7 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";
 import Back from "@/components/common/Back";
+import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 
 const JobApplicants = () => {
   const router = useRouter();
@@ -19,10 +20,12 @@ const JobApplicants = () => {
   );
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus] = useState("all");
+  const {loading,loadingScreen,setLoading} = useAPIRequster() ;
 
   useEffect(() => {
     const fetchJobApplicants = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(baseUrl + `/jobApplicants/${id}`, {
           headers: { Authorization: `Bearer ${loggedInToken}` },
         });
@@ -32,6 +35,9 @@ const JobApplicants = () => {
         }
       } catch (err: unknown) {
         console.log("error occ: ", err);
+      }
+      finally{
+        setLoading(false);
       }
     };
     fetchJobApplicants();
@@ -77,24 +83,11 @@ const JobApplicants = () => {
     ? []
     : jobInApplicantContext.jobApplications.filter((a) => a.status === "accepted").length;
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <section
-        className="container"
-        style={{ paddingTop: "32px", paddingBottom: "0" }}
-      >
-        <div
-          className="flex justify-center lg:justify-start"
-          style={{ marginBottom: "18px" }}
-        >
-          {/* Back */}
-          <Back />
-        </div>
-
+    const returnFunc = ()=>{
+      if (loading){
+        return loadingScreen ;
+      }
+      return (<>
         {/* Header */}
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-4">
@@ -170,10 +163,10 @@ const JobApplicants = () => {
               <ApplicantCard
                 key={application.id}
                 application={application}
-                // onAccept={handleAccept}
-                onAccept={()=>{}}
-                // onReject={handleReject}
-                onReject={()=>{}}
+                onAccept={handleAccept}
+                // onAccept={()=>{}}
+                onReject={handleReject}
+                // onReject={()=>{}}
               />
             ))
           ) : (
@@ -195,6 +188,28 @@ const JobApplicants = () => {
             </div>
           )}
         </div>
+      </>)
+    }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <section
+        className="container"
+        style={{ paddingTop: "32px", paddingBottom: "0" }}
+      >
+        <div
+          className="flex justify-center lg:justify-start"
+          style={{ marginBottom: "18px" }}
+        >
+          {/* Back */}
+          <Back />
+        </div>
+
+        {returnFunc()}
       </section>
     </motion.div>
   );

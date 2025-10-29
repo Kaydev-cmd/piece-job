@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "@/components/common/SearchBar";
 import JobFeedCard from "@/components/common/JobFeedCard";
 import Button from "@/components/common/Button";
@@ -11,28 +11,14 @@ import { useJobPost } from "@/context/JobPostContext";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
 import Back from "@/components/common/Back";
 import { useAuth } from "@/context/AuthContext";
+import useJobAPIRequester from "@/components/api-reuse/JobAPIRequester";
 
 const JobFeedPage = () => {
-  const { jobFeed, setJobFeed, requesting } = useJobPost();
-  const { loadingScreen } = useAPIRequster();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   formState: { errors },
-  // } = useForm<ApplicationFormValues>({
-  //   defaultValues: {
-  //     firstName: "",
-  //     lastName: "",
-  //     email: "",
-  //     phoneNumber: "",
-  //     location: "",
-  //     resume: "",
-  //   },
-  // });
+  const { jobFeed, setJobFeed } = useJobPost();
+  const { loadingScreen ,loading,setLoading} = useAPIRequster();
+  const {fetchJobs} = useJobAPIRequester();
 
   const [showForm, setShowForm] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const { baseUrl, loggedInToken } = useAuth();
@@ -73,7 +59,7 @@ const JobFeedPage = () => {
   };
 
   const returnJobFeed = () => {
-    if (requesting) {
+    if (loading) {
       console.log("loading");
       return <p>{loadingScreen}</p>;
     } else
@@ -105,6 +91,9 @@ const JobFeedPage = () => {
         </div>
       );
   };
+
+  useEffect(()=>{fetchJobs()},[])
+
   return (
     <section
       className="container"

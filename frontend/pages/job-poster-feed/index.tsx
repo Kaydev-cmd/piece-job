@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "@/components/common/SearchBar";
 import Button from "@/components/common/Button";
 import Filter from "@/components/common/JobFeedFilter";
@@ -86,6 +86,11 @@ const JobPosterFeedPage: React.FC<Job> = () => {
       </div>
     );
   };
+
+
+  useEffect(()=>{
+    fetchJobs()
+  },[])
 
   return (
     <section
