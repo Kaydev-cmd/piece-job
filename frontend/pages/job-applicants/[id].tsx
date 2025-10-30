@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
 import ApplicantCard from "@/components/common/ApplicantCard";
 import { useRouter } from "next/router";
-import { Application, JobInApplicationContext } from "@/interfaces";
+import {  JobInApplicationContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";

@@ -58,7 +58,7 @@ const ApplicantCard = ({
                   application.applicationDate: "Date"}</span>
                 </div>
                 <span className="text-xl text-slate-500">•</span>
-                <span className="text-[#64748B]">{0}"+ years experience"</span>
+                <span className="text-[#64748B]">{`&quot`}+ years experience &quot</span>
               </div>
 
               <div

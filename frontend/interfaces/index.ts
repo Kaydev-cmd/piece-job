@@ -150,6 +150,7 @@ export interface StepProps {
 }
 
 export interface JobDetailsFormProps {
+  id : number ;
   title: string;
   description: string;
   location: string;
@@ -236,9 +237,13 @@ export interface PaymentMethodFormProps {
   phoneNumber: string;
 }
 
-export interface SkillsProps {
+export interface SkillsProps extends SkillsPropsToSend {
   id: number;
-  skillName: string;
+ 
+}
+
+export interface SkillsPropsToSend{
+ skillName: string;
   priorityLevel?: string;
 }
 
@@ -350,8 +355,8 @@ export interface JobInApplicationContext{
 }
 
 export interface Application {
-  jobApplicant: baseSeeker
   id:number ;
+  jobApplicant: baseSeeker
   status: "pending" | "accepted" | "rejected";
   applicationDate : string;
   // userImage?: string;

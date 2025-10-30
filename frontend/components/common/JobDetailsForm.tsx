@@ -35,7 +35,7 @@ const JobDetailsForm: React.FC<StepProps> = ({
     const normalizedData = {
       ...data,
       skills: data.skills.map((skill) =>
-        typeof skill === "string" ? { skillName: skill } : skill
+        typeof skill === "string" ? { skillName: skill, id : 0 } : skill
       ),
     };
 
@@ -120,7 +120,7 @@ const JobDetailsForm: React.FC<StepProps> = ({
                   "newSkill"
                 ) as HTMLInputElement;
                 if (input && input.value.trim() !== "") {
-                  append({ skillName: input.value.trim() });
+                  append({ skillName: input.value.trim() , id : 0});
                   input.value = "";
                 }
               }}

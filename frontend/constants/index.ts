@@ -431,6 +431,7 @@ export const PAYMENT_SUMMARY_DATA = [
 
 export const JOB_SEEKER_PROFILE_DATA: JobSeekerProfileCardProps = {
   id: 1,
+  firstName: "John",
   userImage: "/assets/job_seeker_profile/john_doe.jpeg",
   lastName: "John Doe",
   userAge: 22,

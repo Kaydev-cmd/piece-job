@@ -9,9 +9,51 @@ interface JobAppRaw {
     jobPosted: number | JobPostData;
     jobApplicant: number | JobApplicant;
 }
+interface Skill {
+    id: number;
+    skillName: string;
+}
 
+interface JobApplication {
+    id: number;
+    applicationDate: string;
+    status: string;
+    // These should ideally be the full objects after normalization
+    jobPosted: number | Job;
+    jobApplicant: number | JobApplicant | undefined;
+}
+
+interface Job {
+    id: number;
+    title: string;
+    description: string;
+    location: string | null;
+    payRate: number;
+    releaseDate: string | null;
+    expectedEndDate: string | null;
+    specialRequirement: string | null;
+    // Mix of Skill object and Skill ID
+    skills: (number | Skill)[];
+    // Mix of JobApplication object and JobApplication ID
+    jobApplications: (number | JobApplication)[];
+}
+
+// Interface for the root object you receive
+interface RawEmployerResponse {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    companyName: string;
+    companyAddress: string;
+    companyRegisterNumber: string;
+    // Mix of Skill object and Skill ID
+    skillsRequired: (number | Skill)[];
+    // Mix of Job object, Job ID, and Job object with nested data
+    jobsPosted: (number | JobPostData)[];
+}
 // Function to normalize the raw API response
-export function normalizeToJobPosterProfile(rawData: any): JobPosterProfileCardProps {
+export function normalizeToJobPosterProfile(rawData: RawEmployerResponse): JobPosterProfileCardProps {
     
     // 1. Create Lookup Maps (JobPostData, Skill, Application, JobApplicant)
     const jobMap: Map<number, JobPostData> = new Map();
@@ -86,7 +128,7 @@ export function normalizeToJobPosterProfile(rawData: any): JobPosterProfileCardP
         const normalizedJob = { ...job };
         
         // Resolve skills to full objects
-        (normalizedJob as any).skills = resolveArray(normalizedJob.skills as (number | SkillsProps)[], skillMap) as SkillsProps[];
+        (normalizedJob as JobPostData).skills = resolveArray(normalizedJob.skills as (number | SkillsProps)[], skillMap) as SkillsProps[];
         
         // NOTE: JobPostData does not include jobApplications, but if it did, 
         // they would be resolved here. We'll use the 'Application' interface
@@ -97,7 +139,7 @@ export function normalizeToJobPosterProfile(rawData: any): JobPosterProfileCardP
     
     // Normalizes an Application item (resolving its nested jobApplicant and jobPosted)
     const normalizeApplication = (app: JobAppRaw): Application => {
-        const normalizedApp: any = { ...app };
+        const normalizedApp: JobApplication = { ...app };
         
         // Resolve jobApplicant ID to full object
         if (typeof normalizedApp.jobApplicant === 'number') {
