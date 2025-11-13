@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 import { useForm } from "react-hook-form";
-import { RegisterFormValues, SignupFormValues } from "@/interfaces";
+import { RegisterFormValues } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
@@ -21,14 +21,13 @@ const Signup = () => {
       password: "",
       confirmPassword: "",
       termsAndConditions: "",
-
     },
   });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const { baseUrl, loggedInToken,setLoggedInUser,login} = useAuth();
+  const { baseUrl, loggedInToken, setLoggedInUser, login } = useAuth();
 
   const onSubmit = async (data: RegisterFormValues) => {
     setLoading(true);
@@ -36,17 +35,17 @@ const Signup = () => {
     setSuccess(null);
     console.log("data:", data);
     try {
-       const response = await axios.post(`${baseUrl}/register`, data, {
+      const response = await axios.post(`${baseUrl}/register`, data, {
         headers: { Authorization: `Bearer ${loggedInToken}` },
       });
-      console.log("res: ",response,loggedInToken);
-      setLoggedInUser(response.data.data)
-      login(response.data.data.loggedInToken) ;
+      console.log("res: ", response, loggedInToken);
+      setLoggedInUser(response.data.data);
+      login(response.data.data.loggedInToken);
       setSuccess("User created successfully!");
 
       setTimeout(() => {
         router.push("/signup");
-      }, 2000);
+      }, 1000);
 
       reset();
     } catch (err: unknown) {
@@ -102,7 +101,6 @@ const Signup = () => {
               style={{ marginTop: "16px" }}
               onSubmit={handleSubmit(onSubmit)}
             >
-              
               {/* First and Last names */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
@@ -244,7 +242,7 @@ const Signup = () => {
                 style={{ marginTop: "16px" }}
               >
                 <Button
-                  title={loading ? "Creating account" : "Create account"}
+                  title={loading ? "Creating account ..." : "Create account"}
                   type="submit"
                   variant="subscribe"
                   disabled={loading}

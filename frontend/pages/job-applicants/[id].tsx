@@ -4,23 +4,24 @@ import { motion } from "framer-motion";
 import { Search, Users } from "lucide-react";
 import ApplicantCard from "@/components/common/ApplicantCard";
 import { useRouter } from "next/router";
-import {  JobInApplicationContext } from "@/interfaces";
+import { JobInApplicationContext } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Pill from "@/components/common/Pill";
 import Back from "@/components/common/Back";
 import { useAPIRequster } from "@/components/api-reuse/ApiRequester";
+import { a } from "motion/react-client";
+import toast from "react-hot-toast";
 
 const JobApplicants = () => {
   const router = useRouter();
   const { id } = router.query;
   const { baseUrl, loggedInToken } = useAuth();
-  const [jobInApplicantContext, setJobInApplicantContext] = useState<JobInApplicationContext>(
-    {job:{}} as JobInApplicationContext
-  );
+  const [jobInApplicantContext, setJobInApplicantContext] =
+    useState<JobInApplicationContext>({ job: {} } as JobInApplicationContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus] = useState("all");
-  const {loading,loadingScreen,setLoading} = useAPIRequster() ;
+  const { loading, loadingScreen, setLoading } = useAPIRequster();
 
   useEffect(() => {
     const fetchJobApplicants = async () => {
@@ -35,38 +36,89 @@ const JobApplicants = () => {
         }
       } catch (err: unknown) {
         console.log("error occ: ", err);
-      }
-      finally{
+      } finally {
         setLoading(false);
       }
     };
     fetchJobApplicants();
-  }, [loggedInToken, baseUrl, id]);
+  }, [loggedInToken, baseUrl, id, setLoading]);
 
-  const handleAccept = (id: number) => {
-    const accepted = { ...jobInApplicantContext };
-    accepted.jobApplications.map((applicant) =>
-      applicant.id === id
-        ? { ...applicant, status: "accepted" as const }
-        : applicant
-    );
-    setJobInApplicantContext(accepted);
+  const handleAccept = async (id: number) => {
+    // const updated = { ...jobInApplicantContext };
+    // accepted.jobApplications.map((applicant) =>
+    //   applicant.id === id
+    //     ? { ...applicant, status: "accepted" as const }
+    //     : applicant
+    // );
+    //  updated.jobApplications = jobInApplicantContext.jobApplications.map((applicant) => applicant.id === id
+    //     ? { ...applicant, status: "accepted" as const }
+    //     : applicant
+    // );
+    // setJobInApplicantContext(updated);
+
+    try {
+      setLoading(true);
+      await axios.put(
+        `${baseUrl}/jobApplicants/${id}/accept`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${loggedInToken}` },
+        }
+      );
+      setJobInApplicantContext((prev) => ({
+        ...prev,
+        jobApplications: prev.jobApplications.map((app) =>
+          app.id === id ? { ...app, status: "accepted" as const } : app
+        ),
+      }));
+
+      toast.success("Applicant accepted successfully");
+    } catch (err: unknown) {
+      console.log("error occ: ", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleReject = (id: number) => {
-    const newJob = { ...jobInApplicantContext };
-    newJob.jobApplications = jobInApplicantContext
-    .jobApplications.map((applicant) =>
-      applicant.id === id
-        ? { ...applicant, status: "rejected" as const }
-        : applicant
-    );
-    setJobInApplicantContext(newJob);
+  const handleReject = async (id: number) => {
+    // const updated = { ...jobInApplicantContext };
+    // newJob.jobApplications = jobInApplicantContext
+    // .jobApplications.map((applicant) =>
+    //   applicant.id === id
+    //     ? { ...applicant, status: "rejected" as const }
+    //     : applicant
+    // );
+    // updated.jobApplications = jobInApplicantContext.jobApplications.map((applicant) => applicant.id === id
+    //     ? { ...applicant, status: "rejected" as const }
+    //     : applicant
+    // );
+    // setJobInApplicantContext(updated);
+    try {
+      setLoading(true);
+      await axios.put(
+        `${baseUrl}/jobApplicants/${id}/rejected`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${loggedInToken}` },
+        }
+      );
+      setJobInApplicantContext((prev) => ({
+        ...prev,
+        jobApplications: prev.jobApplications.map((app) =>
+          app.id === id ? { ...app, status: "rejected" as const } : app
+        ),
+      }));
+      toast.success("Applicant rejected successfully");
+    } catch (err: unknown) {
+      console.log("error occ: ", err);
+    } finally {
+      setLoading(false);
+    }
   };
   const filteredApplicants = !jobInApplicantContext.jobApplications
     ? []
     : jobInApplicantContext.jobApplications.filter((application) => {
-        const applicant = application.jobApplicant 
+        const applicant = application.jobApplicant;
         const matchesSearch =
           applicant.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           applicant.skillSet.some((skill) =>
@@ -78,16 +130,21 @@ const JobApplicants = () => {
       });
   const pendingCount = !jobInApplicantContext.jobApplications
     ? []
-    : jobInApplicantContext.jobApplications.filter((a) => a.status === "pending").length;
+    : jobInApplicantContext.jobApplications.filter(
+        (a) => a.status === "pending"
+      ).length;
   const acceptedCount = !jobInApplicantContext.jobApplications
     ? []
-    : jobInApplicantContext.jobApplications.filter((a) => a.status === "accepted").length;
+    : jobInApplicantContext.jobApplications.filter(
+        (a) => a.status === "accepted"
+      ).length;
 
-    const returnFunc = ()=>{
-      if (loading){
-        return loadingScreen ;
-      }
-      return (<>
+  const returnFunc = () => {
+    if (loading) {
+      return loadingScreen;
+    }
+    return (
+      <>
         {/* Header */}
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-4">
@@ -103,8 +160,11 @@ const JobApplicants = () => {
                   ? jobInApplicantContext.job.title
                   : "Frontend Developer - React & TypeScript"}
               </h3>
-              <p className="text-center">{jobInApplicantContext.job.description ? 
-              jobInApplicantContext.job.description : "Description"}</p>
+              <p className="text-center">
+                {jobInApplicantContext.job.description
+                  ? jobInApplicantContext.job.description
+                  : "Description"}
+              </p>
             </div>
             <div
               className="flex items-center justify-center flex-wrap gap-2"
@@ -188,8 +248,9 @@ const JobApplicants = () => {
             </div>
           )}
         </div>
-      </>)
-    }
+      </>
+    );
+  };
 
   return (
     <motion.div

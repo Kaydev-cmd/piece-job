@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 import { useForm } from "react-hook-form";
-import {  SignupFormValues } from "@/interfaces";
+import { SignupFormValues } from "@/interfaces";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
 const Register = () => {
-   const {
+  const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm<SignupFormValues>({
@@ -20,11 +19,10 @@ const Register = () => {
       lastName: "",
       email: "",
       phoneNumber: "",
-
     },
   });
   const router = useRouter();
-  const {loggedInToken,baseUrl,loggedUser} =useAuth()
+  const { loggedInToken, baseUrl, loggedUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -35,12 +33,16 @@ const Register = () => {
     setSuccess(null);
     console.log("data: ", data);
     try {
-     const simple = loggedUser.role === "employer" ? "/newprofile" : "/seeker/newprofile"
-      const res = await axios.post(baseUrl+simple, data,{
-        headers:{
-          Authorization:"Bearer "+loggedInToken
-        }
+      const simple =
+        loggedUser.role === "employer" ? "/newprofile" : "/seeker/newprofile";
+      const res = await axios.post(baseUrl + simple, data, {
+        headers: {
+          Authorization: "Bearer " + loggedInToken,
+        },
       });
+
+      console.log("response: ", res);
+      setSuccess("Profile created successfully!");
 
       // If role is job seeker, redirect to job feed
       if (loggedUser.role === "jobSeeker") {
@@ -103,7 +105,6 @@ const Register = () => {
               style={{ marginTop: "16px" }}
               onSubmit={handleSubmit(onSubmit)}
             >
-              
               {/* First and Last names */}
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
