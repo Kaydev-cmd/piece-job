@@ -78,7 +78,7 @@ const ApplicantCard = ({
           className="flex gap-4 items-center justify-center"
           style={{ marginTop: "16px" }}
         >
-          {/* {status === "pending" && (
+          {status === "pending" && (
             <div className="flex flex-row-reverse md:flex-row-reverse gap-3 w-full">
               <Button
                 title="Reject"
@@ -114,20 +114,7 @@ const ApplicantCard = ({
               <XCircle size={16} />
               Rejected
             </div>
-          )} */}
-          <Button
-            title="Reject"
-            variant="cancel"
-            onClick={() => onReject(id)}
-            className="flex-1"
-          />
-
-          <Button
-            title="Accept"
-            variant="default"
-            onClick={() => onAccept(id)}
-            className="flex-1"
-          />
+          )} 
         </div>
       </div>
     </div>
