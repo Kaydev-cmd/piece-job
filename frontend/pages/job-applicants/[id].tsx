@@ -59,7 +59,7 @@ const JobApplicants = () => {
     try {
       setLoading(true);
       await axios.put(
-        `${baseUrl}/jobApplicants/${id}/accept`,
+        `${baseUrl}/jobApplication/${id}/accept`,
         {},
         {
           headers: { Authorization: `Bearer ${loggedInToken}` },
@@ -96,7 +96,7 @@ const JobApplicants = () => {
     try {
       setLoading(true);
       await axios.put(
-        `${baseUrl}/jobApplicants/${id}/rejected`,
+        `${baseUrl}/jobApplication/${id}/reject`,
         {},
         {
           headers: { Authorization: `Bearer ${loggedInToken}` },
