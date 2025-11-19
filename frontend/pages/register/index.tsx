@@ -89,7 +89,7 @@ const Signup = () => {
         >
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold text-center">
-              Create your account
+              Register your account
             </h2>
             <p className="text-center text-slate-500 font-semibold">
               Join PieceJob and start earning today

@@ -170,10 +170,10 @@ const Register = () => {
                   placeholder="+27 XX XXX XXXX"
                   {...register("phoneNumber", {
                     required: "Phone number is required",
-                    pattern: {
-                      value: /^(?:\+27|0)\d{9}$/,
-                      message: "Enter a valid phone number",
-                    },
+                    // pattern: {
+                    //   value: /^(?:\+27|0)\d{9}$/,
+                    //   message: "Enter a valid phone number",
+                    // },
                   })}
                 />
                 <p className="text-center text-red-500">

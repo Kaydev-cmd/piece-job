@@ -75,7 +75,7 @@ export const FOR_JOB_SEEKERS_LINKS = [
   {
     id: 2,
     linkName: "Create Profile",
-    path: "#",
+    path: "/register",
   },
   {
     id: 3,

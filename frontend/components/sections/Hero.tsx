@@ -60,7 +60,7 @@ const Hero = () => {
             <Button
               title="Start Earning Today"
               variant="primary"
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/register")}
             />
             <Button title="Play Demo Video" variant="secondary" />
           </div>

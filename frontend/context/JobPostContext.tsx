@@ -27,9 +27,6 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // const requesting = loading;
  
-
- 
-
   const resetJobData = () => setDraftJob({});
 
   return (
