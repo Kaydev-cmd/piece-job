@@ -145,7 +145,7 @@ const JobApplicants = () => {
     }
     return (
       <>
-        {/* Header */}
+        {/* Header */ }
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-4xl font-bold text-[#111827]">
